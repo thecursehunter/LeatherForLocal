@@ -1,3 +1,7 @@
+/*-----------------------------------*\
+  #index
+\*-----------------------------------*/
+
 body {
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -6,7 +10,7 @@ body {
 }
 
 .top-bar {
-  background: #6b8e6e;
+  background: #927830;
   color: #fff;
   text-align: center;
   padding: 6px 0;
@@ -99,7 +103,7 @@ nav a:hover {
   position: absolute;
   top: 30%;
   left: 8%;
-  color: #222;
+  color: #f1fc8c;
 }
 .banner-text h2 {
   font-size: 32px;
@@ -107,7 +111,7 @@ nav a:hover {
   font-weight: 500;
 }
 .banner-text button {
-  background: #fff;
+  background: #f0f884;
   color: #222;
   border: none;
   padding: 10px 28px;
@@ -193,6 +197,7 @@ nav a:hover {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  background-color: #b1a069;
 }
 .collection-item span {
   position: absolute;
@@ -374,3 +379,85 @@ footer {
   font-size: 13px;
   color: #bbb;
 }
+/* ...existing code... */
+#search-overlay {
+  display: none;
+  position: fixed;
+  left: 0; right: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+}
+#search-overlay.active {
+  display: block;
+  pointer-events: auto;
+}
+#search-overlay .search-bar-area {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 140px;
+  z-index: 2;
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+#search-overlay .search-bar-inner {
+  width: 100%;
+  max-width: 900px;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+#search-overlay .search-bar-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #e0e0e0;
+  padding: 32px 0 18px 0;
+  background: transparent;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+#search-overlay .search-bar-form input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: #f7f7f7;
+  font-size: 1.35rem;
+  color: #222;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin-left: 8px;
+}
+#search-overlay .search-bar-form .material-symbols-outlined {
+  font-size: 2rem;
+  color: #bdbdbd;
+  margin-right: 16px;
+}
+#search-overlay .search-bar-form #close-search {
+  font-size: 2rem;
+  color: #222;
+  margin-left: 16px;
+  cursor: pointer;
+}
+#search-overlay .blur-bg {
+  position: absolute;
+  left: 0; right: 0;
+  top: 140px;
+  bottom: 0;
+  background: rgba(255,255,255,0.85); /* tăng độ mờ */
+  backdrop-filter: blur(8px);         /* tăng hiệu ứng blur */
+  z-index: 1;
+  pointer-events: auto;
+}
+/* ...existing code... */
+/*-----------------------------------*\
+  TatCa
+\*-----------------------------------*/
+

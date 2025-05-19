@@ -4,74 +4,99 @@
   <meta charset="UTF-8">
   <title>LEATHERFORLOCAL</title>
   <link rel="stylesheet" href="../../public/css/style.css">
+  <script src="../../public/js/search-box.js"></script>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+  <!-- Nhúng search-box -->
+<!-- Nếu dùng include server-side thì include, còn không thì copy đoạn này -->
+<div id="search-overlay">
+  <div class="search-bar-area">
+    <div class="search-bar-inner">
+      <form class="search-bar-form" onsubmit="return false;">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" placeholder="Search" autofocus>
+        <span id="close-search" class="material-symbols-outlined">close</span>
+      </form>
+    </div>
+  </div>
+  <div class="blur-bg"></div>
+</div>
 </head>
 <body>
-  <div class="top-bar">Enjoy Free Shipping On All Orders</div>
+  <div class="top-bar">Da thật - Phong cách thật</div>
   <header class="main-header">
   <div class="logo">
     <div class="logo-row">
       <span>-LeatherForLocal-</span>
       <img src="https://pfst.cf2.poecdn.net/base/image/cbf0eb1018bc86141ca55e6c727c8acb4b84de0df8bff9b70b0f55a8779adf98?w=1024&h=768&pmaid=378107088" height="30px" width="50px" style="margin-left:12px;" />
     </div>
-    <small>women clothing</small>
+    <small>Thời trang da cao cấp</small>
   </div>
   <nav>
-    <a href="#">Collection</a>
-    <a href="#">New In</a>
-    <a href="#">Modiweek</a>
-    <a href="#">Plus Size</a>
-    <a href="#">Sustainability</a>
+    <a href="TatCa.html">Tất cả </a>
+    <a href="TatCa.html">Sản phẩm mới</a>
+    <a href="Balo_Da.html">Balo da</a>
+    <a href="ThoiTrangDa.html">Thời trang da</a>
+    <a href="PhuKienDa.html">Phụ kiện da</a>
   </nav>
   <div class="header-icons">
-    <span class="icon search"></span>
-    <span class="icon user"></span>
-    <span class="icon heart"></span>
-    <span class="icon bag"></span>
-  </div>
-</header>
+  <span class="material-symbols-outlined" id="search-icon">search</span>
+  <span class="material-symbols-outlined">account_circle</span>
+  <span class="material-symbols-outlined">bookmark</span>
+  <span class="material-symbols-outlined">shopping_cart</span>
+ </div>
+  </header>
   <section class="banner">
-    <img src="https://t4.ftcdn.net/jpg/04/68/37/45/240_F_468374518_IqClGxYI2sD7PMzCjLBcqSzBsCpt2Z10.jpg" alt="Banner" />
+    <img src="https://www.gento.vn/wp-content/uploads/2021/10/6.png" alt="Banner" />
     <div class="banner-text">
-      <h2>Elegance In Simplicity,<br>Earth's Harmony</h2>
+      <h2>Sang trọng,<br>Bền bỉ</h2>
       <button>New In</button>
     </div>
   </section>
   <section class="best-sellers">
     <div class="section-title">
-      <h3>Best Sellers</h3>
-      <a href="#">View All</a>
+      <h3>Bán chạy nhất</h3>
+      <a href="#">Tất cả</a>
     </div>
     <div class="products-row">
       <div class="product-card">
-        <img src="https://t4.ftcdn.net/jpg/02/10/72/91/240_F_210729121_B8npDhPLRnVDIX5aUcCxHkJrYwEVKTVM.jpg" alt="">
+        <img src="https://images.unsplash.com/photo-1622560481156-01fc7e1693e6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGJhY2twYWNrfGVufDB8fDB8fHww" alt="">
         <div class="product-info">
-          <div class="product-title">Tailored Stretch</div>
-          <div class="product-desc">Turn U LO Pants</div>
-          <div class="product-price">$180</div>
+          <div class="product-title">Đơn giản</div>
+          <div class="product-desc">Balo da LT223</div>
+          <div class="product-price">230.000 vnd</div>
         </div>
       </div>
       <div class="product-card">
-        <img src="https://t4.ftcdn.net/jpg/06/29/88/39/240_F_629883959_F6FOcPEbyiDUAlHABxX7vIVNXG3ReK6h.jpg" alt="">
+        <img src="https://karan.vn/public/storage/editor/source/4306/ao-khoac-da-nam-lot-du-ca-tinh-akn271.jpg" alt="">
         <div class="product-info">
-          <div class="product-title">Technical Silk</div>
-          <div class="product-desc">Make A Splash</div>
-          <div class="product-price">$120</div>
+          <div class="product-title">Cá tính</div>
+          <div class="product-desc">Áo khoác da LT23</div>
+          <div class="product-price">499.000 vnd</div>
         </div>
       </div>
       <div class="product-card">
-        <img src="https://t3.ftcdn.net/jpg/01/17/85/80/240_F_117858059_qKjewX14YYKFZ2hE6fOa9z8tlCBfS4h8.jpg" alt="">
+        <img src="https://www.gento.vn/wp-content/uploads/2024/08/tui-bao-tu-nam-1-600x600.jpg" alt="">
         <div class="product-info">
-          <div class="product-title">Cool Weave</div>
-          <div class="product-desc">Anywhere Dress</div>
-          <div class="product-price">$220</div>
+          <div class="product-title">Túi đeo chéo</div>
+          <div class="product-desc">Túi đeo chéo LT33</div>
+          <div class="product-price">220.000 vnd</div>
         </div>
       </div>
       <div class="product-card">
-      <img src="https://t3.ftcdn.net/jpg/02/18/40/48/240_F_218404814_qrf76E5CfJ1WdTGE7qsiahYPNuqMKML1.jpg" alt="">
+      <img src="https://www.gento.vn/wp-content/uploads/2023/08/balo-nam-da-bo-hang-hieu-Gento-B3525-600x600.jpg" alt="">
       <div class="product-info">
-        <div class="product-title">Urban Classic</div>
-        <div class="product-desc">City Blazer</div>
-        <div class="product-price">$150</div>
+        <div class="product-title">Cổ điển</div>
+        <div class="product-desc">Balo LT224</div>
+        <div class="product-price">200.000 vnd</div>
       </div>
     </div>
   </div>
@@ -79,82 +104,82 @@
     </div>
   </section>
   <section class="collection">
-    <h3>Collection</h3>
+    <h3>Thời trang da</h3>
     <div class="collection-grid">
-      <div class="collection-item"><img src="https://m.media-amazon.com/images/I/61QecNplxzL._AC_UY900_.jpg" alt=""><span>Blouses</span></div>
-      <div class="collection-item"><img src="https://media.istockphoto.com/id/1365118618/vi/anh/t%C3%BAi-x%C3%A1ch-v%C3%AD-th%E1%BB%9Di-trang-m%C3%A0u-xanh-tr%C3%AAn-n%E1%BB%81n-tr%E1%BA%AFng-b%E1%BB%8B-c%C3%B4-l%E1%BA%ADp.jpg?s=612x612&w=0&k=20&c=Zh72_l37ea2lLhJ4Tnwoenlx5s2TRh5zi7HoyxuUhO4=" alt=""><span>Pants</span></div>
-      <div class="collection-item"><img src="https://m.media-amazon.com/images/I/712gdzkXbDL._AC_UY1000_.jpg" alt=""><span>Dresses</span></div>
-      <div class="collection-item"><img src="https://m.media-amazon.com/images/I/71BWUGEkPkL._AC_SL1500_.jpg" alt=""><span>Outwear</span></div>
+      <div class="collection-item"><img src="https://www.gento.vn/wp-content/uploads/2021/08/ao-khoac-da-ga0012-600x600.jpg" alt=""><span>Áo khoác biker LT32</span></div>
+      <div class="collection-item"><img src="https://www.gento.vn/wp-content/uploads/2021/08/ao-khoac-da-that-GA0043-600x600.jpg" alt=""><span>Áo khoác da cao cấp</span></div>
+      <div class="collection-item"><img src="https://www.gento.vn/wp-content/uploads/2024/10/vi-da-nam7-600x600.jpg" alt=""><span>Ví da bò </span></div>
+      <div class="collection-item"><img src="https://www.gento.vn/wp-content/uploads/2023/09/giay-loafer-nam-da-nubuck-handmade-Gento-GD9181-600x600.jpg" alt=""><span>Giày da nam</span></div>
     </div>
   </section>
   <section class="modiweek">
-    <h3>Modiweek</h3>
+    <h3>Balo da</h3>
     <div class="modiweek-row">
-      <div class="modiweek-card"><img src="https://img.freepik.com/free-photo/portrait-young-japanese-woman-with-jacket_23-2148870732.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt=""><span>Sunday</span></div>
-      <div class="modiweek-card"><img src="https://img.freepik.com/free-photo/young-happy-asian-woman-smiling-summer-hat-white-wall_231208-1172.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt=""><span>Monday</span></div>
-      <div class="modiweek-card"><img src="https://img.freepik.com/premium-photo/model-demonstrating-earrings-pearl-necklace-ring_559218-357.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt=""><span>Tuesday</span></div>
-      <div class="modiweek-card"><img src="https://img.freepik.com/free-photo/young-woman-wearing-white-shirt-shorts-wearing-hat-handle-hat_1150-27451.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt=""><span>Wednesday</span></div>
-      <div class="modiweek-card"><img src="https://img.freepik.com/premium-photo/young-asian-beauty-woman-curly-long-hair-with-korean-makeup-style-cute-face-perfect-skin-pointing-finger-up-isolated-beige-background-facial-treatment-cosmetology-plastic-surgery_555986-2596.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt=""><span>Thursday</span></div>
-      <div class="modiweek-card"><img src="https://img.freepik.com/free-photo/beautiful-girl-studio-stylish-woman-black-dress_1157-47387.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740  " alt=""><span>Friday</span></div>
-    <div class="modiweek-card"><img src="https://img.freepik.com/free-photo/beautiful-asian-woman-posing-with-perfect-skin_23-2149369984.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt=""><span>Saturday</span></div>
-    <div class="modiweek-card"><img src="https://img.freepik.com/premium-photo/beautiful-girl-fashionable-panama-fur-hat-looks-camera_186673-977.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt=""><span>Special</span></div>
+      <div class="modiweek-card"><img src="https://www.gento.vn/wp-content/uploads/2022/06/balo-nam-da-that-gento-b3073-600x600.jpg" alt=""><span>Sunday</span></div>
+      <div class="modiweek-card"><img src="https://www.gento.vn/wp-content/uploads/2021/03/balo-da-that-b11005-600x600.jpg" alt=""><span>Monday</span></div>
+      <div class="modiweek-card"><img src="https://www.gento.vn/wp-content/uploads/2021/04/balo-da-that-cao-cap-G220-4-600x600.jpg" alt=""><span>Tuesday</span></div>
+      <div class="modiweek-card"><img src="https://www.gento.vn/wp-content/uploads/2021/04/balo-da-that-cao-cap-G222-600x600.jpg" alt=""><span>Wednesday</span></div>
+      <div class="modiweek-card"><img src="https://www.gento.vn/wp-content/uploads/2021/11/balo-cap-da-2-trong-1-gento-g2351-600x600.jpg" alt=""><span>Thursday</span></div>
+      <div class="modiweek-card"><img src="https://www.gento.vn/wp-content/uploads/2021/08/balo-da-bo-b3002-600x600.jpg" alt=""><span>Friday</span></div>
+    <div class="modiweek-card"><img src="https://balotot.com/wp-content/uploads/2025/03/Balo-da-ETONWEAG-k1919-3-300x300.jpg " alt=""><span>Saturday</span></div>
+    <div class="modiweek-card"><img src="https://bizweb.dktcdn.net/100/287/440/products/balo-da-nam-local-brand-2.jpg?v=1712945026830" alt=""><span>Special</span></div>
  
     </div>
   </section>
   <section class="sustainability-banner">
-    <img src="https://down-vn.img.susercontent.com/file/cn-11134207-7r98o-lknilvr06cl932" alt="Sustainability">
+    <img src="https://tamanh.net/wp-content/uploads/2022/09/thi-truong-thoi-trang-quan-dong-da.jpg" alt="Sustainability">
     <div class="sustain-text">
-      <p>Stylish Sustainability In Clothing Promotes Eco-Friendly Choices For A Greater Future</p>
-      <button>Sustainability</button>
+      <p>Đẳng cấp từ chất liệu, phong cách từ thiết kế</p>
+      <button>Phụ kiện</button>
     </div>
   </section>
   <section class="follow-us">
     <h3>Follow Us @LEATHERFORLOCAL</h3>
     <div class="follow-grid">
-            <img src="https://img.freepik.com/premium-photo/beautiful-young-brunette-girl-black-dress_158235-1256.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt="">
-      <img src="https://img.freepik.com/premium-photo/high-fashion-perfect-slim-body-beautiful-face-young-elegant-woman-sexy-dress-isolated-background-portrait-female-model-studio-plastic-surgery-aesthetic-cosmetology_555986-996.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt="">
-      <img src="https://img.freepik.com/premium-photo/png-stylish-woman-casual-outfit_53876-801188.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt="">
-      <img src="https://img.freepik.com/premium-photo/pretty-woman-skirt-leaning-against-wall-studio-fashion-high-quality-photo_163305-246897.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt="">
-      <img src="https://img.freepik.com/free-photo/portrait-beautiful-albino-woman_23-2150520234.jpg?ga=GA1.1.858237879.1747484975&semt=ais_hybrid&w=740" alt="">
+            <img src="https://www.gento.vn/wp-content/uploads/2021/09/tui-deo-cheo-da-bo-sap-Gento-t6074-600x600.jpg" alt="">
+      <img src="https://www.gento.vn/wp-content/uploads/2021/08/ao-khoac-da-that-ga0021-600x600.jpg" alt="">
+      <img src="https://www.gento.vn/wp-content/uploads/2024/08/balo-da-bo-1.jpg" alt="">
+      <img src="https://www.gento.vn/wp-content/uploads/2024/05/day-lung-da-bo8-600x600.jpg" alt="">
+      <img src="https://www.gento.vn/wp-content/uploads/2023/09/Giay-Chelsea-Boot-da-nubuck-hoa-tiet-thu-cong-Gento-GD9113-600x600.jpg" alt="">
     </div>
   </section>
   <footer>
     <div class="footer-top">
       <div class="footer-newsletter">
-        <p>Join Our Club, Get 15% Off For Your Birthday</p>
+        <p>Tham gia cộng đồng để nhận ưu đãi khủng</p>
         <form>
-          <input type="email" placeholder="Enter Your Email Address">
+          <input type="email" placeholder="Nhập số điện thoại hoặc email của bạn" required>
           <button>&rarr;</button>
         </form>
-        <small>By submitting your email, you agree to receive advertising emails from Modimal.</small>
+        <small>Bạn sẽ đòng ý cung cấp thông tin khi nhập email hoặc số điện thoại</small>
       </div>
       <div class="footer-links">
         <div>
           <h4>About leatherforlocal</h4>
           <ul>
-            <li>Collection</li>
-            <li>Sustainability</li>
-            <li>Privacy Policy</li>
-            <li>Support System</li>
-            <li>Terms & Condition</li>
+            <li>Balo da</li>
+            <li>Thời trang da</li>
+            <li>Phụ kiện</li>
+            <li>Liên hệ</li>
+            <li> địa chỉ : HCM</li>
             <li>Copyright Notice</li>
           </ul>
         </div>
         <div>
-          <h4>Help & Support</h4>
+          <h4>Tư vấn và hỗ trợ</h4>
           <ul>
-            <li>Orders & Shipping</li>
-            <li>Returns & Refunds</li>
-            <li>FAQs</li>
-            <li>Contact Us</li>
+            <li>cách đặt và mua hàng</li>
+            <li>đổi trả hàng</li>
+            <li>Câu hỏi thường gặp</li>
+            <li></li>
           </ul>
         </div>
         <div>
-          <h4>Join Up</h4>
+          <h4>Tham gia cộng đồng</h4>
           <ul>
             <li>LFL group</li>
-            <li>Careers</li>
-            <li>Visit Us</li>
+            <li></li>
+            <li></li>
           </ul>
         </div>
       </div>
