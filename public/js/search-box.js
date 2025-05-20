@@ -64,4 +64,49 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('keydown', function (e) {
     if (e.key === "Escape") searchOverlay.classList.remove('active');
   });
+
+  // Mega menu hover functionality
+  const navLinks = document.querySelectorAll('nav a');
+  const megaMenus = document.querySelectorAll('.mega-menu');
+
+  // Add a small delay to prevent flickering
+  let hoverTimeout;
+
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+      clearTimeout(hoverTimeout);
+      megaMenus.forEach(menu => {
+        menu.style.display = 'none';
+        menu.style.opacity = '0';
+        menu.style.visibility = 'hidden';
+      });
+      const nextMenu = this.nextElementSibling;
+      if (nextMenu && nextMenu.classList.contains('mega-menu')) {
+        nextMenu.style.display = 'flex';
+        setTimeout(() => {
+          nextMenu.style.opacity = '1';
+          nextMenu.style.visibility = 'visible';
+        }, 50);
+      }
+    });
+  });
+
+  megaMenus.forEach(menu => {
+    menu.addEventListener('mouseleave', function() {
+      hoverTimeout = setTimeout(() => {
+        this.style.opacity = '0';
+        this.style.visibility = 'hidden';
+        setTimeout(() => {
+          this.style.display = 'none';
+        }, 300);
+      }, 200);
+    });
+    
+    menu.addEventListener('mouseenter', function() {
+      clearTimeout(hoverTimeout);
+      this.style.display = 'flex';
+      this.style.opacity = '1';
+      this.style.visibility = 'visible';
+    });
+  });
 });

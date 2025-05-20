@@ -1,5 +1,5 @@
 :root {
-  --primary: rgba(116, 140, 112, 1);
+  --primary: #f0f884;
   --black: rgba(12, 12, 12, 1);
   --white: rgba(255, 255, 255, 1);
   --primaryprimary-25: rgba(240, 242, 239, 1);
@@ -8,7 +8,7 @@
   --primaryprimary-200: rgba(162, 179, 159, 1);
   --primaryprimary-300: rgba(147, 166, 144, 1);
   --primaryprimary-400: rgba(131, 153, 128, 1);
-  --primaryprimary-600: rgba(90, 109, 87, 1);
+  --primaryprimary-600: #927830;
   --primaryprimary-700: rgba(64, 78, 62, 1);
   --primaryprimary-750: rgba(52, 62, 50, 1);
   --primaryprimary-800: rgba(39, 47, 37, 1);
