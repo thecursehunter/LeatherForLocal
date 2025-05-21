@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/public/css/global.css" />
+    <link rel="stylesheet" href="/public/css/styleguide.css" />
+    <link rel="stylesheet" href="/public/css/payment.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  </head>
+  <body>
+    <div class="desktop-payment">
+      <div class="div">
+        <div class="payment-form-container">
+          <div class="logo">
+            <div class="frame">
+              <div class="text-wrapper">LEATHERFORLOCAL</div>
+            </div>
+            <div class="text-wrapper-2">Thời trang da cao cấp</div>
+          </div>
+          <div class="breadcrumbb">
+            <div class="component"><div class="text">Giỏ hàng</div></div>
+            <div class="component-2"><div class="text-wrapper-3">/</div></div>
+            <div class="component"><div class="text">Thông tin</div></div>
+            <div class="component-2"><div class="text-wrapper-3">/</div></div>
+            <div class="component"><div class="text">Vận chuyển</div></div>
+            <div class="component-2"><div class="text-wrapper-3">/</div></div>
+            <div class="component"><div class="text-2">Thanh toán</div></div>
+          </div>
+          <div class="billing-address">Địa chỉ thanh toán</div>
+          <div class="text-wrapper-4">Thanh toán</div>
+          <div class="billing-address-2">
+            <div class="frame-2">
+              <input type="checkbox" id="same-address" checked>
+              <label for="same-address">Mặc định (giống địa chỉ giao hàng)</label>
+            </div>
+            <div class="frame-2">
+              <input type="checkbox" id="alt-address">
+              <label for="alt-address">Thêm địa chỉ giao hàng khác</label>
+            </div>
+          </div>
+          <p class="please-choose-your">Vui lòng chọn phương thức thanh toán</p>
+          <div class="payment-method">
+            <img src="/public/images/Momo.svg" alt="MoMo" class="payment-logo" />
+            <img src="/public/images/VNPay.svg" alt="VNPay" class="payment-logo" />
+            <img src="/public/images/Visa.svg" alt="Visa" class="payment-logo" />
+            <img src="/public/images/ZaloPay.svg" alt="ZaloPay" class="payment-logo" />
+          </div>
+          <div class="frame-3">
+            <div class="text-wrapper-6">Số thẻ*</div>
+            <div class="input-orginal">
+              <input type="text" placeholder="1234 5678 9012 3456" required>
+            </div>
+          </div>
+          <div class="frame-4">
+            <div class="text-wrapper-6">Mã bảo mật*</div>
+            <div class="frame-5">
+              <div class="input-orginal">
+                <input type="text" placeholder="123" required>
+              </div>
+              <div class="frame-6">
+                <span class="material-symbols-rounded">info</span>
+                <div class="what-is-this">Mã này là gì?</div>
+              </div>
+            </div>
+          </div>
+          <div class="frame-7">
+            <div class="text-wrapper-6">Ngày hết hạn*</div>
+            <div class="frame-8">
+              <div class="input-orginal">
+                <input type="text" placeholder="MM" required>
+              </div>
+              <div class="input-orginal">
+                <input type="text" placeholder="YY" required>
+              </div>
+            </div>
+          </div>
+          <div class="frame-9">
+            <div class="input-orginal-2">
+              <span class="material-symbols-rounded">person</span>
+              <input type="text" placeholder="Tên trên thẻ" required>
+            </div>
+          </div>
+          <button class="button-comp" id="pay-button"><div class="add-to-cart">Thanh toán và đặt hàng</div></button>
+          <p class="by-clicking-on-pay">
+            <span class="span">Bằng cách nhấp vào 'Thanh toán và đặt hàng', bạn đồng ý (i) thực hiện giao dịch mua hàng từ LEATHERFORLOCAL, tuân theo </span>
+            <span class="text-wrapper-5">điều khoản bán hàng</span>
+            <span class="span"> của chúng tôi; (ii) thông tin của bạn sẽ được xử lý theo </span>
+            <span class="text-wrapper-5">chính sách bảo mật</span>
+            <span class="span"> của chúng tôi.</span>
+          </p>
+        </div>
+        <div class="your-cart">
+          <div class="text-wrapper-4">Giỏ hàng của bạn</div>
+          <div id="cart-items">
+            <!-- Cart items will be loaded here -->
+          </div>
+          <div class="frame-7">
+            <div class="text-wrapper-5">Tạm tính (<span id="total-items">0</span>)</div>
+            <div class="text-wrapper-7" id="subtotal">0 đ</div>
+          </div>
+          <div class="frame-8">
+            <div class="text-wrapper-7">Thuế</div>
+            <div class="text-wrapper-6" id="tax">0 đ</div>
+          </div>
+          <div class="frame-9">
+            <div class="text-wrapper-8">Tổng đơn hàng:</div>
+            <div class="text-wrapper-9" id="total-amount">0 đ</div>
+          </div>
+          <div class="frame-10">
+            <div class="shipping">Phí vận chuyển</div>
+            <div class="text-wrapper-10">Miễn phí</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+      <div class="modal-content">
+        <span class="material-symbols-outlined success-icon">check_circle</span>
+        <h2>Thanh toán thành công!</h2>
+        <p>Cảm ơn bạn đã mua hàng. Chúng tôi sẽ gửi email xác nhận đơn hàng của bạn trong giây lát.</p>
+        <button id="continue-shopping-btn">Tiếp tục mua sắm</button>
+      </div>
+    </div>
+
+    <!-- Find the cart icon in the header and add the preview container -->
+    <div class="cart-icon-container">
+      <span class="material-symbols-outlined" id="cart-icon">shopping_cart</span>
+      <div class="shopping-bag-preview" id="shopping-bag-preview"></div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const cartItems = document.getElementById('cart-items');
+        const totalItems = document.getElementById('total-items');
+        const subtotal = document.getElementById('subtotal');
+        const tax = document.getElementById('tax');
+        const totalAmount = document.getElementById('total-amount');
+        const payButton = document.getElementById('pay-button');
+        const successModal = document.getElementById('success-modal');
+        const continueShoppingBtn = document.getElementById('continue-shopping-btn');
+        const cartIcon = document.getElementById('cart-icon');
+        const shoppingBagPreview = document.getElementById('shopping-bag-preview');
+
+        // Load cart items from localStorage
+        function loadCart() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          let total = 0;
+          let itemsCount = 0;
+
+          cartItems.innerHTML = cart.map(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            itemsCount += item.quantity;
+
+            return `
+              <div class="shopping-cart">
+                <div class="div-wrapper"><div class="text-wrapper-2">${item.price.toLocaleString('vi-VN')} đ</div></div>
+                <div class="frame-5">
+                  <div class="title-wrapper"><div class="text-wrapper-2">${item.name}</div></div>
+                  <div class="frame-6">
+                    <div class="size">Size: S</div>
+                    <div class="color">Màu: Đen</div>
+                    <div class="quantity">
+                      <div class="text-wrapper-3">${item.quantity}</div>
+                    </div>
+                  </div>
+                </div>
+                <img class="rectangle" src="${item.image}" />
+              </div>
+            `;
+          }).join('');
+
+          const taxAmount = total * 0.1; // 10% tax
+          const finalTotal = total + taxAmount;
+
+          totalItems.textContent = itemsCount;
+          subtotal.textContent = `${total.toLocaleString('vi-VN')} đ`;
+          tax.textContent = `${taxAmount.toLocaleString('vi-VN')} đ`;
+          totalAmount.textContent = `${finalTotal.toLocaleString('vi-VN')} đ`;
+        }
+
+        // Load cart on page load
+        loadCart();
+
+        // Handle payment button click
+        payButton.addEventListener('click', function() {
+          // Validate form
+          const requiredFields = document.querySelectorAll('input[required]');
+          let isValid = true;
+
+          requiredFields.forEach(field => {
+            if (!field.value) {
+              isValid = false;
+              field.style.borderColor = 'red';
+            } else {
+              field.style.borderColor = '';
+            }
+          });
+
+          if (isValid) {
+            // Show success modal
+            successModal.style.display = 'block';
+            
+            // Clear cart
+            localStorage.removeItem('cart');
+            
+            // Clear shipping info
+            localStorage.removeItem('shippingInfo');
+          }
+        });
+
+        // Handle continue shopping button click
+        continueShoppingBtn.addEventListener('click', function() {
+          window.location.href = 'index.html';
+        });
+
+        // Handle same address checkbox
+        document.getElementById('same-address').addEventListener('change', function() {
+          if (this.checked) {
+            document.getElementById('alt-address').checked = false;
+          }
+        });
+
+        // Handle alternative address checkbox
+        document.getElementById('alt-address').addEventListener('change', function() {
+          if (this.checked) {
+            document.getElementById('same-address').checked = false;
+          }
+        });
+
+        function renderShoppingBagPreview() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          // Only show Áo Da Nam Biker AM22
+          const filtered = cart.filter(item => item.id === 'ao-da-nam-biker-am22');
+          if (filtered.length === 0) {
+            shoppingBagPreview.innerHTML = '<div class="empty-cart">Giỏ hàng của bạn đang trống.</div>';
+            return;
+          }
+          shoppingBagPreview.innerHTML = filtered.map(item => `
+            <div class="preview-item">
+              <img src="${item.image}" alt="${item.name}">
+              <div class="preview-info">
+                <h4>${item.name}</h4>
+                <p>${item.price.toLocaleString('vi-VN')} đ</p>
+                <p>Số lượng: ${item.quantity}</p>
+              </div>
+            </div>
+          `).join('') + `<a href="cart.html" class="view-cart-btn">Xem giỏ hàng</a>`;
+        }
+
+        cartIcon.addEventListener('mouseenter', function() {
+          renderShoppingBagPreview();
+          shoppingBagPreview.style.display = 'block';
+        });
+        cartIcon.addEventListener('mouseleave', function() {
+          setTimeout(() => shoppingBagPreview.style.display = 'none', 200);
+        });
+        shoppingBagPreview.addEventListener('mouseenter', function() {
+          shoppingBagPreview.style.display = 'block';
+        });
+        shoppingBagPreview.addEventListener('mouseleave', function() {
+          shoppingBagPreview.style.display = 'none';
+        });
+      });
+    </script>
+
+    <!-- Add to your CSS (global.css or style.css) if not present -->
+    <style>
+    .cart-icon-container { position: relative; display: inline-block; }
+    .shopping-bag-preview {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      width: 320px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      z-index: 100;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .preview-item { display: flex; align-items: center; margin-bottom: 12px; }
+    .preview-item img { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; margin-right: 12px; }
+    .preview-info h4 { margin: 0 0 4px 0; font-size: 15px; }
+    .view-cart-btn { display: block; margin-top: 10px; text-align: center; background: #927830; color: #fff; padding: 8px 0; border-radius: 4px; text-decoration: none; }
+    </style>
+  </body>
+</html>
