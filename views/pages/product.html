@@ -18,6 +18,56 @@
           'GRAD' 0,
           'opsz' 24
       }
+      .cart-icon-container { 
+        position: relative; 
+        display: inline-block; 
+      }
+      .shopping-bag-preview {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 40px;
+        width: 320px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        z-index: 100;
+        padding: 16px;
+        border-radius: 8px;
+      }
+      .preview-item { display: flex; align-items: center; margin-bottom: 12px; }
+      .preview-item img { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; margin-right: 12px; }
+      .preview-info h4 { margin: 0 0 4px 0; font-size: 15px; }
+      .view-cart-btn { display: block; margin-top: 10px; text-align: center; background: #927830; color: #fff; padding: 8px 0; border-radius: 4px; text-decoration: none; }
+      .account-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 40px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        z-index: 200;
+        border-radius: 8px;
+        min-width: 140px;
+        padding: 8px 0;
+      }
+      .account-dropdown a {
+        display: block;
+        padding: 10px 20px;
+        color: #222;
+        text-decoration: none;
+        font-size: 15px;
+        transition: background 0.2s;
+      }
+      .account-dropdown a:hover {
+        background: #f3f3f3;
+      }
+      #account-icon {
+        cursor: pointer;
+        position: relative;
+      }
+      .header-icons { position: relative; }
     </style>
   </head>
   <body>
@@ -54,9 +104,16 @@
       </nav>
       <div class="header-icons">
         <span class="material-symbols-outlined" id="search-icon">search</span>
-        <span class="material-symbols-outlined">account_circle</span>
+        <span class="material-symbols-outlined" id="account-icon">account_circle</span>
+        <div class="account-dropdown" id="account-dropdown">
+          <a href="DangNhap.html">Đăng nhập</a>
+          <a href="DangKi.html">Đăng ký</a>
+        </div>
         <span class="material-symbols-outlined">bookmark</span>
-        <span class="material-symbols-outlined">shopping_cart</span>
+        <div class="cart-icon-container">
+          <span class="material-symbols-outlined" id="cart-icon">shopping_cart</span>
+          <div class="shopping-bag-preview" id="shopping-bag-preview"></div>
+        </div>
           </div>
         </header>
 
@@ -222,6 +279,17 @@
       // Sample product data (in a real application, this would come from a database)
       const products = [
         {
+          id: 'ao-da-nam-biker-am22',
+          name: 'Áo Da Nam Biker AM22',
+          category: 'thoitrang',
+          type: 'biker',
+          price: 500000,
+          image: 'https://images.unsplash.com/photo-1675877879221-871aa9f7c314?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D  ',
+          description: 'Áo khoác da nam biker AM22 được thiết kế với phong cách biker đậm chất, mang đến vẻ nam tính và cá tính cho người mặc.',
+          isNew: true,
+          isBestseller: true
+        },
+        {
           id: 'balo-da-lt223',
           name: 'Balo da LT223',
           category: 'balo',
@@ -230,17 +298,6 @@
           image: 'https://images.unsplash.com/photo-1622560481156-01fc7e1693e6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGVhdGhlciUyMGJhY2twYWNrfGVufDB8fDB8fHww',
           description: 'Balo da đơn giản',
           isNew: true,
-          isBestseller: true
-        },
-        {
-          id: 'ao-khoac-da-lt23',
-          name: 'Áo khoác da LT23',
-          category: 'thoitrang',
-          type: 'biker',
-          price: 499000,
-          image: 'https://karan.vn/public/storage/editor/source/4306/ao-khoac-da-nam-lot-du-ca-tinh-akn271.jpg',
-          description: 'Áo khoác da cá tính',
-          isNew: false,
           isBestseller: true
         },
         {
@@ -319,17 +376,6 @@
           description: 'Áo Da Bò Nam Racer',
           isNew: false,
           isBestseller: false
-        },
-        {
-          id: 'ao-da-nam-biker-am22',
-          name: 'Áo Da Nam Biker AM22',
-          category: 'thoitrang',
-          type: 'biker',
-          price: 500000,
-          image: 'https://product.hstatic.net/200000366789/product/erk08339-3_182735d27f5049cf9f9a282247bc24cc_large.jpg',
-          description: 'Áo Da Nam Biker AM22',
-          isNew: true,
-          isBestseller: true
         },
         {
           id: 'tui-dung-chia-khoa',
@@ -500,9 +546,15 @@
               ${product.isNew ? '<span class="product-badge new">Mới</span>' : ''}
               ${product.isBestseller ? '<span class="product-badge bestseller">Bán chạy</span>' : ''}
               <div class="product-actions">
-                <button class="action-btn"><span class="material-symbols-outlined">favorite</span></button>
-                <button class="action-btn"><span class="material-symbols-outlined">shopping_cart</span></button>
-                <button class="action-btn"><span class="material-symbols-outlined">visibility</span></button>
+                <button class="action-btn view-btn" data-product-id="${product.id}">
+                  <span class="material-symbols-outlined">visibility</span>
+                </button>
+                <button class="action-btn cart-btn" data-product-id="${product.id}">
+                  <span class="material-symbols-outlined">shopping_cart</span>
+                </button>
+                <button class="action-btn wishlist-btn" data-product-id="${product.id}">
+                  <span class="material-symbols-outlined">favorite</span>
+                </button>
               </div>
             </div>
             <div class="product-info">
@@ -514,6 +566,141 @@
           
           productGrid.appendChild(productCard);
         });
+
+        // Add event listeners for the action buttons
+        document.querySelectorAll('.view-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            window.location.href = `productOrder.html?id=${productId}`;
+          });
+        });
+
+        document.querySelectorAll('.cart-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            const product = products.find(p => p.id === productId);
+            if (product) {
+              addToCart(product);
+            }
+          });
+        });
+
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            const product = products.find(p => p.id === productId);
+            if (product) {
+              addToWishlist(product);
+            }
+          });
+        });
+      }
+
+      // Add to cart functionality
+      function addToCart(product) {
+        // Get existing cart items from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Check if product already exists in cart
+        const existingItem = cart.find(item => item.id === product.id);
+        
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: 1
+          });
+        }
+        
+        // Save updated cart to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Show success message
+        alert(`Đã thêm ${product.name} vào giỏ hàng!`);
+      }
+
+      // Add to wishlist functionality
+      function addToWishlist(product) {
+        // Get existing wishlist items from localStorage
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        
+        // Check if product already exists in wishlist
+        const existingItem = wishlist.find(item => item.id === product.id);
+        
+        if (!existingItem) {
+          wishlist.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image
+          });
+          
+          // Save updated wishlist to localStorage
+          localStorage.setItem('wishlist', JSON.stringify(wishlist));
+          
+          // Show success message
+          alert(`Đã thêm ${product.name} vào yêu thích!`);
+        } else {
+          alert('Sản phẩm đã có trong danh sách yêu thích!');
+        }
+      }
+
+      // Function to handle category filter checkboxes
+      function handleCategoryFilters() {
+        const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+        const applyFilterBtn = document.querySelector('.apply-filter');
+        
+        // Add event listener to apply filter button
+        applyFilterBtn.addEventListener('click', function() {
+          const selectedCategories = Array.from(categoryCheckboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+          
+          let filteredProducts = [...products];
+          
+          // If "all" is selected or no categories are selected, show all products
+          if (selectedCategories.includes('all') || selectedCategories.length === 0) {
+            filteredProducts = products;
+          } else {
+            // Filter products based on selected categories
+            filteredProducts = products.filter(product => 
+              selectedCategories.includes(product.category)
+            );
+          }
+          
+          // Update URL with selected categories
+          const params = new URLSearchParams(window.location.search);
+          if (selectedCategories.length > 0 && !selectedCategories.includes('all')) {
+            params.set('category', selectedCategories.join(','));
+          } else {
+            params.delete('category');
+          }
+          window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+          
+          // Update page title and render filtered products
+          updatePageTitle();
+          renderProducts(filteredProducts);
+        });
+        
+        // Handle checkbox interactions
+        categoryCheckboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+            if (this.value === 'all' && this.checked) {
+              // If "all" is checked, uncheck other checkboxes
+              categoryCheckboxes.forEach(cb => {
+                if (cb !== this) cb.checked = false;
+              });
+            } else if (this.checked) {
+              // If a specific category is checked, uncheck "all"
+              const allCheckbox = document.querySelector('input[name="category"][value="all"]');
+              if (allCheckbox) allCheckbox.checked = false;
+            }
+          });
+        });
       }
 
       // Initialize the page
@@ -521,6 +708,7 @@
         updatePageTitle();
         const filteredProducts = filterProducts();
         renderProducts(filteredProducts);
+        handleCategoryFilters();
         
         // Add event listeners for filter toggles
         const filterHeaders = document.querySelectorAll('.filter-header');
@@ -558,6 +746,63 @@
           }
           
           renderProducts(sortedProducts);
+        });
+
+        const cartIcon = document.getElementById('cart-icon');
+        const shoppingBagPreview = document.getElementById('shopping-bag-preview');
+        let hideTimeout;
+
+        function renderShoppingBagPreview() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          // Only show Áo Da Nam Biker AM22
+          const filtered = cart.filter(item => item.id === 'ao-da-nam-biker-am22');
+          if (filtered.length === 0) {
+            shoppingBagPreview.innerHTML = '<div class="empty-cart">Giỏ hàng của bạn đang trống.</div>';
+            return;
+          }
+          shoppingBagPreview.innerHTML = filtered.map(item => `
+            <div class="preview-item">
+              <img src="${item.image}" alt="${item.name}">
+              <div class="preview-info">
+                <h4>${item.name}</h4>
+                <p>${item.price.toLocaleString('vi-VN')} đ</p>
+                <p>Số lượng: ${item.quantity}</p>
+              </div>
+            </div>
+          `).join('') + `<a href="cart.html" class="view-cart-btn">Xem giỏ hàng</a>`;
+        }
+
+        cartIcon.addEventListener('mouseenter', function() {
+          clearTimeout(hideTimeout);
+          renderShoppingBagPreview();
+          shoppingBagPreview.style.display = 'block';
+        });
+        cartIcon.addEventListener('mouseleave', function() {
+          hideTimeout = setTimeout(() => {
+            shoppingBagPreview.style.display = 'none';
+          }, 500); // Increased delay to 500ms
+        });
+        shoppingBagPreview.addEventListener('mouseenter', function() {
+          clearTimeout(hideTimeout);
+          shoppingBagPreview.style.display = 'block';
+        });
+        shoppingBagPreview.addEventListener('mouseleave', function() {
+          hideTimeout = setTimeout(() => {
+            shoppingBagPreview.style.display = 'none';
+          }, 500); // Increased delay to 500ms
+        });
+
+        const accountIcon = document.getElementById('account-icon');
+        const accountDropdown = document.getElementById('account-dropdown');
+        accountIcon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          accountDropdown.style.display = accountDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+        document.addEventListener('click', function() {
+          accountDropdown.style.display = 'none';
+        });
+        accountDropdown.addEventListener('click', function(e) {
+          e.stopPropagation();
         });
       });
     </script>

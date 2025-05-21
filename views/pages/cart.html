@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/public/css/global.css" />
+    <link rel="stylesheet" href="/public/css/styleguide.css" />
+    <link rel="stylesheet" href="/public/css/cart.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  </head>
+  <body>
+    <div class="desktop-cart">
+      <div class="div">
+        <div class="logo">
+          <div class="frame">
+            <div class="text-wrapper">LEATHERFORLOCAL</div>
+          </div>
+          <div class="text-wrapper-2">Thời trang da cao cấp</div>
+        </div>
+
+        <div class="text-wrapper-4">Giỏ hàng của bạn</div>
+        
+        <div id="cart-items">
+          <!-- Cart items will be loaded here -->
+        </div>
+
+        <div class="order-summary">Tổng đơn hàng</div>
+        <div class="frame-4">
+          <div class="text-wrapper-5">Giá</div>
+          <div class="text-wrapper-5">Số lượng</div>
+          <div class="total">Tổng</div>
+        </div>
+        
+        <div class="frame-5">
+          <div class="text-wrapper-6">Tạm tính (<span id="total-items">0</span>)</div>
+          <div class="text-wrapper-7" id="subtotal">0 đ</div>
+        </div>
+        
+        <div class="frame-6">
+          <div class="text-wrapper-6">Tổng đơn hàng:</div>
+          <div class="text-wrapper-8" id="total-amount">0 đ</div>
+        </div>
+        
+        <div class="frame-7">
+          <div class="shipping">Phí vận chuyển</div>
+          <div class="text-wrapper-7">Miễn phí</div>
+        </div>
+        
+        <p class="the-total-amount-you">
+          Tổng số tiền bạn phải trả bao gồm tất cả các khoản thuế và phí hải quan. Chúng tôi đảm bảo không có phí phát sinh khi giao hàng
+        </p>
+        
+        <button class="button-comp" id="checkout-btn"><div class="add-to-cart">Tiếp tục</div></button>
+        <div class="button-comp-2" id="continue-shopping"><div class="add-to-cart-2">Tiếp tục mua sắm</div></div>
+      </div>
+    </div>
+
+    <!-- Find the cart icon in the header and add the preview container -->
+    <div class="cart-icon-container">
+      <span class="material-symbols-outlined" id="cart-icon">shopping_cart</span>
+      <div class="shopping-bag-preview" id="shopping-bag-preview"></div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const cartItems = document.getElementById('cart-items');
+        const totalItems = document.getElementById('total-items');
+        const subtotal = document.getElementById('subtotal');
+        const totalAmount = document.getElementById('total-amount');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const continueShopping = document.getElementById('continue-shopping');
+        const cartIcon = document.getElementById('cart-icon');
+        const shoppingBagPreview = document.getElementById('shopping-bag-preview');
+        let hideTimeout;
+
+        // Load cart items from localStorage
+        function loadCart() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          let total = 0;
+          let itemsCount = 0;
+
+          cartItems.innerHTML = cart.map(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            itemsCount += item.quantity;
+
+            return `
+              <div class="shopping-cart">
+                <div class="div-wrapper"><div class="text-wrapper-3">${item.price.toLocaleString('vi-VN')} đ</div></div>
+                <div class="frame-2">
+                  <div class="title-wrapper"><div class="text-wrapper-3">${item.name}</div></div>
+                  <div class="frame-3">
+                    <div class="size">Size: S</div>
+                    <div class="color">Màu: Đen</div>
+                  </div>
+                </div>
+                <img class="rectangle" src="${item.image}" />
+                <span class="material-symbols-outlined close" data-id="${item.id}">close</span>
+              </div>
+            `;
+          }).join('');
+
+          totalItems.textContent = itemsCount;
+          subtotal.textContent = `${total.toLocaleString('vi-VN')} đ`;
+          totalAmount.textContent = `${total.toLocaleString('vi-VN')} đ`;
+        }
+
+        // Load cart on page load
+        loadCart();
+
+        // Handle checkout button click
+        checkoutBtn.addEventListener('click', function() {
+          window.location.href = 'customerInfo.html';
+        });
+
+        // Handle continue shopping button click
+        continueShopping.addEventListener('click', function() {
+          window.location.href = 'product.html';
+        });
+
+        // Handle remove item from cart
+        cartItems.addEventListener('click', function(e) {
+          if (e.target.classList.contains('close')) {
+            const itemId = e.target.getAttribute('data-id');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.id !== itemId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+          }
+        });
+
+        function renderShoppingBagPreview() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          // Only show Áo Da Nam Biker AM22
+          const filtered = cart.filter(item => item.id === 'ao-da-nam-biker-am22');
+          if (filtered.length === 0) {
+            shoppingBagPreview.innerHTML = '<div class="empty-cart">Giỏ hàng của bạn đang trống.</div>';
+            return;
+          }
+          shoppingBagPreview.innerHTML = filtered.map(item => `
+            <div class="preview-item">
+              <img src="${item.image}" alt="${item.name}">
+              <div class="preview-info">
+                <h4>${item.name}</h4>
+                <p>${item.price.toLocaleString('vi-VN')} đ</p>
+                <p>Số lượng: ${item.quantity}</p>
+              </div>
+            </div>
+          `).join('') + `<a href="cart.html" class="view-cart-btn">Xem giỏ hàng</a>`;
+        }
+
+        cartIcon.addEventListener('mouseenter', function() {
+          clearTimeout(hideTimeout);
+          renderShoppingBagPreview();
+          shoppingBagPreview.style.display = 'block';
+        });
+
+        cartIcon.addEventListener('mouseleave', function() {
+          hideTimeout = setTimeout(() => {
+            shoppingBagPreview.style.display = 'none';
+          }, 500); // Increased delay to 500ms
+        });
+
+        shoppingBagPreview.addEventListener('mouseenter', function() {
+          clearTimeout(hideTimeout);
+          shoppingBagPreview.style.display = 'block';
+        });
+
+        shoppingBagPreview.addEventListener('mouseleave', function() {
+          hideTimeout = setTimeout(() => {
+            shoppingBagPreview.style.display = 'none';
+          }, 500); // Increased delay to 500ms
+        });
+      });
+    </script>
+
+    <!-- Add to your CSS (global.css or style.css) if not present -->
+    <style>
+    .cart-icon-container { 
+      position: relative; 
+      display: inline-block; 
+      padding: 10px; /* Increase hover area */
+    }
+    .shopping-bag-preview {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      width: 320px;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      z-index: 100;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .preview-item { display: flex; align-items: center; margin-bottom: 12px; }
+    .preview-item img { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; margin-right: 12px; }
+    .preview-info h4 { margin: 0 0 4px 0; font-size: 15px; }
+    .view-cart-btn { display: block; margin-top: 10px; text-align: center; background: #927830; color: #fff; padding: 8px 0; border-radius: 4px; text-decoration: none; }
+    .close {
+      cursor: pointer;
+      color: #e3e3e3;
+      font-size: 24px;
+      padding: 4px;
+    }
+    .close:hover {
+      color: #666;
+    }
+    </style>
+  </body>
+</html>
