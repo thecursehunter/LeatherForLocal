@@ -1,6 +1,17 @@
-/*-----------------------------------*
+/*-----------------------------------*\
   #Reusable
 \*-----------------------------------*/
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: #fff;
+  color: #222;
+}
+
+/*-----------------------------------*\
+  #Product
+\*-----------------------------------*/
+
 .desktop-shop-all {
   background-color: #ffffff;
   display: flex;
@@ -16,86 +27,6 @@
   position: relative;
 }
 
-.desktop-shop-all .frame,
-.desktop-shop-all .frame-2,
-.desktop-shop-all .frame-3,
-.desktop-shop-all .frame-4,
-.desktop-shop-all .frame-5,
-.desktop-shop-all .frame-6,
-.desktop-shop-all .frame-7,
-.desktop-shop-all .frame-8,
-.desktop-shop-all .frame-9,
-.desktop-shop-all .frame-10,
-.desktop-shop-all .frame-11,
-.desktop-shop-all .frame-12 {
-  display: flex;
-  width: 648px;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  position: absolute;
-  top: 54px;
-  left: 396px;
-}
-
-.desktop-shop-all .text-wrapper,
-.desktop-shop-all .text-wrapper-2,
-.desktop-shop-all .text-wrapper-3,
-.desktop-shop-all .text-wrapper-4,
-.desktop-shop-all .text-wrapper-5,
-.desktop-shop-all .text-wrapper-6,
-.desktop-shop-all .text-wrapper-7,
-.desktop-shop-all .text-wrapper-8,
-.desktop-shop-all .text-wrapper-9,
-.desktop-shop-all .text-wrapper-10 {
-  position: absolute;
-  height: 29px;
-  top: -19px;
-  left: 598px;
-  font-family: var(--body-MD-font-family);
-  font-weight: var(--body-MD-font-weight);
-  color: var(--white);
-  font-size: var(--body-MD-font-size);
-  text-align: center;
-  letter-spacing: var(--body-MD-letter-spacing);
-  line-height: var(--body-MD-line-height);
-  white-space: nowrap;
-  font-style: var(--body-MD-font-style);
-}
-
-.desktop-shop-all .colors,
-.desktop-shop-all .color,
-.desktop-shop-all .color-2,
-.desktop-shop-all .color-3,
-.desktop-shop-all .color-4,
-.desktop-shop-all .color-5 {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  position: relative;
-  align-self: stretch;
-  width: 100%;
-  flex: 0 0 auto;
-}
-
-.desktop-shop-all .footer,
-.desktop-shop-all .footer-text-box,
-.desktop-shop-all .footer-text-box-2,
-.desktop-shop-all .footer-text-box-3,
-.desktop-shop-all .footer-chat-box,
-.desktop-shop-all .footer-social-media,
-.desktop-shop-all .copyright {
-  position: absolute;
-  width: 1440px;
-  height: 417px;
-  top: 2785px;
-  left: 0;
-  background-color: var(--neutralgray-404040);
-}
-
-/*-----------------------------------*
-  #Product
-\*-----------------------------------*/
 .desktop-shop-all .HEADER {
   position: absolute;
   width: 1440px;
@@ -151,6 +82,121 @@
   letter-spacing: var(--overline-SM-letter-spacing);
   line-height: var(--overline-SM-line-height);
   font-style: var(--overline-SM-font-style);
+}
+
+.desktop-shop-all .frame {
+  display: flex;
+  width: 648px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: absolute;
+  top: 54px;
+  left: 396px;
+}
+
+.desktop-shop-all .header-footer-texts {
+  position: relative;
+  width: 104px;
+  height: 32px;
+}
+
+.desktop-shop-all .text-wrapper-2 {
+  position: absolute;
+  height: 32px;
+  top: -1px;
+  left: 7px;
+  font-family: var(--body-LG-font-family);
+  font-weight: var(--body-LG-font-weight);
+  color: var(--primaryprimary-600);
+  font-size: var(--body-LG-font-size);
+  text-align: center;
+  letter-spacing: var(--body-LG-letter-spacing);
+  line-height: var(--body-LG-line-height);
+  white-space: nowrap;
+  font-style: var(--body-LG-font-style);
+}
+
+.desktop-shop-all .collection {
+  position: absolute;
+  height: 32px;
+  top: -1px;
+  left: 20px;
+  font-family: var(--body-LG-font-family);
+  font-weight: var(--body-LG-font-weight);
+  color: var(--neutralgray-404040);
+  font-size: var(--body-LG-font-size);
+  text-align: center;
+  letter-spacing: var(--body-LG-letter-spacing);
+  line-height: var(--body-LG-line-height);
+  white-space: nowrap;
+  font-style: var(--body-LG-font-style);
+}
+
+.desktop-shop-all .collection-2 {
+  position: absolute;
+  height: 32px;
+  top: -1px;
+  left: 5px;
+  font-family: var(--body-LG-font-family);
+  font-weight: var(--body-LG-font-weight);
+  color: var(--neutralgray-404040);
+  font-size: var(--body-LG-font-size);
+  text-align: center;
+  letter-spacing: var(--body-LG-letter-spacing);
+  line-height: var(--body-LG-line-height);
+  white-space: nowrap;
+  font-style: var(--body-LG-font-style);
+}
+
+.desktop-shop-all .collection-3 {
+  position: absolute;
+  height: 32px;
+  top: -1px;
+  left: 12px;
+  font-family: var(--body-LG-font-family);
+  font-weight: var(--body-LG-font-weight);
+  color: var(--neutralgray-404040);
+  font-size: var(--body-LG-font-size);
+  text-align: center;
+  letter-spacing: var(--body-LG-letter-spacing);
+  line-height: var(--body-LG-line-height);
+  white-space: nowrap;
+  font-style: var(--body-LG-font-style);
+}
+
+.desktop-shop-all .collection-wrapper {
+  width: 128px;
+  position: relative;
+  height: 32px;
+}
+
+.desktop-shop-all .collection-4 {
+  position: absolute;
+  height: 32px;
+  top: -1px;
+  left: 3px;
+  font-family: var(--body-LG-font-family);
+  font-weight: var(--body-LG-font-weight);
+  color: var(--neutralgray-404040);
+  font-size: var(--body-LG-font-size);
+  text-align: center;
+  letter-spacing: var(--body-LG-letter-spacing);
+  line-height: var(--body-LG-line-height);
+  white-space: nowrap;
+  font-style: var(--body-LG-font-style);
+}
+
+.desktop-shop-all .frame-2 {
+  display: flex;
+  width: 184px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: absolute;
+  top: 54px;
+  left: 1148px;
 }
 
 .desktop-shop-all .header-search-icon {
@@ -212,6 +258,19 @@
   gap: 1px;
   position: relative;
   flex: 0 0 auto;
+}
+
+.desktop-shop-all .text-wrapper-3 {
+  position: relative;
+  width: 144.5px;
+  margin-top: -0.25px;
+  font-family: "League Spartan-Bold", Helvetica;
+  font-weight: 700;
+  color: var(--neutralgray-404040);
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 3.2px;
+  line-height: 12.5px;
 }
 
 .desktop-shop-all .subtract {
@@ -429,6 +488,407 @@
   font-style: var(--button-SM-font-style);
 }
 
+.desktop-shop-all .footer {
+  position: absolute;
+  width: 1440px;
+  height: 417px;
+  top: 2785px;
+  left: 0;
+  background-color: var(--neutralgray-404040);
+}
+
+.desktop-shop-all .overlap {
+  position: absolute;
+  width: 623px;
+  height: 313px;
+  top: 48px;
+  left: 708px;
+}
+
+.desktop-shop-all .frame-4 {
+  display: flex;
+  width: 623px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.desktop-shop-all .footer-text-box {
+  width: 208px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: relative;
+}
+
+.desktop-shop-all .text-wrapper-7 {
+  position: relative;
+  width: 184px;
+  margin-top: -1px;
+  font-family: var(--h5-font-family);
+  font-weight: var(--h5-font-weight);
+  color: var(--white);
+  font-size: var(--h5-font-size);
+  letter-spacing: var(--h5-letter-spacing);
+  line-height: var(--h5-line-height);
+  font-style: var(--h5-font-style);
+}
+
+.desktop-shop-all .frame-5 {
+  display: flex;
+  flex-direction: column;
+  width: 184px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.desktop-shop-all .div-wrapper {
+  width: 208px;
+  margin-right: -24px;
+  position: relative;
+  height: 32px;
+}
+
+.desktop-shop-all .text-wrapper-8 {
+  position: absolute;
+  height: 32px;
+  top: -1px;
+  left: 0;
+  font-family: var(--body-LG-font-family);
+  font-weight: var(--body-LG-font-weight);
+  color: var(--white);
+  font-size: var(--body-LG-font-size);
+  letter-spacing: var(--body-LG-letter-spacing);
+  line-height: var(--body-LG-line-height);
+  white-space: nowrap;
+  font-style: var(--body-LG-font-style);
+}
+
+.desktop-shop-all .footer-text-box-2 {
+  width: 184px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: relative;
+}
+
+.desktop-shop-all .header-footer-texts-2 {
+  width: 184px;
+  position: relative;
+  height: 32px;
+}
+
+.desktop-shop-all .footer-text-box-3 {
+  width: 183px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  position: relative;
+}
+
+.desktop-shop-all .text-wrapper-9 {
+  position: relative;
+  width: 160px;
+  margin-top: -1px;
+  font-family: var(--h5-font-family);
+  font-weight: var(--h5-font-weight);
+  color: var(--white);
+  font-size: var(--h5-font-size);
+  letter-spacing: var(--h5-letter-spacing);
+  line-height: var(--h5-line-height);
+  font-style: var(--h5-font-style);
+}
+
+.desktop-shop-all .frame-6 {
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.desktop-shop-all .header-footer-texts-3 {
+  width: 184px;
+  margin-right: -24px;
+  position: relative;
+  height: 32px;
+}
+
+.desktop-shop-all .footer-chat-box {
+  position: absolute;
+  width: 56px;
+  height: 48px;
+  top: 265px;
+  left: 567px;
+  background-color: var(--primaryprimary-600);
+  border: 1px solid;
+  border-color: var(--white);
+}
+
+.desktop-shop-all .element {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 12px;
+  left: 16px;
+}
+
+.desktop-shop-all .copyright {
+  display: flex;
+  width: 242px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: absolute;
+  top: 361px;
+  left: 108px;
+}
+
+.desktop-shop-all .element-modimal-all {
+  position: relative;
+  width: fit-content;
+  font-family: var(--caption-MD-font-family);
+  font-weight: var(--caption-MD-font-weight);
+  color: var(--neutralgraycbcbcb);
+  font-size: var(--caption-MD-font-size);
+  letter-spacing: var(--caption-MD-letter-spacing);
+  line-height: var(--caption-MD-line-height);
+  white-space: nowrap;
+  font-style: var(--caption-MD-font-style);
+}
+
+.desktop-shop-all .footer-social-media {
+  display: flex;
+  width: 144px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: absolute;
+  top: 294px;
+  left: 108px;
+}
+
+.desktop-shop-all .join-our-club-get {
+  position: absolute;
+  width: 496px;
+  top: 51px;
+  left: 108px;
+  font-family: var(--h5-font-family);
+  font-weight: var(--h5-font-weight);
+  color: var(--white);
+  font-size: var(--h5-font-size);
+  letter-spacing: var(--h5-letter-spacing);
+  line-height: var(--h5-line-height);
+  font-style: var(--h5-font-style);
+}
+
+.desktop-shop-all .frame-7 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  position: absolute;
+  top: 104px;
+  left: 108px;
+}
+
+.desktop-shop-all .input-orginal {
+  display: flex;
+  width: 496px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0px 16px;
+  position: relative;
+  border: 1px solid;
+  border-color: var(--primaryprimary-50);
+}
+
+.desktop-shop-all .label {
+  position: relative;
+  flex: 1;
+  font-family: var(--body-XS-font-family);
+  font-weight: var(--body-XS-font-weight);
+  color: var(--primaryprimary-50);
+  font-size: var(--body-XS-font-size);
+  letter-spacing: var(--body-XS-letter-spacing);
+  line-height: var(--body-XS-line-height);
+  font-style: var(--body-XS-font-style);
+}
+
+.desktop-shop-all .arrow-forward {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.desktop-shop-all .frame-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 496px;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.desktop-shop-all .frame-8 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.desktop-shop-all .checkmark-approval {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--primaryprimary-25);
+}
+
+.desktop-shop-all .p {
+  position: relative;
+  width: 472px;
+  margin-top: -1px;
+  font-family: var(--overline-SM-font-family);
+  font-weight: var(--overline-SM-font-weight);
+  color: var(--white);
+  font-size: var(--overline-SM-font-size);
+  letter-spacing: var(--overline-SM-letter-spacing);
+  line-height: var(--overline-SM-line-height);
+  font-style: var(--overline-SM-font-style);
+}
+
+.desktop-shop-all .frame-9 {
+  position: absolute;
+  width: 808px;
+  height: 540px;
+  top: 933px;
+  left: 524px;
+}
+
+.desktop-shop-all .product-card {
+  position: absolute;
+  width: 392px;
+  height: 540px;
+  top: 0;
+  left: 0;
+}
+
+.desktop-shop-all .frame-10 {
+  display: flex;
+  width: 392px;
+  height: 102px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 8px;
+  position: absolute;
+  top: 438px;
+  left: 0;
+}
+
+.desktop-shop-all .frame-11 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+}
+
+.desktop-shop-all .product-name {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: var(--h6-font-family);
+  font-weight: var(--h6-font-weight);
+  color: var(--black);
+  font-size: var(--h6-font-size);
+  letter-spacing: var(--h6-letter-spacing);
+  line-height: var(--h6-line-height);
+  font-style: var(--h6-font-style);
+}
+
+.desktop-shop-all .product-description {
+  position: relative;
+  align-self: stretch;
+  font-family: var(--body-MD-font-family);
+  font-weight: var(--body-MD-font-weight);
+  color: var(--black);
+  font-size: var(--body-MD-font-size);
+  letter-spacing: var(--body-MD-letter-spacing);
+  line-height: var(--body-MD-line-height);
+  font-style: var(--body-MD-font-style);
+}
+
+.desktop-shop-all .colors {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.desktop-shop-all .color {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #8f9125;
+  border-radius: 24px;
+}
+
+.desktop-shop-all .color-2 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: var(--white);
+  border-radius: 24px;
+}
+
+.desktop-shop-all .frame-12 {
+  position: relative;
+  width: 187px;
+  height: 32px;
+}
+
+.desktop-shop-all .text-wrapper-10 {
+  position: absolute;
+  height: 22px;
+  top: 4px;
+  left: 149px;
+  font-family: var(--h6-font-family);
+  font-weight: var(--h6-font-weight);
+  color: var(--black);
+  font-size: var(--h6-font-size);
+  letter-spacing: var(--h6-letter-spacing);
+  line-height: var(--h6-line-height);
+  white-space: nowrap;
+  font-style: var(--h6-font-style);
+}
+
 .desktop-shop-all .header-favorite-icon-wrapper {
   position: absolute;
   width: 392px;
@@ -450,15 +910,36 @@
   background-size: 100% 100%;
 }
 
-.desktop-shop-all .overlap-group-2 {
+.desktop-shop-all .product-card-2 {
   position: absolute;
   width: 392px;
-  height: 438px;
+  height: 540px;
   top: 0;
-  left: 0;
-  background-image: url(./img/rectangle-12348-4.png);
-  background-size: cover;
-  background-position: 50% 50%;
+  left: 416px;
+}
+
+.desktop-shop-all .color-3 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: var(--black);
+  border-radius: 24px;
+}
+
+.desktop-shop-all .color-4 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #7cc3eb;
+  border-radius: 24px;
+}
+
+.desktop-shop-all .color-5 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #748c70;
+  border-radius: 24px;
 }
 
 .desktop-shop-all .overlap-2 {
@@ -519,7 +1000,89 @@
   background-size: 100% 100%;
 }
 
-/*-----------------------------------*
-  #Landing
-\*-----------------------------------*/
-/* Place landing page specific styles here if any are in style.css */
+.desktop-shop-all .frame-13 {
+  position: absolute;
+  width: 808px;
+  height: 540px;
+  top: 1521px;
+  left: 524px;
+}
+
+.desktop-shop-all .overlap-group-2 {
+  position: absolute;
+  width: 392px;
+  height: 438px;
+  top: 0;
+  left: 0;
+  background-image: url(./img/rectangle-12348-5.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.desktop-shop-all .color-6 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #ca6c29;
+  border-radius: 24px;
+}
+
+.desktop-shop-all .overlap-3 {
+  position: absolute;
+  width: 392px;
+  height: 438px;
+  top: 0;
+  left: 0;
+  background-image: url(./img/rectangle-12348.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.desktop-shop-all .frame-14 {
+  position: absolute;
+  width: 808px;
+  height: 540px;
+  top: 2109px;
+  left: 524px;
+}
+
+.desktop-shop-all .color-7 {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #19408d;
+  border-radius: 24px;
+}
+
+.desktop-shop-all .overlap-group-3 {
+  position: absolute;
+  width: 392px;
+  height: 438px;
+  top: 0;
+  left: 0;
+  background-image: url(./img/rectangle-12348-3.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.desktop-shop-all .overlap-4 {
+  position: absolute;
+  width: 392px;
+  height: 438px;
+  top: 0;
+  left: 0;
+  background-image: url(./img/image.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.desktop-shop-all .frame-15 {
+  position: absolute;
+  width: 1440px;
+  height: 655px;
+  top: 230px;
+  left: 0;
+  background-image: url(./img/frame-427319608.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
