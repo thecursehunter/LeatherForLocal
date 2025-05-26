@@ -13,19 +13,20 @@ class ProductModel {
     $result = $this->db->query('SELECT * FROM products LIMIT 10');
     $products = [];
     while ($row = $result->fetch_assoc()) {
-      $row['colors'] = explode(',', $row['colors']);
-      $products[] = $row;
+        // Kiểm tra nếu cột 'colors' tồn tại và không rỗng
+        $row['colors'] = isset($row['colors']) ? explode(',', $row['colors']) : [];
+        $products[] = $row;
     }
     return $products;
-  }
+}
 
   public function fetchMoreProducts() {
     $result = $this->db->query('SELECT * FROM products LIMIT 10 OFFSET 10');
     $products = [];
     while ($row = $result->fetch_assoc()) {
-      $row['colors'] = explode(',', $row['colors']);
-      $products[] = $row;
+        $row['colors'] = isset($row['colors']) ? explode(',', $row['colors']) : [];
+        $products[] = $row;
     }
     return $products;
-  }
+}
 }
