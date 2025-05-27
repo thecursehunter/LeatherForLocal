@@ -10,7 +10,7 @@ class ProductModel {
   }
 
   public function fetchProducts() {
-    $result = $this->db->query('SELECT * FROM products LIMIT 10');
+    $result = $this->db->query('SELECT * FROM tbl_products LIMIT 10');
     $products = [];
     while ($row = $result->fetch_assoc()) {
         // Kiểm tra nếu cột 'colors' tồn tại và không rỗng
@@ -21,7 +21,7 @@ class ProductModel {
 }
 
   public function fetchMoreProducts() {
-    $result = $this->db->query('SELECT * FROM products LIMIT 10 OFFSET 10');
+    $result = $this->db->query('SELECT * FROM tbl_products LIMIT 10 OFFSET 10');
     $products = [];
     while ($row = $result->fetch_assoc()) {
         $row['colors'] = isset($row['colors']) ? explode(',', $row['colors']) : [];
