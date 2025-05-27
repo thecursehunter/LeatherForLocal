@@ -13,8 +13,20 @@ class ProductModel {
     $result = $this->db->query('SELECT * FROM tbl_products LIMIT 10');
     $products = [];
     while ($row = $result->fetch_assoc()) {
-        // Kiểm tra nếu cột 'colors' tồn tại và không rỗng
+        // Process colors
         $row['colors'] = isset($row['colors']) ? explode(',', $row['colors']) : [];
+        
+        // Process images
+        $row['images'] = isset($row['images']) ? explode(',', $row['images']) : [];
+        
+        // Process features
+        $row['features'] = isset($row['features']) ? explode(',', $row['features']) : [];
+        
+        // Ensure all required fields exist
+        $row['material'] = $row['material'] ?? 'Leather';
+        $row['material_description'] = $row['material_description'] ?? 'High-quality leather material';
+        $row['category'] = $row['category'] ?? 'Accessories';
+        
         $products[] = $row;
     }
     return $products;
@@ -24,7 +36,20 @@ class ProductModel {
     $result = $this->db->query('SELECT * FROM tbl_products LIMIT 10 OFFSET 10');
     $products = [];
     while ($row = $result->fetch_assoc()) {
+        // Process colors
         $row['colors'] = isset($row['colors']) ? explode(',', $row['colors']) : [];
+        
+        // Process images
+        $row['images'] = isset($row['images']) ? explode(',', $row['images']) : [];
+        
+        // Process features
+        $row['features'] = isset($row['features']) ? explode(',', $row['features']) : [];
+        
+        // Ensure all required fields exist
+        $row['material'] = $row['material'] ?? 'Leather';
+        $row['material_description'] = $row['material_description'] ?? 'High-quality leather material';
+        $row['category'] = $row['category'] ?? 'Accessories';
+        
         $products[] = $row;
     }
     return $products;
