@@ -15,7 +15,7 @@
 }
 
 body {
-    font-family: 'Poppins', Poppins, Arial, sans-serif;
+    font-family: 'Inter', Poppins, Arial, sans-serif;
     color: var(--black);
 }
 
@@ -77,6 +77,12 @@ body {
     margin-bottom: 1rem;
 }
 
+.footer-join-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
 .footer-link-text {
     color: var(--white);
     text-decoration: none;
@@ -85,6 +91,15 @@ body {
 
 .footer-link-text:hover {
     opacity: 0.8;
+}
+
+/* List spacing styles */
+.list-unstyled li {
+    margin-bottom: 1rem;
+}
+
+.list-unstyled li:last-child {
+    margin-bottom: 0;
 }
 
 /* Custom button styles */
@@ -138,8 +153,8 @@ body {
 /* Product badge styles */
 .product-badge {
     position: absolute;
-    top: 9px;
-    left: 170px;
+    top: 2px;
+    right: 10px;
     z-index: 1;
     padding: 8px 12px;
     font-size: 0.875rem;
