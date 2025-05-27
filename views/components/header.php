@@ -47,12 +47,154 @@
                     <li class="nav-item"><a class="nav-link" href="#">Về chúng tôi</a></li>
                 </ul>
                 <div class="navbar-functions d-flex gap-3">
-                    <div class="header-search-icon"></div>
-                    <span class="material-symbols-rounded">account_circle</span>
-                    <div class="header-favorite-icon"></div>
+                    <button class="search-button" id="searchButton">
+                    <span class="material-symbols-rounded search-icon">search</span>
+                    </button>
+                    <span class="material-symbols-rounded">favorite</span>
                     <span class="material-symbols-rounded">shopping_cart</span>
+                    <span class="material-symbols-rounded">account_circle</span>
                 </div>
             </div>
         </div>
     </nav>
+    <div class="search-box" id="searchBox">
+            <div class="search-wrapper">
+              <span class="material-symbols-rounded search-icon">search</span>
+              <input type="text" class="form-control search-input" placeholder="Search products..." id="searchInput">
+              <button class="clear-button" id="clearButton">
+                <span class="material-symbols-rounded">close</span>
+              </button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+          </div>
+    <script>
+      const navbarFunctions = document.querySelector('.navbar-functions');
+      const searchButton = document.getElementById('searchButton');
+      const searchBox = document.getElementById('searchBox');
+      const searchInput = document.getElementById('searchInput');
+      const searchResults = document.getElementById('searchResults');
+      const clearButton = document.getElementById('clearButton');
+      const productList = document.getElementById('productList');
+
+      // Lưu trạng thái ban đầu của các phần tử
+      const searchableItems = document.querySelectorAll('[data-name], [data-description]');
+      const initialDisplayStates = new Map();
+      searchableItems.forEach(item => {
+        const computedStyle = window.getComputedStyle(item).display;
+        initialDisplayStates.set(item, computedStyle);
+      });
+
+      // Hiển thị ô tìm kiếm khi nhấp vào button tìm kiếm hoặc hover
+      searchButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
+      });
+
+      navbarFunctions.addEventListener('mouseenter', () => {
+        searchBox.style.display = 'block';
+      });
+
+      // Giữ ô tìm kiếm hiển thị khi tương tác với ô tìm kiếm
+      searchBox.addEventListener('mouseenter', () => {
+        searchBox.style.display = 'block';
+      });
+
+      // Ngăn chặn sự kiện click trên navbar-functions và search-box lan truyền lên document
+      navbarFunctions.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      searchBox.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      // Đóng ô tìm kiếm khi nhấp ra ngoài
+      document.addEventListener('click', (e) => {
+        searchBox.style.display = 'none';
+        searchResults.style.display = 'none';
+        // Nếu ô tìm kiếm rỗng (sau khi xóa), khôi phục trạng thái ban đầu
+        if (searchInput.value === '') {
+          searchableItems.forEach(item => {
+            const initialDisplay = initialDisplayStates.get(item);
+            item.style.display = initialDisplay;
+          });
+        }
+      });
+
+      // Hàm tìm kiếm chung
+      function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const results = new Map(); // Sử dụng Map để tránh trùng lặp
+
+        // Hiển thị hoặc ẩn nút xóa dựa trên nội dung ô tìm kiếm
+        clearButton.style.display = searchTerm ? 'block' : 'none';
+
+        searchableItems.forEach(item => {
+          const name = item.getAttribute('data-name') || '';
+          const description = item.getAttribute('data-description') || '';
+          if (searchTerm !== '' && (name.includes(searchTerm) || description.includes(searchTerm))) {
+            results.set(item, { name, description });
+            item.style.display = item.classList.contains('product-item') ? 'block' : 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        // Hiển thị kết quả tìm kiếm
+        searchResults.innerHTML = '';
+        if (results.size > 0) {
+          results.forEach((data, item) => {
+            const resultItem = document.createElement('div');
+            resultItem.classList.add('result-item');
+            const displayText = data.name || data.description || 'Unknown';
+            resultItem.innerHTML = `<strong>${displayText}</strong>${data.description && data.name ? '<br><span class="text-muted">' + data.description + '</span>' : ''}`;
+            resultItem.addEventListener('click', (e) => {
+              e.stopPropagation(); // Ngăn đóng ô tìm kiếm khi nhấp vào kết quả
+              searchInput.value = data.name || data.description;
+              clearButton.style.display = 'block'; // Hiển thị nút xóa
+              searchResults.style.display = 'none';
+              searchableItems.forEach(i => {
+                const iName = i.getAttribute('data-name') || '';
+                const iDesc = i.getAttribute('data-description') || '';
+                if (iName === data.name || iDesc === data.description) {
+                  i.style.display = i.classList.contains('product-item') ? 'block' : 'flex';
+                } else {
+                  i.style.display = 'none';
+                }
+              });
+            });
+            searchResults.appendChild(resultItem);
+          });
+          searchResults.style.display = 'block';
+        } else {
+          searchResults.style.display = 'none';
+        }
+      }
+
+      // Chức năng tìm kiếm khi nhập từ khóa
+      searchInput.addEventListener('input', () => {
+        performSearch();
+      });
+
+      // Chức năng tìm kiếm khi nhấn Enter
+      searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault(); // Ngăn hành vi mặc định của Enter
+          performSearch(); // Gọi lại hàm tìm kiếm
+        }
+      });
+
+      // Xóa từ khóa khi nhấn nút xóa
+      clearButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Ngăn đóng ô tìm kiếm khi nhấp vào nút xóa
+        searchInput.value = '';
+        clearButton.style.display = 'none';
+        searchResults.style.display = 'none';
+        // Khôi phục trạng thái ban đầu
+        searchableItems.forEach(item => {
+          const initialDisplay = initialDisplayStates.get(item);
+          item.style.display = initialDisplay;
+        });
+      });
+    </script>
 </header> 
