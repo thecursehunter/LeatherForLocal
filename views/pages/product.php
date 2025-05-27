@@ -2,15 +2,6 @@
 require_once '../../src/controllers/ProductController.php';
 $productController = new ProductController();
 $products = $productController->getProducts();
-
-$images = [
-    'backpack_1.jpg',
-    'backpack_2.jpg',
-    'bag_1.jpg',
-    'jacket_1.jpg',
-    'jacket_3.jpg',
-    'jacket_2.jpg'
-];
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +110,7 @@ $images = [
                             echo "<div class='$row_section row mb-4' id='product-list-$row_section'>";
                             for ($i = 0; $i < $products_per_row && $current_product_index < $total_products; $i++) {
                                 $product = $products[$current_product_index];
-                                $image = isset($images[$current_product_index]) ? $images[$current_product_index] : $images[0];
+                                $image = isset($product['images'][0]) ? $product['images'][0] : 'default.jpg';
                                 echo "<div class='col-md-6 mb-4'>";
                                 echo "<a href='productDetails.php?id=" . htmlspecialchars($product['id']) . "' class='text-decoration-none text-dark'>";
                                 echo "<div class='card h-100 position-relative'>";
