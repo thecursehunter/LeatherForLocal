@@ -27,7 +27,7 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container">
-            <a class="navbar-brand" href="/views/pages/product.php">
+            <a class="navbar-brand" href="../../views/pages/index.php">
                 <div class="logo">
                     <div class="title">
                         <span class="material-symbols-rounded logo-icon">store</span>
@@ -41,10 +41,124 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Bộ Sưu Tập</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Sản Phẩm Mới</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Leatherweek</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Về chúng tôi</a></li>
+                    <li class="nav-item position-relative mega-parent" id="collectionNavItem">
+        <a class="nav-link" href="#">Bộ Sưu Tập</a>
+        <div class="mega-menu bg-white shadow" id="collectionMegaMenu">
+            <div class="container py-4 d-flex">
+                <div class="row w-100">
+                    <div class="col-3">
+                        <h6 class="fw-bold mb-3">Phân Loại</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark text-decoration-none">Áo Khoác Da</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Quần Da</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Giày Da</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Quần Ngắn Da</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Áo Sơ Mi Da</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Phụ Kiện Da</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Đồ Liền Da</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="fw-bold mb-3">Nổi Bật</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark text-decoration-none">Sản Phẩm Mới</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Kích Cỡ Lớn</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Sản Phẩm Bán Chạy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-3">
+                        <h6 class="fw-bold mb-3">Nhiều Hơn</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark text-decoration-none">Phong Cách Street</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Biker</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Cổ Điển</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Trang Phục Lễ Hội</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Hàng Limited</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-3 d-flex flex-column align-items-center">
+                        <img src="../../public/images/collection/leather-pants.jpg" alt="Blouses" style="width:100%;max-width:140px;object-fit:cover;">
+                        <span class="mt-2">Quần Da</span>
+                        <img src="../../public/images/collection/leather-jackets(+size).jpg" alt="Plus Size" class="mt-4" style="width:100%;max-width:140px;object-fit:cover;">
+                        <span class="mt-2">Kích Cỡ Lớn</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+                    <li class="nav-item position-relative mega-parent" id="newInNavItem">
+        <a class="nav-link" href="#">Sản Phẩm Mới</a>
+        <div class="mega-menu bg-white shadow" id="newInMegaMenu">
+            <div class="container py-4 d-flex">
+                <div class="row w-100">
+                    <div class="col-4">
+                        <h6 class="fw-bold mb-3">Hàng Mới</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark text-decoration-none">Túi Xách Mới Nhất</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Áo Khoác Mới Nhất</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Phụ Kiện Mới Nhất</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h6 class="fw-bold mb-3">Xu Hướng</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark text-decoration-none">Sản Phẩm Bán Chạy</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Top Rated</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-4 d-flex flex-column align-items-center">
+                        <img src="../../public/images/collection/leather-newin.jpg" alt="New In" style="width:100%;max-width:140px;object-fit:cover;">
+                        <span class="mt-2">Sản Phẩm Mới</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item position-relative mega-parent" id="leatherWeekNavItem">
+        <a class="nav-link" href="#">LeatherWeek</a>
+        <div class="mega-menu bg-white shadow" id="leatherWeekMegaMenu">
+            <div class="container py-4 d-flex">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <h6 class="fw-bold mb-3">LeatherWeek Specials</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark text-decoration-none">Sunday</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Monday</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Tuesday</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Wednesday</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Thursday</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 d-flex flex-column align-items-center">
+                        <img src="../../Diagrams/Landing/02.jpg" alt="LeatherWeek" style="width:100%;max-width:140px;object-fit:cover;">
+                        <span class="mt-2">LeatherWeek</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item position-relative mega-parent" id="aboutNavItem">
+        <a class="nav-link" href="#">Về chúng tôi</a>
+        <div class="mega-menu bg-white shadow" id="aboutMegaMenu">
+            <div class="container py-4 d-flex">
+                <div class="row w-100">
+                    <div class="col-6">
+                        <h6 class="fw-bold mb-3">About LeatherForLocal</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-dark text-decoration-none">Our Story</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Phát Triển Bền Vững</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Tuyển Dụng</a></li>
+                            <li><a href="#" class="text-dark text-decoration-none">Liên Hệ Chúng Tôi</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 d-flex flex-column align-items-center">
+                        <img src="../../Diagrams/Landing/022.jpg" alt="About" style="width:100%;max-width:140px;object-fit:cover;">
+                        <span class="mt-2">About Us</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
                 </ul>
                 <div class="navbar-functions d-flex gap-3">
                     <button class="search-button" id="searchButton">
@@ -68,133 +182,119 @@
             <div class="search-results" id="searchResults"></div>
           </div>
     <script>
-      const navbarFunctions = document.querySelector('.navbar-functions');
-      const searchButton = document.getElementById('searchButton');
-      const searchBox = document.getElementById('searchBox');
-      const searchInput = document.getElementById('searchInput');
-      const searchResults = document.getElementById('searchResults');
-      const clearButton = document.getElementById('clearButton');
-      const productList = document.getElementById('productList');
+  const navbarFunctions = document.querySelector('.navbar-functions');
+  const searchButton = document.getElementById('searchButton');
+  const searchBox = document.getElementById('searchBox');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  const clearButton = document.getElementById('clearButton');
 
-      // Lưu trạng thái ban đầu của các phần tử
-      const searchableItems = document.querySelectorAll('[data-name], [data-description]');
-      const initialDisplayStates = new Map();
-      searchableItems.forEach(item => {
-        const computedStyle = window.getComputedStyle(item).display;
-        initialDisplayStates.set(item, computedStyle);
-      });
+  let allProducts = [];
 
-      // Hiển thị ô tìm kiếm khi nhấp vào button tìm kiếm hoặc hover
-      searchButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
-      });
+  // Fetch products once on page load
+  fetch('../../src/api/products.php')
+    .then(response => response.json())
+    .then(data => { allProducts = data; });
 
-      navbarFunctions.addEventListener('mouseenter', () => {
-        searchBox.style.display = 'block';
-      });
+  searchButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
+  });
 
-      // Giữ ô tìm kiếm hiển thị khi tương tác với ô tìm kiếm
-      searchBox.addEventListener('mouseenter', () => {
-        searchBox.style.display = 'block';
-      });
+  navbarFunctions.addEventListener('mouseenter', () => {
+    searchBox.style.display = 'block';
+  });
 
-      // Ngăn chặn sự kiện click trên navbar-functions và search-box lan truyền lên document
-      navbarFunctions.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
+  searchBox.addEventListener('mouseenter', () => {
+    searchBox.style.display = 'block';
+  });
 
-      searchBox.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
+  navbarFunctions.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
 
-      // Đóng ô tìm kiếm khi nhấp ra ngoài
-      document.addEventListener('click', (e) => {
-        searchBox.style.display = 'none';
-        searchResults.style.display = 'none';
-        // Nếu ô tìm kiếm rỗng (sau khi xóa), khôi phục trạng thái ban đầu
-        if (searchInput.value === '') {
-          searchableItems.forEach(item => {
-            const initialDisplay = initialDisplayStates.get(item);
-            item.style.display = initialDisplay;
-          });
-        }
-      });
+  searchBox.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
 
-      // Hàm tìm kiếm chung
-      function performSearch() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const results = new Map(); // Sử dụng Map để tránh trùng lặp
+  document.addEventListener('click', (e) => {
+    searchBox.style.display = 'none';
+    searchResults.style.display = 'none';
+  });
 
-        // Hiển thị hoặc ẩn nút xóa dựa trên nội dung ô tìm kiếm
-        clearButton.style.display = searchTerm ? 'block' : 'none';
+  function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase();
+    clearButton.style.display = searchTerm ? 'block' : 'none';
+    searchResults.innerHTML = '';
 
-        searchableItems.forEach(item => {
-          const name = item.getAttribute('data-name') || '';
-          const description = item.getAttribute('data-description') || '';
-          if (searchTerm !== '' && (name.includes(searchTerm) || description.includes(searchTerm))) {
-            results.set(item, { name, description });
-            item.style.display = item.classList.contains('product-item') ? 'block' : 'flex';
-          } else {
-            item.style.display = 'none';
-          }
+    if (!searchTerm) {
+      searchResults.style.display = 'none';
+      return;
+    }
+
+    const filtered = allProducts.filter(product =>
+      (product.product_name && product.product_name.toLowerCase().includes(searchTerm)) ||
+      (product.description && product.description.toLowerCase().includes(searchTerm))
+    );
+
+    if (filtered.length > 0) {
+      filtered.forEach(product => {
+        const resultItem = document.createElement('div');
+        resultItem.classList.add('result-item');
+        resultItem.innerHTML = `<strong>${product.product_name}</strong><br><span class="text-muted">${product.description}</span>`;
+        resultItem.addEventListener('click', (e) => {
+          e.stopPropagation();
+          window.location.href = 'productDetails.php?id=' + product.product_id;
         });
-
-        // Hiển thị kết quả tìm kiếm
-        searchResults.innerHTML = '';
-        if (results.size > 0) {
-          results.forEach((data, item) => {
-            const resultItem = document.createElement('div');
-            resultItem.classList.add('result-item');
-            const displayText = data.name || data.description || 'Unknown';
-            resultItem.innerHTML = `<strong>${displayText}</strong>${data.description && data.name ? '<br><span class="text-muted">' + data.description + '</span>' : ''}`;
-            resultItem.addEventListener('click', (e) => {
-              e.stopPropagation(); // Ngăn đóng ô tìm kiếm khi nhấp vào kết quả
-              searchInput.value = data.name || data.description;
-              clearButton.style.display = 'block'; // Hiển thị nút xóa
-              searchResults.style.display = 'none';
-              searchableItems.forEach(i => {
-                const iName = i.getAttribute('data-name') || '';
-                const iDesc = i.getAttribute('data-description') || '';
-                if (iName === data.name || iDesc === data.description) {
-                  i.style.display = i.classList.contains('product-item') ? 'block' : 'flex';
-                } else {
-                  i.style.display = 'none';
-                }
-              });
-            });
-            searchResults.appendChild(resultItem);
-          });
-          searchResults.style.display = 'block';
-        } else {
-          searchResults.style.display = 'none';
-        }
-      }
-
-      // Chức năng tìm kiếm khi nhập từ khóa
-      searchInput.addEventListener('input', () => {
-        performSearch();
+        searchResults.appendChild(resultItem);
       });
+      searchResults.style.display = 'block';
+    } else {
+      searchResults.style.display = 'none';
+    }
+  }
 
-      // Chức năng tìm kiếm khi nhấn Enter
-      searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault(); // Ngăn hành vi mặc định của Enter
-          performSearch(); // Gọi lại hàm tìm kiếm
-        }
-      });
+  searchInput.addEventListener('input', performSearch);
 
-      // Xóa từ khóa khi nhấn nút xóa
-      clearButton.addEventListener('click', (e) => {
-        e.stopPropagation(); // Ngăn đóng ô tìm kiếm khi nhấp vào nút xóa
-        searchInput.value = '';
-        clearButton.style.display = 'none';
-        searchResults.style.display = 'none';
-        // Khôi phục trạng thái ban đầu
-        searchableItems.forEach(item => {
-          const initialDisplay = initialDisplayStates.get(item);
-          item.style.display = initialDisplay;
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      performSearch();
+    }
+  });
+
+  clearButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    searchInput.value = '';
+    clearButton.style.display = 'none';
+    searchResults.style.display = 'none';
+  });
+  // Show/hide mega menu on hover
+  const megaParent = document.getElementById('collectionNavItem');
+const megaMenu = document.getElementById('collectionMegaMenu');
+if (megaParent && megaMenu) {
+  megaParent.addEventListener('mouseenter', () => {
+    megaMenu.style.display = 'block';
+  });
+  megaParent.addEventListener('mouseleave', () => {
+    megaMenu.style.display = 'none';
+  });
+}
+function setupMegaMenu(parentId, menuId) {
+    const parent = document.getElementById(parentId);
+    const menu = document.getElementById(menuId);
+    if (parent && menu) {
+        parent.addEventListener('mouseenter', () => {
+            menu.style.display = 'block';
         });
-      });
-    </script>
+        parent.addEventListener('mouseleave', () => {
+            menu.style.display = 'none';
+        });
+    }
+}
+setupMegaMenu('collectionNavItem', 'collectionMegaMenu');
+setupMegaMenu('newInNavItem', 'newInMegaMenu');
+setupMegaMenu('leatherWeekNavItem', 'leatherWeekMegaMenu');
+setupMegaMenu('aboutNavItem', 'aboutMegaMenu');
+</script>
 </header> 
