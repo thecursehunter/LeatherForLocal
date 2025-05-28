@@ -112,9 +112,9 @@ $products = $productController->getProducts();
                                 $product = $products[$current_product_index];
                                 $image = isset($product['images'][0]) ? $product['images'][0] : 'default.jpg';
                                 echo "<div class='col-md-6 mb-4'>";
-                                echo "<a href='productDetails.php?id=" . htmlspecialchars($product['id']) . "' class='text-decoration-none text-dark'>";
+                                echo "<a href='productDetails.php?id=" . htmlspecialchars($product['product_id']) . "' class='text-decoration-none text-dark'>";
                                 echo "<div class='card h-100 position-relative'>";
-                                echo "<img src='../../public/images/products/" . htmlspecialchars($image) . "' class='card-img-top product-img' alt='" . htmlspecialchars($product['name']) . "'>";
+                                echo "<img src='../../public/images/products/" . htmlspecialchars($image) . "' class='card-img-top product-img' alt='" . htmlspecialchars($product['product_name']) . "'>";
                                 if (isset($product['is_new']) && $product['is_new']) {
                                     echo "<div class='product-badge'>";
                                     echo "<span class='badge bg-white text-dark'>New</span>";
@@ -123,7 +123,7 @@ $products = $productController->getProducts();
                                 echo "<div class='card-body'>";
                                 echo "<div class='product-info-container'>";
                                 echo "<div class='product-details'>";
-                                echo "<h5 class='product-name'>" . htmlspecialchars($product['name']) . "</h5>";
+                                echo "<h5 class='product-name'>" . htmlspecialchars($product['product_name']) . "</h5>";
                                 echo "<p class='product-description'>" . htmlspecialchars($product['description']) . "</p>";
                                 echo "<div class='colors d-flex gap-2'>";
                                 foreach ($product['colors'] as $color) {
