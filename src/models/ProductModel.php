@@ -54,26 +54,4 @@ class ProductModel {
     }
     return $products;
 }
-
-public function getProductById($id) {
-  $stmt = $this->db->prepare("SELECT * FROM tbl_products WHERE id = ?");
-  $stmt->bind_param("i", $id);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  $product = $result->fetch_assoc();
-
-  if ($product) {
-      // Process data giống fetchProducts()
-      $product['colors'] = isset($product['colors']) ? explode(',', $product['colors']) : [];
-      $product['images'] = isset($product['images']) ? explode(',', $product['images']) : [];
-      $product['features'] = isset($product['features']) ? explode(',', $product['features']) : [];
-
-      $product['material'] = $product['material'] ?? 'Leather';
-      $product['material_description'] = $product['material_description'] ?? 'High-quality leather material';
-      $product['category'] = $product['category'] ?? 'Accessories';
-  }
-
-  return $product;
-}
-
 }
