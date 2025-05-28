@@ -3,7 +3,6 @@ require_once '../../src/controllers/ProductController.php';
 $productController = new ProductController();
 $products = $productController->getProducts();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
