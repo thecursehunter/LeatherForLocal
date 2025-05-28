@@ -51,7 +51,10 @@
                     <span class="material-symbols-rounded search-icon">search</span>
                     </button>
                     <span class="material-symbols-rounded">favorite</span>
-                    <span class="material-symbols-rounded">shopping_cart</span>
+                    <a href="/views/pages/cart.php" class="cart-icon-wrapper text-dark text-decoration-none">
+                        <span class="material-symbols-rounded">shopping_cart</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
                     <span class="material-symbols-rounded">account_circle</span>
                 </div>
             </div>
@@ -68,6 +71,36 @@
             <div class="search-results" id="searchResults"></div>
           </div>
     <script>
+      // Function to update cart count
+      function updateCartCount() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+          const cartCountElement = document.getElementById('cartCount');
+          cartCountElement.textContent = totalItems;
+          
+          // Hide badge if cart is empty
+          cartCountElement.style.display = totalItems > 0 ? 'block' : 'none';
+      }
+
+      // Update cart count when page loads
+      document.addEventListener('DOMContentLoaded', updateCartCount);
+
+      // Listen for changes in localStorage
+      window.addEventListener('storage', function(e) {
+          if (e.key === 'cart') {
+              updateCartCount();
+          }
+      });
+
+      // Update cart count every time cart changes
+      const originalSetItem = localStorage.setItem;
+      localStorage.setItem = function(key, value) {
+          originalSetItem.apply(this, arguments);
+          if (key === 'cart') {
+              updateCartCount();
+          }
+      };
+
       const navbarFunctions = document.querySelector('.navbar-functions');
       const searchButton = document.getElementById('searchButton');
       const searchBox = document.getElementById('searchBox');
