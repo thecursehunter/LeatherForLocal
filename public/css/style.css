@@ -522,6 +522,7 @@ body {
 
 /* Order Summary Card */
 .order-summary .card {
+
   border: 1px solid var(--neutralgraycbcbcb);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -547,3 +548,4 @@ body {
     margin-top: 2rem;
   }
 }
+
