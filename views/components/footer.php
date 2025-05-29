@@ -69,16 +69,18 @@
         </div>
     </div>
     <div class="container-fluid bg-dark py-3">
-        <div class="row align-items-center">
-            <div class="col-md-4">
-                <p class="mb-0">&copy; 2025 LeatherForLocal. Bảo Lưu Mọi Quyền.</p>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="footer-social-media d-flex justify-content-center gap-3">
-                    <img class="img" src="../../img/social-media-3.svg" />
-                    <img class="img" src="../../img/social-media-2.svg" />
-                    <img class="img" src="../../img/social-media.svg" />
-                    <img class="img" src="../../img/social-media-4.svg" />
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <p class="mb-0">&copy; 2025 LeatherForLocal. Bảo Lưu Mọi Quyền.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="footer-social-media d-flex justify-content-center gap-3">
+                        <img class="img" src="../../img/social-media-3.svg" />
+                        <img class="img" src="../../img/social-media-2.svg" />
+                        <img class="img" src="../../img/social-media.svg" />
+                        <img class="img" src="../../img/social-media-4.svg" />
+                    </div>
                 </div>
             </div>
         </div>

@@ -130,7 +130,7 @@ CREATE TABLE `orderitem` (
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL,
+  `unit_price` decimal(6,3) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -161,12 +161,12 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `category_id`, `product_name`, `description`, `price`, `is_new`, `colors`, `images`, `material`, `stock_quantity`, `is_available`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Balo Hành Trình', 'Da bò thật cao cấp, thiết kế rộng rãi, đa năng. Đồng hành lý tưởng cho công sở và du lịch, toát lên vẻ đẳng cấp, tự tin.', 380000.00, 1, 'Đen, Nâu', 'backpack_1.jpg', 'Da bò thật', 15, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:17'),
-(2, 1, 'Balo Thành Thị', 'Da thật mềm mại, tối giản, tinh tế. Ngăn laptop chuyên dụng, hoàn hảo cho phong cách hiện đại, năng động giữa lòng đô thị.', 450000.00, 1, 'Xám, Xanh Navy', 'backpack_2.jpg', 'Da thật', 20, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:25'),
-(3, 2, 'Túi Xách Elegant', 'Biểu tượng của sự sang trọng, quý phái. Da cao cấp, đường may tỉ mỉ, giúp quý cô tỏa sáng tự tin trong mọi hoàn cảnh.', 650000.00, 0, 'Kem, Đen', 'bag_1.jpg', 'Da cao cấp', 10, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:34'),
-(4, 3, 'Áo Khoác Stylish', 'Kiểu dáng biker kinh điển từ da thật dày dặn. Mạnh mẽ, bụi bặm, khẳng định phong cách tự do, cá tính riêng của bạn.', 750000.00, 1, 'Đen', 'jacket_1.jpg', 'Da thật dày dặn', 8, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:42'),
-(5, 3, 'Áo Khoác Bụi Bặm', 'Thiết kế tối giản, lịch lãm, làm từ da mềm mại cao cấp. Dễ dàng phối hợp mọi trang phục, tôn lên vẻ ngoài sang trọng, tinh tế.', 700000.00, 0, 'Nâu đậm', 'jacket_3.jpg', 'Da mềm mại cao cấp', 12, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:51'),
-(6, 3, 'Áo Khoác Nomad', 'Lấy cảm hứng từ sự khám phá, với chất liệu da độc đáo và chi tiết tinh xảo. Bền bỉ, phóng khoáng, tuyên ngôn cho tinh thần phiêu lưu, khác biệt.', 750000.00, 1, 'Vàng da bò, Xám', 'jacket_2.jpg', 'Chất liệu da độc đáo', 7, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:59');
+(1, 1, 'Balo Hành Trình', 'Da bò thật cao cấp, thiết kế rộng rãi, đa năng. Đồng hành lý tưởng cho công sở và du lịch, toát lên vẻ đẳng cấp, tự tin.', 380000.00, 1, 'orange', 'backpack_1.jpg', 'Da bò thật', 15, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:17'),
+(2, 1, 'Balo Thành Thị', 'Da thật mềm mại, tối giản, tinh tế. Ngăn laptop chuyên dụng, hoàn hảo cho phong cách hiện đại, năng động giữa lòng đô thị.', 450000.00, 1, 'crimson,black', 'backpack_2.jpg', 'Da thật', 20, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:25'),
+(3, 2, 'Túi Xách Elegant', 'Biểu tượng của sự sang trọng, quý phái. Da cao cấp, đường may tỉ mỉ, giúp quý cô tỏa sáng tự tin trong mọi hoàn cảnh.', 650000.00, 0, 'orange', 'bag_1.jpg', 'Da cao cấp', 10, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:34'),
+(4, 3, 'Áo Khoác Stylish', 'Kiểu dáng biker kinh điển từ da thật dày dặn. Mạnh mẽ, bụi bặm, khẳng định phong cách tự do, cá tính riêng của bạn.', 750000.00, 1, 'black', 'jacket_1.jpg', 'Da thật dày dặn', 8, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:42'),
+(5, 3, 'Áo Khoác Bụi Bặm', 'Thiết kế tối giản, lịch lãm, làm từ da mềm mại cao cấp. Dễ dàng phối hợp mọi trang phục, tôn lên vẻ ngoài sang trọng, tinh tế.', 700000.00, 0, 'black', 'jacket_3.jpg', 'Da mềm mại cao cấp', 12, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:51'),
+(6, 3, 'Áo Khoác Nomad', 'Lấy cảm hứng từ sự khám phá, với chất liệu da độc đáo và chi tiết tinh xảo. Bền bỉ, phóng khoáng, tuyên ngôn cho tinh thần phiêu lưu, khác biệt.', 750000.00, 1, 'orange', 'jacket_2.jpg', 'Chất liệu da độc đáo', 7, 1, '2025-05-28 18:39:07', '2025-05-28 18:40:59');
 
 -- --------------------------------------------------------
 
