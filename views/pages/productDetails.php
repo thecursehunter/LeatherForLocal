@@ -15,13 +15,6 @@ if (!$product) {
     header('Location: product.php');
     exit;
 }
-
-// Prepare breadcrumb items
-$breadcrumb_items = [
-    ['label' => 'Home', 'url' => 'index.php'],
-    ['label' => 'Tất Cả Sản Phẩm', 'url' => 'product.php'],
-    ['label' => $product['product_name'], 'url' => null]
-];
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +68,7 @@ $breadcrumb_items = [
             </div>
 
             <div class="size mb-3">
-              <label for="sizeSelect" class="form-label">Kích Thước</label>
+              <label for="sizeSelect" cla ss="form-label">Kích Thước</label>
               <select class="form-select" id="sizeSelect" name="size">
                 <option selected>Free size</option>
               </select>

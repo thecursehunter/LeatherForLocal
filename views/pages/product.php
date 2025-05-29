@@ -12,6 +12,7 @@ $colorLabels = [
     'black' => 'Đen',
     // Add more as needed
 ];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,7 @@ $colorLabels = [
         <div class="container mt-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Tất Cả Sản Phẩm</li>
                 </ol>
             </nav>
