@@ -180,6 +180,7 @@ body {
 /* Footer styles */
 .footer {
   background-color: var(--neutralgray-404040);
+  margin-top: 2rem;
 }
 
 .footer-section-title {
@@ -359,13 +360,13 @@ body {
   margin-bottom: 2rem;
 }
 
-.wrap-top {
+.product-name {
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
-.versatile-and {
+.product-description   {
   color: #666;
   line-height: 1.6;
 }
@@ -547,5 +548,56 @@ body {
   .order-summary {
     margin-top: 2rem;
   }
+}
+
+.product-image-wrapper {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.product-image-inner {
+  /* If you want to keep grid for future, otherwise just use block */
+  display: block;
+}
+
+.product-main-info {
+  margin-bottom: 2rem;
+}
+
+.product-meta {
+  margin-bottom: 2rem;
+}
+
+.product-colors {
+  display: flex;
+  gap: 1rem;
+}
+
+.product-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.product-extra-actions {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.product-features {
+  margin-bottom: 2rem;
+}
+
+.features-list {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.related-products-section {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 3rem 0 2rem;
 }
 
