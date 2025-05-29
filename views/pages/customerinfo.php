@@ -1,0 +1,89 @@
+<?php
+require_once __DIR__ . '/../../src/controllers/CustomerInfoController.php';
+$controller = new CustomerInfoController();
+$member = $controller->handleRequest();
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông Tin Cá Nhân</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #fff0f3; }
+        .profile-section { background-color: #8f9125; border-radius: 10px; }
+        .avatar img { width: 100px; height: 100px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <h2 class="mb-4">THÔNG TIN CÁ NHÂN</h2>
+    <?php if (isset($_GET['success'])): ?>
+        <div class="alert alert-success">Cập nhật thành công!</div>
+    <?php endif; ?>
+    <div class="row profile-section p-4">
+        <div class="col-md-4 text-center">
+            <div class="avatar mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="avatar">
+            </div>
+            <form method="post" id="infoForm">
+                <div class="mb-3">
+                    <label class="form-label">Tên đăng nhập</label>
+                    <input type="text" class="form-control" name="username" value="<?php echo htmlspecialchars($member['username'] ?? ''); ?>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Họ và tên</label>
+                    <input type="text" class="form-control" name="full_name" value="<?php echo htmlspecialchars($member['full_name'] ?? ''); ?>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Địa chỉ</label>
+                    <input type="text" class="form-control" name="address" value="<?php echo htmlspecialchars($member['address'] ?? ''); ?>">
+                </div>
+                <button type="submit" class="btn btn-dark w-100">Lưu thay đổi</button>
+            </form>
+            <a href="index.php" class="btn btn-secondary w-100 mt-2">Về trang chủ</a>
+        </div>
+        <div class="col-md-8">
+            <h4 class="mb-4">Số điện thoại và Email</h4>
+            <div class="mb-3 d-flex align-items-center">
+                <span class="me-2">Số điện thoại:</span>
+                <span id="phone" class="fw-bold me-2"><?php echo htmlspecialchars($member['phone_number'] ?? ''); ?></span>
+                <button class="btn btn-outline-primary btn-sm" onclick="updateField('phone_number')">Cập nhật</button>
+            </div>
+            <div class="mb-3 d-flex align-items-center">
+                <span class="me-2">Email:</span>
+                <span id="email" class="fw-bold me-2"><?php echo htmlspecialchars($member['email'] ?? ''); ?></span>
+                <button class="btn btn-outline-primary btn-sm" onclick="updateField('email')">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function updateField(field) {
+    let current = document.getElementById(field === 'phone_number' ? 'phone' : 'email').innerText;
+    let label = field === 'phone_number' ? 'số điện thoại' : 'email';
+    let value = prompt('Nhập ' + label + ' mới:', current);
+    if (value !== null && value.trim() !== "") {
+        const formData = new FormData();
+        formData.append('ajax', 1);
+        formData.append('field', field);
+        formData.append('value', value);
+        fetch(window.location.pathname, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById(field === 'phone_number' ? 'phone' : 'email').innerText = value;
+                alert('Đã cập nhật ' + label + '!');
+            } else {
+                alert('Cập nhật thất bại!');
+            }
+        });
+    }
+}
+</script>
+</body>
+</html>
