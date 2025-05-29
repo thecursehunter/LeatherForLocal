@@ -15,6 +15,13 @@ if (!$product) {
     header('Location: product.php');
     exit;
 }
+
+// Prepare breadcrumb items
+$breadcrumb_items = [
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Tất Cả Sản Phẩm', 'url' => 'product.php'],
+    ['label' => $product['product_name'], 'url' => null]
+];
 ?>
 
 <!DOCTYPE html>
