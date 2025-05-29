@@ -30,7 +30,7 @@ $products = $productController->getProducts();
           <div class="container position-relative" style="z-index: 2;">
             <div class="row">
               <div class="col-md-6">
-                <h1 class="elegance-in display-3 fw-bold text-dark mb-4">Elegance In Simplicity, Earth's Harmony</h1>
+                <h1 class="elegance-in display-3 fw-bold text-dark mb-4">Đẳng Cấp Phái Mạnh - Chất Da Dẫn Lối</h1>
                 <button class="btn btn-outline-dark button-comp-2 px-4 py-2">New In</button>
               </div>
             </div>
@@ -91,36 +91,38 @@ $products = $productController->getProducts();
                   $product_colors = isset($product['colors']) ? $product['colors'] : [];
                 ?>
                 <div class="col product-item" data-name="<?php echo strtolower($product_name); ?>" data-description="<?php echo strtolower($product_description); ?>">
-                  <div class="card h-100">
-                    <?php
-                      $product_images = isset($product['images']) ? $product['images'] : [];
-                      $product_img_src = count($product_images) > 0 && $product_images[0] !== '' 
-                        ? '../../public/images/products/' . htmlspecialchars($product_images[0]) 
-                        : '../../public/images/products/default.jpg';
-                    ?>
-                    <img src="<?php echo $product_img_src; ?>" class="card-img-top" alt="<?php echo $product_name; ?>" style="height: 300px; object-fit: cover; background-color: #f0f0f0;">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                      <div>
-                        <span class="position-absolute top-0 end-0 p-2">
-                          <span class="material-symbols-rounded">favorite</span>
-                        </span>
-                        <h5 class="card-title"><?php echo $product_name; ?></h5>
-                        <p class="card-text text-muted mb-2"><?php echo $product_description; ?></p>
-                        <div class="colors d-flex gap-2 mb-2">
-                          <?php
-                          for ($j = 0; $j < min(4, count($product_colors)); $j++) {
-                            $color_style = isset($product_colors[$j]) && $product_colors[$j] !== '' ? 'style="background-color: '.htmlspecialchars($product_colors[$j]).';"' : '';
-                            echo "<div class=\"color rounded-circle\" $color_style></div>";
-                          }
-                          ?>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">$<?php echo $product_price; ?></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <a href="productDetails.php?id=<?php echo $product['product_id']; ?>" class="text-decoration-none text-dark">
+    <div class="card h-100">
+      <?php
+        $product_images = isset($product['images']) ? $product['images'] : [];
+        $product_img_src = count($product_images) > 0 && $product_images[0] !== '' 
+          ? '../../public/images/products/' . htmlspecialchars($product_images[0]) 
+          : '../../public/images/products/default.jpg';
+      ?>
+      <img src="<?php echo $product_img_src; ?>" class="card-img-top" alt="<?php echo $product_name; ?>" style="height: 300px; object-fit: cover; background-color: #f0f0f0;">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <span class="position-absolute top-0 end-0 p-2">
+            <span class="material-symbols-rounded">favorite</span>
+          </span>
+          <h5 class="card-title"><?php echo $product_name; ?></h5>
+          <p class="card-text text-muted mb-2"><?php echo $product_description; ?></p>
+          <div class="colors d-flex gap-2 mb-2">
+            <?php
+            for ($j = 0; $j < min(4, count($product_colors)); $j++) {
+              $color_style = isset($product_colors[$j]) && $product_colors[$j] !== '' ? 'style="background-color: '.htmlspecialchars($product_colors[$j]).';"' : '';
+              echo "<div class=\"color rounded-circle\" $color_style></div>";
+            }
+            ?>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-muted"><?php echo $product_price; ?> VNĐ</span>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
                 <?php endfor; ?>
               </div>
             </div>
