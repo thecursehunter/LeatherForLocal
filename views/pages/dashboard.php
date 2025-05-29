@@ -1,20 +1,30 @@
 <?php
-// Example: Fetch stats and notifications from database or controller
+session_start();
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: admin_login.php');
+    exit;
+}
+require_once '../../src/config/Database.php';
+$conn = Database::getInstance();
+// Fetch stats
 $stats = [
-    'completed' => 300,
-    'pending' => 10,
-    'cancelled' => 100,
-    'users' => 350
+    'completed' => 0,
+    'pending' => 0,
+    'cancelled' => 0,
+    'users' => 0
 ];
-$notifications = [
-    'Low stock alert: Balo Hành Trình',
-    '2 new support tickets'
-];
-$recent_activities = [
-    'Admin John added a new product.',
-    'Order #1234 was completed.',
-    'User Jane registered.'
-];
+$res = $conn->query("SELECT COUNT(*) as cnt FROM `order` WHERE status = 'Completed'");
+if ($row = $res->fetch_assoc()) $stats['completed'] = $row['cnt'];
+$res = $conn->query("SELECT COUNT(*) as cnt FROM `order` WHERE status = 'Pending'");
+if ($row = $res->fetch_assoc()) $stats['pending'] = $row['cnt'];
+$res = $conn->query("SELECT COUNT(*) as cnt FROM `order` WHERE status = 'Cancelled'");
+if ($row = $res->fetch_assoc()) $stats['cancelled'] = $row['cnt'];
+$res = $conn->query("SELECT COUNT(*) as cnt FROM member");
+if ($row = $res->fetch_assoc()) $stats['users'] = $row['cnt'];
+// Fetch members
+$members = [];
+$res = $conn->query("SELECT member_id, username, email, phone_number FROM member");
+while ($row = $res->fetch_assoc()) $members[] = $row;
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,131 +42,136 @@ $recent_activities = [
     </style>
 </head>
 <body>
-    <header class="admin-header text-center">
-        <h1>Admin Dashboard</h1>
-        <p>Overview & Quick Stats</p>
-    </header>
+<div class="d-flex">
+    <?php $activePage = 'dashboard'; include __DIR__ . '/../components/admin_sidebar.php'; ?>
     <main class="container my-5">
         <div class="row g-4 mb-4">
             <div class="col-md-3">
-                <div class="bg-white p-4 dashboard-card shadow-sm text-center" data-bs-toggle="modal" data-bs-target="#ordersCompletedModal">
+                <div class="bg-white p-4 dashboard-card shadow-sm text-center">
                     <div class="stat-label">Orders Completed</div>
-                    <div class="stat-value"><?= $stats['completed'] ?>K</div>
+                    <div class="stat-value"><?= $stats['completed'] ?></div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="bg-white p-4 dashboard-card shadow-sm text-center" data-bs-toggle="modal" data-bs-target="#ordersPendingModal">
+                <div class="bg-white p-4 dashboard-card shadow-sm text-center">
                     <div class="stat-label">Orders Pending</div>
-                    <div class="stat-value"><?= $stats['pending'] ?>K</div>
+                    <div class="stat-value"><?= $stats['pending'] ?></div>
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="bg-white p-4 dashboard-card shadow-sm text-center" data-bs-toggle="modal" data-bs-target="#ordersCancelledModal">
+                <div class="bg-white p-4 dashboard-card shadow-sm text-center">
                     <div class="stat-label">Orders Cancelled</div>
-                    <div class="stat-value"><?= $stats['cancelled'] ?>K</div>
+                    <div class="stat-value"><?= $stats['cancelled'] ?></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="bg-white p-4 dashboard-card shadow-sm text-center">
                     <div class="stat-label">Total Users</div>
-                    <div class="stat-value"><?= $stats['users'] ?>K</div>
+                    <div class="stat-value"><?= $stats['users'] ?></div>
                 </div>
             </div>
         </div>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="bg-white p-4 dashboard-card shadow-sm">
-                    <h5>Recent Activity</h5>
-                    <ul class="list-group list-group-flush">
-                        <?php foreach ($recent_activities as $activity): ?>
-                        <li class="list-group-item"><?= htmlspecialchars($activity) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+        <div class="bg-white p-4 dashboard-card shadow-sm">
+            <h5>Members List</h5>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($members as $m): ?>
+                    <tr id="member-row-<?= $m['member_id'] ?>">
+                        <td><?= htmlspecialchars($m['member_id']) ?></td>
+                        <td><?= htmlspecialchars($m['username']) ?></td>
+                        <td><?= htmlspecialchars($m['email']) ?></td>
+                        <td><?= htmlspecialchars($m['phone_number']) ?></td>
+                        <td>
+                            <button class="btn btn-info btn-sm member-view-btn" data-id="<?= $m['member_id'] ?>">View</button>
+                            <button class="btn btn-warning btn-sm member-update-btn" data-id="<?= $m['member_id'] ?>">Update</button>
+                            <a href="member_delete.php?id=<?= $m['member_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Delete this member?')">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- Member View/Update Modal -->
+        <div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="memberModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="memberModalLabel">Member Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="memberModalBody">
+                <!-- Content loaded by AJAX -->
+              </div>
             </div>
-            <div class="col-md-6">
-                <div class="bg-white p-4 dashboard-card shadow-sm">
-                    <h5>Notifications</h5>
-                    <ul class="list-group list-group-flush">
-                        <?php foreach ($notifications as $note): ?>
-                        <li class="list-group-item notification-item" data-bs-toggle="modal" data-bs-target="#notificationModal" data-message="<?= htmlspecialchars($note) ?>">
-                            <?= htmlspecialchars($note) ?>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
+          </div>
         </div>
     </main>
-    <footer class="admin-footer text-center">
-        &copy; 2025 LeatherForLocal Admin Panel
-    </footer>
-
-    <!-- Orders Completed Modal -->
-    <div class="modal fade" id="ordersCompletedModal" tabindex="-1" aria-labelledby="ordersCompletedModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ordersCompletedModalLabel">Orders Completed</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- You can fetch and display more details here -->
-            <p>Details about completed orders...</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Orders Pending Modal -->
-    <div class="modal fade" id="ordersPendingModal" tabindex="-1" aria-labelledby="ordersPendingModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ordersPendingModalLabel">Orders Pending</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Details about pending orders...</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Orders Cancelled Modal -->
-    <div class="modal fade" id="ordersCancelledModal" tabindex="-1" aria-labelledby="ordersCancelledModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ordersCancelledModalLabel">Orders Cancelled</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <p>Details about cancelled orders...</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Notification Modal -->
-    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="notificationModalBody">
-            <!-- Notification message will be inserted here -->
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    // Show notification details in modal
-    document.querySelectorAll('.notification-item').forEach(function(item) {
-        item.addEventListener('click', function() {
-            document.getElementById('notificationModalBody').textContent = this.getAttribute('data-message');
-        });
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Member view
+const memberModal = new bootstrap.Modal(document.getElementById('memberModal'));
+document.querySelectorAll('.member-view-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        fetch('member_view.php?id=' + this.dataset.id)
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('memberModalLabel').textContent = 'Member Details';
+                document.getElementById('memberModalBody').innerHTML = html;
+                memberModal.show();
+            });
     });
-    </script>
+});
+// Member update
+function updateMemberRow(id, data) {
+    const row = document.getElementById('member-row-' + id);
+    if (row) {
+        row.children[1].textContent = data.username;
+        row.children[2].textContent = data.email;
+        row.children[3].textContent = data.phone_number;
+    }
+}
+document.querySelectorAll('.member-update-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        fetch('member_update.php?id=' + this.dataset.id)
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('memberModalLabel').textContent = 'Update Member';
+                document.getElementById('memberModalBody').innerHTML = html;
+                memberModal.show();
+                // Handle update form submit
+                const form = document.getElementById('memberUpdateForm');
+                if (form) {
+                    form.onsubmit = function(e) {
+                        e.preventDefault();
+                        const formData = new FormData(form);
+                        fetch('member_update.php?id=' + btn.dataset.id, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                updateMemberRow(btn.dataset.id, data.member);
+                                memberModal.hide();
+                            } else {
+                                alert('Update failed!');
+                            }
+                        });
+                    };
+                }
+            });
+    });
+});
+</script>
 </body>
 </html>
