@@ -12,14 +12,25 @@ class MemberModel {
     public function getMemberById($memberId) {
         $sql = "SELECT * FROM member WHERE member_id = ?";
         $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->db->error);
+            return false;
+        }
         $stmt->bind_param("i", $memberId);
-        $stmt->execute();
+        if (!$stmt->execute()) {
+            error_log("Execute failed: " . $stmt->error);
+            return false;
+        }
         return $stmt->get_result()->fetch_assoc();
     }
 
     public function updateMemberInfo($memberId, $data) {
         $sql = "UPDATE member SET full_name = ?, phone_number = ?, address = ? WHERE member_id = ?";
         $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->db->error);
+            return false;
+        }
         $stmt->bind_param("sssi", $data['full_name'], $data['phone_number'], $data['address'], $memberId);
         return $stmt->execute();
     }
@@ -34,22 +45,49 @@ class OrderModel {
     }
 
     public function createOrder($data) {
-        $sql = "INSERT INTO `order` (member_id, order_date, total_amount, status, shipping_address, phone_number, notes) 
-                VALUES (?, NOW(), ?, 'Pending', ?, ?, ?)";
-        
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("idsss", 
-            $data['member_id'],
-            $data['total_amount'],
-            $data['shipping_address'],
-            $data['phone_number'],
-            $data['notes']
-        );
+        try {
+            // Log the incoming data for debugging
+            error_log("Creating order with data: " . print_r($data, true));
 
-        if ($stmt->execute()) {
-            return $this->db->insert_id;
+            $sql = "INSERT INTO `order` (
+                member_id, 
+                order_date, 
+                total_amount, 
+                status, 
+                shipping_address, 
+                phone_number,
+                notes
+            ) VALUES (?, NOW(), ?, 'Pending', ?, ?, ?)";
+            
+            $stmt = $this->db->prepare($sql);
+            if (!$stmt) {
+                error_log("Prepare failed: " . $this->db->error);
+                return false;
+            }
+
+            $notes = "Delivery Method: " . $data['delivery_method'] . "\nPayment Method: " . $data['payment_method'];
+
+            $stmt->bind_param("idsss", 
+                $data['member_id'],
+                $data['total_amount'],
+                $data['shipping_address'],
+                $data['phone_number'],
+                $notes
+            );
+
+            if (!$stmt->execute()) {
+                error_log("Execute failed: " . $stmt->error);
+                return false;
+            }
+
+            $orderId = $stmt->insert_id;
+            error_log("Order created successfully with ID: " . $orderId);
+            $stmt->close();
+            return $orderId;
+        } catch (Exception $e) {
+            error_log("Order creation error: " . $e->getMessage());
+            return false;
         }
-        return false;
     }
 
     public function getOrderById($orderId) {
@@ -58,8 +96,15 @@ class OrderModel {
                 JOIN member m ON o.member_id = m.member_id 
                 WHERE o.order_id = ?";
         $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->db->error);
+            return false;
+        }
         $stmt->bind_param("i", $orderId);
-        $stmt->execute();
+        if (!$stmt->execute()) {
+            error_log("Execute failed: " . $stmt->error);
+            return false;
+        }
         return $stmt->get_result()->fetch_assoc();
     }
 }
@@ -73,30 +118,50 @@ class OrderItemModel {
     }
 
     public function createOrderItems($orderId, $items) {
-        $success = true;
-        
-        foreach ($items as $item) {
-            $sql = "INSERT INTO orderitem (order_id, product_id, quantity, unit_price, subtotal) 
-                    VALUES (?, ?, ?, ?, ?)";
-            
-            $stmt = $this->db->prepare($sql);
-            $subtotal = $item['price'] * $item['quantity'];
-            
-            $stmt->bind_param("iidd", 
-                $orderId,
-                $item['id'],
-                $item['quantity'],
-                $item['price'],
-                $subtotal
-            );
+        try {
+            error_log("Creating order items for order ID: " . $orderId);
+            error_log("Items data: " . print_r($items, true));
 
-            if (!$stmt->execute()) {
-                $success = false;
-                break;
+            foreach ($items as $item) {
+                $sql = "INSERT INTO orderitem (
+                    order_id, 
+                    product_id, 
+                    quantity, 
+                    unit_price, 
+                    subtotal
+                ) VALUES (?, ?, ?, ?, ?)";
+                
+                $stmt = $this->db->prepare($sql);
+                if (!$stmt) {
+                    error_log("Prepare failed: " . $this->db->error);
+                    return false;
+                }
+
+                $productId = intval($item['id']);
+                $quantity = intval($item['quantity']);
+                $price = floatval($item['price']);
+                $subtotal = $price * $quantity;
+                
+                $stmt->bind_param("iiiii", 
+                    $orderId,
+                    $productId,
+                    $quantity,
+                    $price,
+                    $subtotal
+                );
+
+                if (!$stmt->execute()) {
+                    error_log("Execute failed for order item: " . $stmt->error);
+                    return false;
+                }
+                $stmt->close();
             }
+            error_log("All order items created successfully");
+            return true;
+        } catch (Exception $e) {
+            error_log("Order item creation error: " . $e->getMessage());
+            return false;
         }
-        
-        return $success;
     }
 
     public function getOrderItems($orderId) {
@@ -105,8 +170,15 @@ class OrderItemModel {
                 JOIN products p ON oi.product_id = p.product_id 
                 WHERE oi.order_id = ?";
         $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->db->error);
+            return false;
+        }
         $stmt->bind_param("i", $orderId);
-        $stmt->execute();
+        if (!$stmt->execute()) {
+            error_log("Execute failed: " . $stmt->error);
+            return false;
+        }
         return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 }
