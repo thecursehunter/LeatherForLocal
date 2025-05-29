@@ -20,28 +20,51 @@ class ProductController {
   }
 
   public function getProductById($id) {
-    // Get the product from our products array
-    foreach ($this->products as $product) {
-      if ($product['id'] == $id) {
-        return $product;
-      }
+    // Get the product from the database using the model
+    $product = $this->productModel->getProductById($id);
+    if (!$product) {
+      return null;
     }
-    return null;
+    return $product;
   }
 
   public function getRelatedProducts($currentProductId, $limit = 3) {
-    // Filter out the current product and get related products
-    $related = array_filter($this->products, function($product) use ($currentProductId) {
-      return $product['id'] != $currentProductId;
+    // Get all products except the current one
+    $allProducts = $this->products;
+    $related = array_filter($allProducts, function($product) use ($currentProductId) {
+      return $product['product_id'] != $currentProductId;
     });
     
     // Shuffle and limit the results
     shuffle($related);
     return array_slice($related, 0, $limit);
   }
+
+  public function getColors() {
+    return $this->productModel->getColors();
+  }
+
+  public function getCategories() {
+    return $this->productModel->getCategories();
+  }
+
+  public function getFilteredProducts($categoryIds = [], $colors = [], $sort = 'az') {
+    return $this->productModel->getFilteredProducts($categoryIds, $colors, $sort);
+  }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'loadMore') {
   $controller = new ProductController();
   $controller->loadMoreProducts();
+}
+
+// AJAX endpoint for category and color filtering
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'filterProducts') {
+    $categories = isset($_POST['categories']) ? $_POST['categories'] : [];
+    $colors = isset($_POST['colors']) ? $_POST['colors'] : [];
+    $sort = isset($_POST['sort']) ? $_POST['sort'] : 'az';
+    $controller = new ProductController();
+    $products = $controller->getFilteredProducts($categories, $colors, $sort);
+    echo json_encode(['products' => $products]);
+    exit;
 }
