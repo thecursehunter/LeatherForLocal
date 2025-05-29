@@ -12,7 +12,6 @@ $colorLabels = [
     // Add more as needed
 ];
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
