@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../../src/controllers/ProductController.php';
 $productController = new ProductController();
 $products = $productController->getProducts();
@@ -27,7 +28,7 @@ $products = $productController->getProducts();
           <div class="container">
             <div class="row">
               <div class="col-md-6">
-                <h1 class="elegance-in display-3 fw-bold text-dark mb-4">Elegance In Simplicity, Earth’s Harmony</h1>
+                <h1 class="elegance-in display-3 fw-bold text-dark mb-4">Elegance In Simplicity, Earth's Harmony</h1>
                 <button class="btn btn-outline-dark button-comp-2 px-4 py-2">New In</button>
               </div>
             </div>
