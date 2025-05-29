@@ -201,15 +201,34 @@ $products = $productController->getProducts();
     alt="Sustainability" 
     style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; border-radius: 12px;"
   >
-  <div class="container h-100 position-relative d-flex flex-column justify-content-end" style="position: relative; z-index: 2;">
-    <div class="row">
-      <div class="col-12 d-flex flex-column align-items-end">
-        <div class="text-end mb-4" style="max-width: 800px;">
-          <p class="lead mb-3 fw-bold" style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-size: 1.5rem; line-height: 2.2rem; word-break: break-word;">
-            Thời trang bền vững – phong cách đích thực cho những<br>
-            lựa chọn xanh vì một tương lai tốt đẹp hơn.
-          </p>
-          <button class="btn btn-outline-light px-4 py-2">Phát Triển Bền Vững</button>
+  <div class="container h-100 position-relative" style="position: relative; z-index: 2;">
+    <div class="row h-100">
+      <div class="col-12 h-100 d-flex flex-column justify-content-end align-items-end">
+        <div 
+          class="mb-5" 
+          style="
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+          "
+        >
+          <div 
+            style="
+              background: rgba(255,255,255,0.25);
+              border-radius: 12px;
+              padding: 32px 36px 24px 36px;
+              max-width: 850px;
+              margin-right: 32px;
+              margin-bottom: 16px;
+              text-align: right;
+            "
+          >
+            <p class="lead mb-3 fw-bold" style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-size: 1.5rem; line-height: 2.2rem; word-break: break-word;">
+              Thời trang bền vững - phong cách đích thực cho những<br>
+              lựa chọn xanh vì một tương lai tốt đẹp hơn
+            </p>
+            <button class="btn btn-outline-light px-4 py-2">Phát Triển Bền Vững</button>
+          </div>
         </div>
       </div>
     </div>
