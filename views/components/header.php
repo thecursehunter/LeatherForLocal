@@ -42,73 +42,18 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item position-relative mega-parent" id="collectionNavItem">
-        <a class="nav-link" href="#">Bộ Sưu Tập</a>
+        <a class="nav-link" href="../../views/pages/product.php">Tất Cả Sản Phẩm</a>
         <div class="mega-menu bg-white shadow" id="collectionMegaMenu">
             <div class="container py-4 d-flex">
                 <div class="row w-100">
                     <div class="col-3">
                         <h6 class="fw-bold mb-3">Phân Loại</h6>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="text-dark text-decoration-none">Áo Khoác Da</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Quần Da</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Giày Da</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Quần Ngắn Da</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Áo Sơ Mi Da</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Phụ Kiện Da</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Đồ Liền Da</a></li>
+                            <li><a href="../../views/pages/product.php?category[]=1" class="text-dark text-decoration-none">Balo</a></li>
+                            <li><a href="../../views/pages/product.php?category[]=2" class="text-dark text-decoration-none">Túi Xách</a></li>
+                            <li><a href="../../views/pages/product.php?category[]=3" class="text-dark text-decoration-none">Áo Khoác</a></li>
+                            <li><a href="../../views/pages/product.php?category[]=4" class="text-dark text-decoration-none">Phụ Kiện</a></li>
                         </ul>
-                    </div>
-                    <div class="col-3">
-                        <h6 class="fw-bold mb-3">Nổi Bật</h6>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-dark text-decoration-none">Sản Phẩm Mới</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Kích Cỡ Lớn</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Sản Phẩm Bán Chạy</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-3">
-                        <h6 class="fw-bold mb-3">Nhiều Hơn</h6>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-dark text-decoration-none">Phong Cách Street</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Biker</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Cổ Điển</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Trang Phục Lễ Hội</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Hàng Limited</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-3 d-flex flex-column align-items-center">
-                        <img src="../../public/images/collection/leather-pants.jpg" alt="Blouses" style="width:100%;max-width:140px;object-fit:cover;">
-                        <span class="mt-2">Quần Da</span>
-                        <img src="../../public/images/collection/leather-jackets(+size).jpg" alt="Plus Size" class="mt-4" style="width:100%;max-width:140px;object-fit:cover;">
-                        <span class="mt-2">Kích Cỡ Lớn</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </li>
-                    <li class="nav-item position-relative mega-parent" id="newInNavItem">
-        <a class="nav-link" href="#">Sản Phẩm Mới</a>
-        <div class="mega-menu bg-white shadow" id="newInMegaMenu">
-            <div class="container py-4 d-flex">
-                <div class="row w-100">
-                    <div class="col-4">
-                        <h6 class="fw-bold mb-3">Hàng Mới</h6>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-dark text-decoration-none">Túi Xách Mới Nhất</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Áo Khoác Mới Nhất</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Phụ Kiện Mới Nhất</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-4">
-                        <h6 class="fw-bold mb-3">Xu Hướng</h6>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-dark text-decoration-none">Sản Phẩm Bán Chạy</a></li>
-                            <li><a href="#" class="text-dark text-decoration-none">Top Rated</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-4 d-flex flex-column align-items-center">
-                        <img src="../../public/images/collection/leather-newin.jpg" alt="New In" style="width:100%;max-width:140px;object-fit:cover;">
-                        <span class="mt-2">Sản Phẩm Mới</span>
                     </div>
                 </div>
             </div>
@@ -165,7 +110,10 @@
                     <span class="material-symbols-rounded search-icon">search</span>
                     </button>
                     <span class="material-symbols-rounded">favorite</span>
-                    <span class="material-symbols-rounded">shopping_cart</span>
+                    <a href="/views/pages/cart.php" class="cart-icon-wrapper text-dark text-decoration-none">
+                        <span class="material-symbols-rounded">shopping_cart</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
                     <span class="material-symbols-rounded">account_circle</span>
                 </div>
             </div>
@@ -174,7 +122,7 @@
     <div class="search-box" id="searchBox">
             <div class="search-wrapper">
               <span class="material-symbols-rounded search-icon">search</span>
-              <input type="text" class="form-control search-input" placeholder="Search products..." id="searchInput">
+              <input type="text" class="form-control search-input" placeholder="Tìm kiếm sản phẩm..." id="searchInput">
               <button class="clear-button" id="clearButton">
                 <span class="material-symbols-rounded">close</span>
               </button>
@@ -182,24 +130,57 @@
             <div class="search-results" id="searchResults"></div>
           </div>
     <script>
-  const navbarFunctions = document.querySelector('.navbar-functions');
-  const searchButton = document.getElementById('searchButton');
-  const searchBox = document.getElementById('searchBox');
-  const searchInput = document.getElementById('searchInput');
-  const searchResults = document.getElementById('searchResults');
-  const clearButton = document.getElementById('clearButton');
+      // Function to update cart count
+      function updateCartCount() {
+          const cart = JSON.parse(localStorage.getItem('cart')) || [];
+          const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+          const cartCountElement = document.getElementById('cartCount');
+          cartCountElement.textContent = totalItems;
+          
+          // Hide badge if cart is empty
+          cartCountElement.style.display = totalItems > 0 ? 'block' : 'none';
+      }
 
-  let allProducts = [];
+      // Update cart count when page loads
+      document.addEventListener('DOMContentLoaded', updateCartCount);
 
-  // Fetch products once on page load
-  fetch('../../src/api/products.php')
-    .then(response => response.json())
-    .then(data => { allProducts = data; });
+      // Listen for changes in localStorage
+      window.addEventListener('storage', function(e) {
+          if (e.key === 'cart') {
+              updateCartCount();
+          }
+      });
 
-  searchButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
-  });
+      // Update cart count every time cart changes
+      const originalSetItem = localStorage.setItem;
+      localStorage.setItem = function(key, value) {
+          originalSetItem.apply(this, arguments);
+          if (key === 'cart') {
+              updateCartCount();
+          }
+      };
+
+      const navbarFunctions = document.querySelector('.navbar-functions');
+      const searchButton = document.getElementById('searchButton');
+      const searchBox = document.getElementById('searchBox');
+      const searchInput = document.getElementById('searchInput');
+      const searchResults = document.getElementById('searchResults');
+      const clearButton = document.getElementById('clearButton');
+      const productList = document.getElementById('productList');
+
+      // Lưu trạng thái ban đầu của các phần tử
+      const searchableItems = document.querySelectorAll('[data-name], [data-description]');
+      const initialDisplayStates = new Map();
+      searchableItems.forEach(item => {
+        const computedStyle = window.getComputedStyle(item).display;
+        initialDisplayStates.set(item, computedStyle);
+      });
+
+      // Hiển thị ô tìm kiếm khi nhấp vào button tìm kiếm hoặc hover
+      searchButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        searchBox.style.display = searchBox.style.display === 'block' ? 'none' : 'block';
+      });
 
   navbarFunctions.addEventListener('mouseenter', () => {
     searchBox.style.display = 'block';
@@ -221,7 +202,14 @@
     searchBox.style.display = 'none';
     searchResults.style.display = 'none';
   });
+let allProducts = [];
 
+// Fetch products from API once on page load
+fetch('../../src/api/products.php')
+  .then(response => response.json())
+  .then(data => {
+    allProducts = data;
+  });
   function performSearch() {
     const searchTerm = searchInput.value.toLowerCase();
     clearButton.style.display = searchTerm ? 'block' : 'none';
