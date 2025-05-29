@@ -12,6 +12,7 @@ $colorLabels = [
     'black' => 'Đen',
     // Add more as needed
 ];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +42,7 @@ $colorLabels = [
         <div class="container mt-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Tất Cả Sản Phẩm</li>
                 </ol>
             </nav>
@@ -301,6 +302,22 @@ $colorLabels = [
             }
             $('.color-filter, .category-filter, #sortSelect').on('change', fetchFilteredProducts);
         });
+        // Auto-check category filter if category[] is present in URL
+$(document).ready(function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const categories = urlParams.getAll('category[]');
+    if (categories.length > 0) {
+        categories.forEach(function(catId) {
+            $('#cat' + catId).prop('checked', true);
+        });
+        // Trigger filter after checking
+        $('.category-filter').trigger('change');
+        // Expand the category accordion if any filter is checked
+        if ($('.category-filter:checked').length > 0) {
+            $('#category').addClass('show');
+        }
+    }
+});
     </script>
 </body>
 </html>

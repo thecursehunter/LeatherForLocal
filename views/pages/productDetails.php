@@ -71,7 +71,7 @@ $breadcrumb_items = [
               <div class="button-comp-wrapper">
                 <div class="button-comp"><div class="text-wrapper-10">Hướng Dẫn Chọn Size</div></div>
               </div>
-              <button class="button"><div class="text-wrapper-11">Thêm Vào Giỏ</div></button>
+              <button class="button" id="addToCartBtn"><div class="text-wrapper-11">Thêm Vào Giỏ</div></button>
             </div>
 
             <div class="size mb-3">
@@ -79,6 +79,15 @@ $breadcrumb_items = [
               <select class="form-select" id="sizeSelect" name="size">
                 <option selected>Free size</option>
               </select>
+            </div>
+            <!-- Quantity Selector -->
+            <div class="mb-3">
+              <label class="form-label">Số Lượng</label>
+              <div class="d-flex align-items-center" style="max-width: 160px;">
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="decreaseQty">-</button>
+                <input type="number" class="form-control mx-2 text-center" id="quantityInput" value="1" min="1" style="width: 60px;" readonly>
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="increaseQty">+</button>
+              </div>
             </div>
 
             <div class="product-extra-actions mb-3">
@@ -147,5 +156,44 @@ $breadcrumb_items = [
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+      // Quantity selector logic
+      const decreaseBtn = document.getElementById('decreaseQty');
+      const increaseBtn = document.getElementById('increaseQty');
+      const quantityInput = document.getElementById('quantityInput');
+      decreaseBtn.addEventListener('click', () => {
+        let val = parseInt(quantityInput.value);
+        if (val > 1) quantityInput.value = val - 1;
+      });
+      increaseBtn.addEventListener('click', () => {
+        let val = parseInt(quantityInput.value);
+        quantityInput.value = val + 1;
+      });
+
+      // Add to cart logic
+      document.getElementById('addToCartBtn').addEventListener('click', function() {
+        const product = {
+          id: <?php echo json_encode($product['product_id']); ?>,
+          name: <?php echo json_encode($product['product_name']); ?>,
+          image: <?php echo json_encode(isset($product['images'][0]) ? '../../public/images/products/' . $product['images'][0] : ''); ?>,
+          price: <?php echo json_encode($product['price']); ?>,
+          size: document.getElementById('sizeSelect').value,
+          color: <?php echo json_encode(isset($product['colors'][0]) ? $product['colors'][0] : ''); ?>, // Default to first color
+          quantity: parseInt(document.getElementById('quantityInput').value)
+        };
+        // Get cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        // Check if product with same id, size, color exists
+        let existing = cart.find(item => item.id === product.id && item.size === product.size && item.color === product.color);
+        if (existing) {
+          existing.quantity += product.quantity;
+        } else {
+          cart.push(product);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        // Optionally show confirmation
+        alert('Đã thêm vào giỏ hàng!');
+      });
+    </script>
   </body>
 </html> 

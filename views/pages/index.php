@@ -24,22 +24,58 @@ $products = $productController->getProducts();
     <div class="desktop-landing">
       <div class="div">
         <?php include __DIR__ . '/../components/header.php'; ?>
-        <div class="hero position-relative d-flex align-items-center text-start" style="background-image: url('path-to-hero-image.jpg'); background-size: cover; background-position: center; min-height: 70vh;">
-          <div class="container">
+        <div class="hero position-relative d-flex align-items-center text-start" id="heroSection" style="background-size: cover; background-position: center; min-height: 70vh; transition: background-image 0.7s cubic-bezier(0.4,0,0.2,1);">
+            <!-- Overlay for better text readability -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.35); z-index: 1;"></div>
+          <div class="container position-relative" style="z-index: 2;">
             <div class="row">
               <div class="col-md-6">
-                <h1 class="elegance-in display-3 fw-bold text-dark mb-4">Elegance In Simplicity, Earth's Harmony</h1>
-                <button class="btn btn-outline-dark button-comp-2 px-4 py-2">New In</button>
+                <h1 class="Hero-Title display-3 fw-bold text-white mb-4">Đẳng Cấp Phái Mạnh - Chất Da Dẫn Lối</h1>
               </div>
             </div>
           </div>
         </div>
+        <script>
+          // Array of hero images (update filenames as needed)
+          const heroImages = [
+            '../../public/images/hero-section/hero-1.jpg',
+            '../../public/images/hero-section/hero-2.jpg',
+            '../../public/images/hero-section/hero-3.jpg'
+          ];
+          let currentHeroIndex = 0;
+          const heroSection = document.getElementById('heroSection');
+          // Set initial background
+          heroSection.style.backgroundImage = `url('${heroImages[0]}')`;
+
+          function showNextHeroImage() {
+            currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+            heroSection.style.backgroundImage = `url('${heroImages[currentHeroIndex]}')`;
+          }
+
+          // Swipe support (right to left)
+          let startX = null;
+          heroSection.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+          });
+          heroSection.addEventListener('touchend', function(e) {
+            if (startX !== null) {
+              let endX = e.changedTouches[0].clientX;
+              if (startX - endX > 50) { // swipe left
+                showNextHeroImage();
+              }
+              startX = null;
+            }
+          });
+
+          // Auto slide every 5 seconds
+          setInterval(showNextHeroImage, 5000);
+        </script>
         <div class="best-seller-cards container my-5">
           <div class="row">
             <div class="col-12">
               <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="display-4 fw-bold text-start">Best Sellers</h2>
-                <button class="btn btn-link text-decoration-none text-dark">View All</button>
+                <a href="product.php" class="btn btn-link text-decoration-none text-dark">View All</a>
               </div>
             </div>
             <div class="col-12">
@@ -48,36 +84,44 @@ $products = $productController->getProducts();
                 // Render up to 3 product cards
                 for ($i = 0; $i < 3 && $i < count($products); $i++):
                   $product = $products[$i];
-                  $product_name = htmlspecialchars($product['name']);
+                  $product_name = htmlspecialchars($product['product_name']);
                   $product_description = htmlspecialchars($product['description']);
-                  $product_price = number_format($product['price'], 0);
+                  $product_price = number_format($product['price'], 0, ',', '.');
                   $product_colors = isset($product['colors']) ? $product['colors'] : [];
                 ?>
                 <div class="col product-item" data-name="<?php echo strtolower($product_name); ?>" data-description="<?php echo strtolower($product_description); ?>">
-                  <div class="card h-100">
-                    <img src="path-to-product-image-<?php echo $i + 1; ?>.jpg" class="card-img-top" alt="<?php echo $product_name; ?>" style="height: 300px; object-fit: cover; background-color: #f0f0f0;">
-                    <div class="card-body d-flex flex-column justify-content-between">
-                      <div>
-                        <span class="position-absolute top-0 end-0 p-2">
-                          <span class="material-symbols-rounded">favorite</span>
-                        </span>
-                        <h5 class="card-title"><?php echo $product_name; ?></h5>
-                        <p class="card-text text-muted mb-2"><?php echo $product_description; ?></p>
-                        <div class="colors d-flex gap-2 mb-2">
-                          <?php
-                          for ($j = 0; $j < min(4, count($product_colors)); $j++) {
-                            $color_style = isset($product_colors[$j]) && $product_colors[$j] !== '' ? 'style="background-color: '.htmlspecialchars($product_colors[$j]).';"' : '';
-                            echo "<div class=\"color rounded-circle\" $color_style></div>";
-                          }
-                          ?>
-                        </div>
-                      </div>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">$<?php echo $product_price; ?></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <a href="productDetails.php?id=<?php echo $product['product_id']; ?>" class="text-decoration-none text-dark">
+    <div class="card h-100">
+      <?php
+        $product_images = isset($product['images']) ? $product['images'] : [];
+        $product_img_src = count($product_images) > 0 && $product_images[0] !== '' 
+          ? '../../public/images/products/' . htmlspecialchars($product_images[0]) 
+          : '../../public/images/products/default.jpg';
+      ?>
+      <img src="<?php echo $product_img_src; ?>" class="card-img-top" alt="<?php echo $product_name; ?>" style="height: 300px; object-fit: cover; background-color: #f0f0f0;">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <span class="position-absolute top-0 end-0 p-2">
+            <span class="material-symbols-rounded">favorite</span>
+          </span>
+          <h5 class="card-title"><?php echo $product_name; ?></h5>
+          <p class="card-text text-muted mb-2"><?php echo $product_description; ?></p>
+          <div class="colors d-flex gap-2 mb-2">
+            <?php
+            for ($j = 0; $j < min(4, count($product_colors)); $j++) {
+              $color_style = isset($product_colors[$j]) && $product_colors[$j] !== '' ? 'style="background-color: '.htmlspecialchars($product_colors[$j]).';"' : '';
+              echo "<div class=\"color rounded-circle\" $color_style></div>";
+            }
+            ?>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-muted"><?php echo $product_price,",000"; ?> VNĐ</span>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
                 <?php endfor; ?>
               </div>
             </div>
@@ -93,23 +137,23 @@ $products = $productController->getProducts();
             <div class="col-12">
               <div class="row">
                 <div class="col-md-6 collection-pic-left mb-4 mb-md-0">
-                  <div class="pic-3 position-relative mb-4" data-name="boluses">
-                    <div class="image-placeholder" style="height: 300px; background-color: #f0f0f0;"></div>
-                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Boluses</button>
+                  <div class="pic-3 position-relative mb-4" data-name="shirts">
+                    <img src="../../public/images/collection/leather-shirts.jpg" alt="Leather Shirts" style="width:100%; height: 300px; object-fit: cover; display: block;">
+                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Shirts</button>
                   </div>
-                  <div class="pic-4 position-relative" data-name="dresses">
-                    <div class="image-placeholder" style="height: 600px; background-color: #f0f0f0;"></div>
-                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Dresses</button>
+                  <div class="pic-4 position-relative" data-name="jackets">
+                    <img src="../../public/images/collection/leather-jackets.jpg" alt="Leather Jackets" style="width:100%; height: 600px; object-fit: cover; display: block;">
+                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Jackets</button>
                   </div>
                 </div>
                 <div class="col-md-6 collection-pic-right">
                   <div class="pic position-relative mb-4" data-name="pants">
-                    <div class="image-placeholder" style="height: 600px; background-color: #f0f0f0;"></div>
+                    <img src="../../public/images/collection/leather-pants.jpg" alt="Leather Pants" style="width:100%; height: 600px; object-fit: cover; display: block;">
                     <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Pants</button>
                   </div>
-                  <div class="pic-2 position-relative" data-name="outwear">
-                    <div class="image-placeholder" style="height: 300px; background-color: #f0f0f0;"></div>
-                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Outwear</button>
+                  <div class="pic-2 position-relative" data-name="footwear">
+                    <img src="../../public/images/collection/leather-footwear.jpg" alt="Leather Footwear" style="width:100%; height: 300px; object-fit: cover; display: block;">
+                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Footwear</button>
                   </div>
                 </div>
               </div>
@@ -125,27 +169,33 @@ $products = $productController->getProducts();
             </div>
             <div class="col-12">
               <div class="row row-cols-1 row-cols-md-5 g-4">
-                <?php
-                $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
-                for ($i = 0; $i < 5; $i++):
-                ?>
-                <div class="col" data-name="<?php echo strtolower($days[$i]); ?>">
-                  <div class="position-relative">
-                    <div class="image-placeholder" style="height: 300px; background-color: #f0f0f0;"></div>
-                    <span class="position-absolute top-0 end-0 p-2">
-                      <span class="material-symbols-rounded">favorite</span>
-                    </span>
-                    <div class="text-center mt-2">
-                      <p class="mb-0"><?php echo $days[$i]; ?></p>
-                    </div>
-                  </div>
-                </div>
-                <?php endfor; ?>
-              </div>
+        <?php
+        $days = [
+          'Sunday' => '../../public/images/leatherweek/week-sun.jpg',
+          'Monday' => '../../public/images/leatherweek/week-mon.jpg',
+          'Tuesday' => '../../public/images/leatherweek/week-tues.jpg',
+          'Wednesday' => '../../public/images/leatherweek/week-wed.jpg',
+          'Thursday' => '../../public/images/leatherweek/week-thurs.jpg'
+        ];
+        foreach ($days as $day => $imgPath):
+        ?>
+        <div class="col" data-name="<?php echo strtolower($day); ?>">
+          <div class="position-relative">
+            <img src="<?php echo $imgPath; ?>" alt="<?php echo $day; ?>" style="height: 300px; width: 100%; object-fit: cover; background-color: #f0f0f0;">
+            <span class="position-absolute top-0 end-0 p-2">
+              <span class="material-symbols-rounded">favorite</span>
+            </span>
+            <div class="text-center mt-2">
+              <p class="mb-0"><?php echo $day; ?></p>
             </div>
           </div>
         </div>
-        <div class="sustainability position-relative" data-description="stylish sustainability in clothing promotes eco-friendly choices for a greater future" style="background-image: url('path-to-sustainability-image.jpg'); background-size: cover; background-position: center; min-height: 70vh;">
+        <?php endforeach; ?>
+      </div>
+    </div>
+  </div>
+</div>
+        <div class="sustainability position-relative" data-description="stylish sustainability in clothing promotes eco-friendly choices for a greater future" style="background-image: url('../../public/images/sustainability.jpg '); background-size: cover; background-position: center; min-height: 70vh;">
           <div class="container h-100">
             <div class="row h-100">
               <div class="col-12 h-100 d-flex justify-content-end align-items-end pb-3 pe-3">
@@ -174,29 +224,17 @@ $products = $productController->getProducts();
               <div class="row frame-8">
                 <div class="col-6 button-comp-wrapper position-relative">
                   <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                  <button class="btn btn-primary button-comp-4 position-absolute bottom-0 end-0 mb-3 me-3" data-name="shop now">
-                    <span class="add-to-cart-3">Shop Now</span>
-                  </button>
                 </div>
                 <div class="col-6 frame-9 position-relative">
                   <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                  <button class="btn btn-primary button-comp-4 position-absolute bottom-0 end-0 mb-3 me-3" data-name="shop now">
-                    <span class="add-to-cart-3">Shop Now</span>
-                  </button>
                 </div>
               </div>
               <div class="row frame-10 mt-4">
                 <div class="col-6 frame-11 position-relative">
                   <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                  <button class="btn btn-primary button-comp-4 position-absolute bottom-0 end-0 mb-3 me-3" data-name="shop now">
-                    <span class="add-to-cart-3">Shop Now</span>
-                  </button>
                 </div>
                 <div class="col-6 frame-12 position-relative">
                   <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                  <button class="btn btn-primary button-comp-4 position-absolute bottom-0 end-0 mb-3 me-3" data-name="shop now">
-                    <span class="add-to-cart-3">Shop Now</span>
-                  </button>
                 </div>
               </div>
             </div>

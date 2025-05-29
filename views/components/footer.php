@@ -76,10 +76,10 @@
                 </div>
                 <div class="col-md-4 text-center">
                     <div class="footer-social-media d-flex justify-content-center gap-3">
-                        <img class="img" src="../../img/social-media-3.svg" />
-                        <img class="img" src="../../img/social-media-2.svg" />
-                        <img class="img" src="../../img/social-media.svg" />
-                        <img class="img" src="../../img/social-media-4.svg" />
+                        <img class="img" src="../../public/images/social media/discord.svg" />
+                        <img class="img" src="../../public/images/social media/x.svg" />
+                        <img class="img" src="../../public/images/social media/instagram.svg" />
+                        <img class="img" src="../../public/images/social media/youtube.svg" />
                     </div>
                 </div>
             </div>
