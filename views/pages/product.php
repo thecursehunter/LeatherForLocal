@@ -1,9 +1,18 @@
 <?php
+session_start();
 require_once '../../src/controllers/ProductController.php';
 $productController = new ProductController();
 $products = $productController->getProducts();
+$colors = $productController->getColors();
+$categories = $productController->getCategories();
+// Color label mapping
+$colorLabels = [
+    'orange' => 'Nâu',
+    'crimson' => 'Đỏ thẫm',
+    'black' => 'Đen',
+    // Add more as needed
+];
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,49 +36,13 @@ $products = $productController->getProducts();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+    <?php include __DIR__ . '/../components/header.php'; ?>
     <div class="container-fluid p-0">
-        <header class="HEADER">
-            <div class="overlap-group bg-primary">
-                <div class="h-green-line"><div class="text"></div></div>
-                <p class="shipping-banner-text text-white text-center py-2 mb-0">Enjoy Free Shipping On All Orders</p>
-            </div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <div class="logo">
-                            <div class="title">
-                                <span class="material-symbols-rounded logo-icon">store</span>
-                                <div class="logo-title">LeatherForLocal</div>
-                            </div>
-                            <div class="logo-subtitle">Thời trang da cho nam giới</div>
-                        </div>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a class="nav-link" href="#">Bộ Sưu Tập</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Sản Phẩm Mới</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Leatherweek</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Về chúng tôi</a></li>
-                        </ul>
-                        <div class="navbar-functions d-flex gap-3">
-                            <div class="header-search-icon"></div>
-                            <span class="material-symbols-rounded">account_circle</span>
-                            <div class="header-favorite-icon"></div>
-                            <span class="material-symbols-rounded">shopping_cart</span>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
         <div class="container mt-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Shop All</li>
+                    <li class="breadcrumb-item active" aria-current="page">Tất Cả Sản Phẩm</li>
                 </ol>
             </nav>
 
@@ -79,51 +52,55 @@ $products = $productController->getProducts();
                     <div class="filter">
                         <h3 class="filters mb-3">Filters</h3>
                         <div class="accordion" id="filterAccordion">
+                            <!-- Sort By (now with select) -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#sortBy">
-                                        Sort By
+                                        Sắp xếp theo
                                     </button>
                                 </h2>
                                 <div id="sortBy" class="accordion-collapse collapse show" data-bs-parent="#filterAccordion">
                                     <div class="accordion-body">
-                                        <!-- Sort options here -->
+                                        <select id="sortSelect" class="form-select mb-2">
+                                            <option value="az">Tên A-Z</option>
+                                            <option value="za">Tên Z-A</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Category Filter -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#size">
-                                        Size
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#category">
+                                        Danh Mục
                                     </button>
                                 </h2>
-                                <div id="size" class="accordion-collapse collapse" data-bs-parent="#filterAccordion">
+                                <div id="category" class="accordion-collapse collapse" data-bs-parent="#filterAccordion">
                                     <div class="accordion-body">
-                                        <!-- Size options here -->
+                                        <?php foreach ($categories as $cat): ?>
+                                        <div>
+                                            <input type="checkbox" class="category-filter" name="category[]" value="<?= $cat['category_id'] ?>" id="cat<?= $cat['category_id'] ?>">
+                                            <label for="cat<?= $cat['category_id'] ?>"><?= htmlspecialchars($cat['name']) ?></label>
+                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Color Filter -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#color">
-                                        Color
+                                        Màu
                                     </button>
                                 </h2>
                                 <div id="color" class="accordion-collapse collapse" data-bs-parent="#filterAccordion">
                                     <div class="accordion-body">
-                                        <!-- Color options here -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collection">
-                                        Collection
-                                    </button>
-                                </h2>
-                                <div id="collection" class="accordion-collapse collapse" data-bs-parent="#filterAccordion">
-                                    <div class="accordion-body">
-                                        <!-- Collection options here -->
+                                        <?php foreach ($colors as $color): ?>
+                                        <div>
+                                            <input type="checkbox" class="color-filter" name="color[]" value="<?= htmlspecialchars($color) ?>" id="color<?= htmlspecialchars($color) ?>">
+                                            <label for="color<?= htmlspecialchars($color) ?>"><?php echo isset($colorLabels[$color]) ? $colorLabels[$color] : htmlspecialchars(ucfirst($color)); ?></label>
+                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>
@@ -146,8 +123,11 @@ $products = $productController->getProducts();
                             echo "<div class='$row_section row mb-4' id='product-list-$row_section'>";
                             for ($i = 0; $i < $products_per_row && $current_product_index < $total_products; $i++) {
                                 $product = $products[$current_product_index];
+                                $image = isset($product['images'][0]) ? $product['images'][0] : 'default.jpg';
                                 echo "<div class='col-md-6 mb-4'>";
-                                echo "<div class='card h-100'>";
+                                echo "<a href='productDetails.php?id=" . htmlspecialchars($product['product_id']) . "' class='text-decoration-none text-dark'>";
+                                echo "<div class='card h-100 position-relative'>";
+                                echo "<img src='../../public/images/products/" . htmlspecialchars($image) . "' class='card-img-top product-img' alt='" . htmlspecialchars($product['product_name']) . "'>";
                                 if (isset($product['is_new']) && $product['is_new']) {
                                     echo "<div class='product-badge'>";
                                     echo "<span class='badge bg-white text-dark'>New</span>";
@@ -155,21 +135,22 @@ $products = $productController->getProducts();
                                 }
                                 echo "<div class='card-body'>";
                                 echo "<div class='product-info-container'>";
-                                echo "<div class='product-details'>";
-                                echo "<h5 class='product-name'>" . htmlspecialchars($product['name']) . "</h5>";
+                                echo "<div class='product-details mb-2'>";
+                                echo "<h5 class='product-name'>" . htmlspecialchars($product['product_name']) . "</h5>";
                                 echo "<p class='product-description'>" . htmlspecialchars($product['description']) . "</p>";
-                                echo "<div class='colors d-flex gap-2'>";
+                                echo "<div class='colors d-flex gap-2 mb-2'>";
                                 foreach ($product['colors'] as $color) {
                                     echo "<div class='color rounded-circle' style='background-color: " . htmlspecialchars($color) . ";'></div>";
                                 }
                                 echo "</div>";
                                 echo "</div>";
                                 echo "<div class='product-price'>";
-                                echo "<div class='product-price-text'>$" . number_format($product['price'], 2) . "</div>";
+                                echo "<div class='product-price-text'>" . number_format($product['price'], 3, ',', '.') . " VNĐ" . "</div>";
                                 echo "</div>";
                                 echo "</div>";
                                 echo "</div>";
                                 echo "</div>";
+                                echo "</a>";
                                 echo "</div>";
                                 $current_product_index++;
                             }
@@ -185,71 +166,7 @@ $products = $productController->getProducts();
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer bg-dark text-white mt-5">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5 class="footer-section-title">Về LeatherForLocal</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-white text-decoration-none">Bộ Sưu Tập</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Phát Triển Bền Vững</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Chính Sách Bảo Mật</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Hệ Thống Hỗ Trợ</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Điều Khoản & Điều Kiện</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Bản Quyền</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h5 class="footer-section-title">Trợ Giúp & Hỗ Trợ</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-white text-decoration-none">Đơn Hàng & Vận Chuyển</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Đổi Trả & Hoàn Tiền</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Câu Hỏi Thường Gặp</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Liên Hệ Chúng Tôi</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <h5 class="footer-join-title">Tham Gia</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-white text-decoration-none">Câu Lạc Bộ LeatherForLocal</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Tuyển Dụng</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">Ghép Thăm Chúng Tôi</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-6">
-                        <h5 class="mb-3">Tham Gia Câu Lạc Bộ, Nhận Ngay 15% Cho Ngày Sinh Nhật</h5>
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Nhập Địa Chỉ Email Của Bạn">
-                            <button class="btn btn-primary" type="button">Đăng Ký</button>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="termsCheck">
-                            <label class="form-check-label" for="termsCheck">
-                                Bằng việc gửi email của bạn, bạn đồng ý nhận email quảng cáo từ LeatherForLocal.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container-fluid bg-dark py-3">
-                <div class="row align-items-center">
-                    <div class="col-md-4">
-                        <p class="mb-0">&copy; 2025 LeatherForLocal. Bảo Lưu Mọi Quyền.</p>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="footer-social-media d-flex justify-content-center gap-3">
-                            <img class="img" src="../../img/social-media-3.svg" />
-                            <img class="img" src="../../img/social-media-2.svg" />
-                            <img class="img" src="../../img/social-media.svg" />
-                            <img class="img" src="../../img/social-media-4.svg" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <?php include __DIR__ . '/../components/footer.php'; ?>
     </div>
 
     <script>
@@ -276,7 +193,8 @@ $products = $productController->getProducts();
                             response.products.forEach(function(product, index) {
                                 let productHtml = `
                                     <div class="col-md-6 mb-4">
-                                        <div class="card h-100">
+                                        <div class="card h-100 position-relative">
+                                            <img src='../../public/images/products/${product.image}' class='card-img-top product-img' alt='${product.name}'>
                                             ${product.is_new ? `
                                                 <div class="product-badge">
                                                     <span class="badge bg-white text-dark">New</span>
@@ -287,14 +205,14 @@ $products = $productController->getProducts();
                                                     <div class="product-details">
                                                         <h5 class="product-name">${product.name}</h5>
                                                         <p class="product-description">${product.description}</p>
-                                                        <div class="colors d-flex gap-2">
+                                                        <div class="colors d-flex gap-2 mb-3">
                                                             ${product.colors.map(color => `
                                                                 <div class="color rounded-circle" style="background-color: ${color};"></div>
                                                             `).join('')}
                                                         </div>
                                                     </div>
                                                     <div class="product-price">
-                                                        <div class="product-price-text">$${product.price}</div>
+                                                        <div class="product-price-text">${Number(product.price).toLocaleString('vi-VN')} VNĐ</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -317,6 +235,71 @@ $products = $productController->getProducts();
                     }
                 });
             });
+
+            function fetchFilteredProducts() {
+                let selectedColors = [];
+                $('.color-filter:checked').each(function() {
+                    selectedColors.push($(this).val());
+                });
+                let selectedCategories = [];
+                $('.category-filter:checked').each(function() {
+                    selectedCategories.push($(this).val());
+                });
+                let sort = $('#sortSelect').val();
+                $.ajax({
+                    url: '../../src/controllers/ProductController.php',
+                    method: 'POST',
+                    data: {
+                        action: 'filterProducts',
+                        categories: selectedCategories,
+                        colors: selectedColors,
+                        sort: sort
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        let products = response.products;
+                        let html = '';
+                        let productsPerRow = 2;
+                        for (let i = 0; i < products.length; i += productsPerRow) {
+                            html += `<div class='row mb-4'>`;
+                            for (let j = 0; j < productsPerRow && (i + j) < products.length; j++) {
+                                let product = products[i + j];
+                                let image = product.images && product.images[0] ? product.images[0] : 'default.jpg';
+                                html += `
+                                <div class='col-md-6 mb-4'>
+                                    <a href='productDetails.php?id=${product.product_id}' class='text-decoration-none text-dark'>
+                                        <div class='card h-100 position-relative'>
+                                            <img src='../../public/images/products/${image}' class='card-img-top product-img' alt='${product.product_name}'>
+                                            ${product.is_new == 1 ? `<div class='product-badge'><span class='badge bg-white text-dark'>New</span></div>` : ''}
+                                            <div class='card-body'>
+                                                <div class='product-info-container'>
+                                                    <div class='product-details mb-2'>
+                                                        <h5 class='product-name'>${product.product_name}</h5>
+                                                        <p class='product-description'>${product.description}</p>
+                                                        <div class='colors d-flex gap-2 mb-2'>
+                                                            ${(product.colors || []).map(color => `<div class='color rounded-circle' style='background-color: ${color};'></div>`).join('')}
+                                                        </div>
+                                                    </div>
+                                                    <div class='product-price'>
+                                                        <div class='product-price-text'>${Number(product.price).toLocaleString('vi-VN')} VNĐ</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                `;
+                            }
+                            html += `</div>`;
+                        }
+                        $('.col-lg-9 .row').first().html(html);
+                    },
+                    error: function() {
+                        alert('Could not filter products. Please try again later.');
+                    }
+                });
+            }
+            $('.color-filter, .category-filter, #sortSelect').on('change', fetchFilteredProducts);
         });
     </script>
 </body>
