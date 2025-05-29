@@ -1,4 +1,5 @@
 <?php
+session_start();
 // filepath: c:\xampp\htdocs\LeatherForLocal\views\pages\register.php
 require_once '../../src/controllers/RegisterController.php';
 $error = '';

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../../src/controllers/ProductController.php';
 $productController = new ProductController();
 $products = $productController->getProducts();

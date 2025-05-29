@@ -27,7 +27,7 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container">
-            <a class="navbar-brand" href="/views/pages/product.php">
+            <a class="navbar-brand" href="/views/pages/index.php">
                 <div class="logo">
                     <div class="title">
                         <span class="material-symbols-rounded logo-icon">store</span>
@@ -55,7 +55,15 @@
                         <span class="material-symbols-rounded">shopping_cart</span>
                         <span class="cart-count" id="cartCount">0</span>
                     </a>
-                    <span class="material-symbols-rounded">account_circle</span>
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        echo '<a href="/views/pages/profile.php" class="text-dark text-decoration-none">';
+                    } else {
+                        echo '<a href="/views/pages/login.php" class="text-dark text-decoration-none">';
+                    }
+                    ?>
+                        <span class="material-symbols-rounded">account_circle</span>
+                    </a>
                 </div>
             </div>
         </div>
