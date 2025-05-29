@@ -75,7 +75,7 @@ $breadcrumb_items = [
             </div>
 
             <div class="size mb-3">
-              <label for="sizeSelect" class="form-label">Kích Thước</label>
+              <label for="sizeSelect" cla ss="form-label">Kích Thước</label>
               <select class="form-select" id="sizeSelect" name="size">
                 <option selected>Free size</option>
               </select>
