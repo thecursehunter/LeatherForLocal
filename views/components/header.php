@@ -115,8 +115,8 @@
                         <span class="cart-count" id="cartCount">0</span>
                     </a>
                     <?php
-                    if (isset($_SESSION['user_id'])) {
-                        echo '<a href="/views/pages/profile.php" class="text-dark text-decoration-none">';
+                    if (isset($_SESSION['member_id'])) {
+                        echo '<a href="/views/pages/customerinfo.php" class="text-dark text-decoration-none">';
                     } else {
                         echo '<a href="/views/pages/login.php" class="text-dark text-decoration-none">';
                     }
