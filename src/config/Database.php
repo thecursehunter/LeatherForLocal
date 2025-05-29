@@ -18,6 +18,12 @@ class Database {
             }
 
             $this->connection->set_charset("utf8mb4");
+            
+            // Enable strict mode
+            $this->connection->query("SET SESSION sql_mode = 'STRICT_ALL_TABLES'");
+            
+            // Set timezone
+            $this->connection->query("SET time_zone = '+07:00'");
         } catch (Exception $e) {
             die("Database connection failed: " . $e->getMessage());
         }
@@ -28,6 +34,21 @@ class Database {
             self::$instance = new self();
         }
         return self::$instance->connection;
+    }
+
+    // Begin a transaction
+    public function begin_transaction() {
+        return $this->connection->begin_transaction();
+    }
+
+    // Commit a transaction
+    public function commit() {
+        return $this->connection->commit();
+    }
+
+    // Rollback a transaction
+    public function rollback() {
+        return $this->connection->rollback();
     }
 
     // Prevent cloning of the instance

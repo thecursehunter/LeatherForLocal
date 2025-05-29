@@ -8,17 +8,17 @@ $cartModel = new CartModel();
 // Set up breadcrumb items
 $breadcrumb_items = [
     ['label' => 'Home', 'url' => 'index.php'],
-    ['label' => 'Your Cart', 'url' => null]
+    ['label' => 'Giỏ hàng của bạn', 'url' => null]
 ];
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - LeatherForLocal</title>
+    <title>Giỏ hàng - LeatherForLocal</title>
    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@ $breadcrumb_items = [
     <!-- Breadcrumb -->
     <div class="container mt-4">
         <?php include '../components/breadcrumb.php'; ?>
-        <h1 class="cart-title mb-4">Your Cart</h1>
+        <h1 class="cart-title mb-4">Giỏ hàng của bạn</h1>
     </div>
 
 
@@ -50,24 +50,24 @@ $breadcrumb_items = [
                
                 <div class="col-lg-4">
                     <div class="order-summary">
-                        <h3 class="summary-title">Order Summary</h3>
+                        <h3 class="summary-title">Đơn hàng của bạn</h3>
                         <div class="summary-details">
                             <div class="summary-item">
-                                <span>Total Orders</span>
-                                <span id="total-items">0 items</span>
+                                <span>Tổng sản phẩm</span>
+                                <span id="total-items">0 sp</span>
                             </div>
                             <div class="summary-item">
-                                <span>Shipping</span>
-                                <span>Free</span>
+                                <span>Phí vận chuyển</span>
+                                <span>Miễn phí</span>
                             </div>
                             <div class="summary-total">
-                                <span>Total Amount:</span>
-                                <span id="total-amount">$0.00</span>
+                                <span>Tổng tiền:</span>
+                                <span id="total-amount">0 VNĐ</span>
                             </div>
                         </div>
-                        <p class="shipping-note">The total amount you pay includes all applicable customs duties & taxes. We guarantee no additional charges on delivery</p>
-                        <button class="btn btn-primary w-100 mb-2" id="checkout-btn">Proceed to Checkout</button>
-                        <button class="btn btn-outline-secondary w-100" id="continue-shopping-btn">Continue Shopping</button>
+                        <p class="shipping-note">Tổng số tiền bạn phải trả bao gồm tất cả các loại phí hải quan hiện hành. Chúng tôi đảm bảo không có thêm bất kỳ khoản phí nào khi giao hàng</p>
+                        <button class="btn btn-primary w-100 mb-2" id="checkout-btn">Tiến hành thanh toán</button>
+                        <button class="btn btn-outline-secondary w-100" id="continue-shopping-btn">Tiếp tục mua hàng</button>
                     </div>
                 </div>
             </div>
@@ -115,8 +115,8 @@ $breadcrumb_items = [
             <div class="empty-cart-icon mb-4">
                 <i class="bi bi-cart-x" style="font-size: 3rem;"></i>
             </div>
-            <h3 class="mb-3">Your cart currently has no products</h3>
-            <p class="text-muted mb-4">Browse our products and discover our best deals!</p>
+            <h3 class="mb-3">Giỏ hàng của bạn hiện chưa có sản phẩm nào</h3>
+            <p class="text-muted mb-4">Hãy khám phá sản phẩm của chúng tôi và chọn những ưu đãi tốt nhất!</p>
         </div>
     </template>
 
@@ -143,6 +143,33 @@ $breadcrumb_items = [
                 // Add event listener for continue shopping button
                 document.getElementById('continue-shopping-btn').addEventListener('click', () => {
                     window.location.href = 'product.php';
+                });
+
+                // Add event listener for checkout button
+                document.getElementById('checkout-btn').addEventListener('click', () => {
+                    this.handleCheckout();
+                });
+            }
+
+
+            handleCheckout() {
+                // Check if user is logged in
+                fetch('../../src/controllers/AuthController.php?action=check_login')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.logged_in) {
+                        // If logged in, redirect to checkout page
+                        window.location.href = 'checkout.php';
+                    } else {
+                        // If not logged in, show message
+                        alert('Bạn cần đăng nhập trước khi thanh toán');
+                        // Redirect to login page
+                        window.location.href = 'login.php?redirect=checkout.php';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
                 });
             }
 
@@ -216,8 +243,8 @@ $breadcrumb_items = [
                     container.appendChild(emptyTemplate.content.cloneNode(true));
                    
                     // Update summary
-                    document.getElementById('total-items').textContent = '0 items';
-                    document.getElementById('total-amount').textContent = '$0.00';
+                    document.getElementById('total-items').textContent = '0 sp';
+                    document.getElementById('total-amount').textContent = '0 VNĐ';
                     return;
                 }
 
@@ -238,7 +265,7 @@ $breadcrumb_items = [
                     itemElement.querySelector('.size').textContent = `Size: ${item.size}`;
                     itemElement.querySelector('.color').textContent = `Color: ${item.color}`;
                     itemElement.querySelector('.quantity').textContent = item.quantity;
-                    itemElement.querySelector('.price').textContent = `$${(item.price * item.quantity).toFixed(2)}`;
+                    itemElement.querySelector('.price').textContent = `${(item.price * item.quantity).toLocaleString('vi-VN')} VNĐ`;
 
 
                     container.appendChild(cartItem);
@@ -249,8 +276,8 @@ $breadcrumb_items = [
                 });
 
 
-                document.getElementById('total-items').textContent = `${totalItems} items`;
-                document.getElementById('total-amount').textContent = `$${totalAmount.toFixed(2)}`;
+                document.getElementById('total-items').textContent = `${totalItems} sp`;
+                document.getElementById('total-amount').textContent = `${totalAmount.toLocaleString('vi-VN')} VNĐ`;
             }
         }
 
