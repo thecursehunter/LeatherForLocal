@@ -195,51 +195,56 @@ $products = $productController->getProducts();
     </div>
   </div>
 </div>
-        <div class="sustainability position-relative" data-description="stylish sustainability in clothing promotes eco-friendly choices for a greater future" style="background-image: url('../../public/images/sustainability.jpg '); background-size: cover; background-position: center; min-height: 70vh;">
-          <div class="container h-100">
-            <div class="row h-100">
-              <div class="col-12 h-100 d-flex justify-content-end align-items-end pb-3 pe-3">
-                <div class="text-end">
-                  <p class="lead text-muted mb-2">
-                    Stylish Sustainability In Clothing Promotes Eco-Friendly 
-                    Choices For A Greater Future
-                  </p>
-                  <button class="btn btn-outline-dark px-3 py-1">Sustainability</button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="sustainability position-relative" style="min-height: 70vh;">
+  <img 
+    src="../../public/images/hero-section/sustainability.jpg" 
+    alt="Sustainability" 
+    style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; border-radius: 12px;"
+  >
+  <div class="container h-100 position-relative d-flex flex-column justify-content-end" style="position: relative; z-index: 2;">
+    <div class="row">
+      <div class="col-12 d-flex flex-column align-items-end">
+        <div class="text-end mb-4" style="max-width: 800px;">
+          <p class="lead mb-3 fw-bold" style="color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.5); font-size: 1.5rem; line-height: 2.2rem; word-break: break-word;">
+            Thời trang bền vững – phong cách đích thực cho những<br>
+            lựa chọn xanh vì một tương lai tốt đẹp hơn.
+          </p>
+          <button class="btn btn-outline-light px-4 py-2">Phát Triển Bền Vững</button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
         <div class="follow-us-container container my-5">
-          <div class="row">
-            <div class="col-12">
-              <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="display-4 fw-bold text-start">Follow Us @leatherforlocal</h2>
-              </div>
-            </div>
-            <div class="col-md-6 frame-6">
-              <div class="image-placeholder" style="height: 424px; background-color: #f0f0f0;"></div>
-            </div>
-            <div class="col-md-6 frame-7">
-              <div class="row frame-8">
-                <div class="col-6 button-comp-wrapper position-relative">
-                  <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                </div>
-                <div class="col-6 frame-9 position-relative">
-                  <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                </div>
-              </div>
-              <div class="row frame-10 mt-4">
-                <div class="col-6 frame-11 position-relative">
-                  <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                </div>
-                <div class="col-6 frame-12 position-relative">
-                  <div class="image-placeholder" style="height: 200px; background-color: #f0f0f0;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="display-4 fw-bold text-start">Follow Us @leatherforlocal</h2>
+      </div>
+    </div>
+    <div class="col-md-6 frame-6">
+      <img src="../../public/images/follow-us/fu_5.jpg" alt="Follow Us 1" class="image-placeholder" style="height: 424px; width: 100%; object-fit: cover; background-color: #f0f0f0; border-radius: 8px;">
+    </div>
+    <div class="col-md-6 frame-7">
+      <div class="row frame-8">
+        <div class="col-6 button-comp-wrapper position-relative">
+          <img src="../../public/images/follow-us/fu_2.jpg" alt="Follow Us 2" class="image-placeholder" style="height: 200px; width: 100%; object-fit: cover; background-color: #f0f0f0; border-radius: 8px;">
         </div>
+        <div class="col-6 frame-9 position-relative">
+          <img src="../../public/images/follow-us/fu_3.jpg" alt="Follow Us 3" class="image-placeholder" style="height: 200px; width: 100%; object-fit: cover; background-color: #f0f0f0; border-radius: 8px;">
+        </div>
+      </div>
+      <div class="row frame-10 mt-4">
+        <div class="col-6 frame-11 position-relative">
+          <img src="../../public/images/follow-us/fu_4.jpg" alt="Follow Us 4" class="image-placeholder" style="height: 200px; width: 100%; object-fit: cover; background-color: #f0f0f0; border-radius: 8px;">
+        </div>
+        <div class="col-6 frame-12 position-relative">
+          <img src="../../public/images/follow-us/fu_1.jpg" alt="Follow Us 5" class="image-placeholder" style="height: 200px; width: 100%; object-fit: cover; background-color: #f0f0f0; border-radius: 8px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         <?php include __DIR__ . '/../components/footer.php'; ?>
       </div>
     </div>
