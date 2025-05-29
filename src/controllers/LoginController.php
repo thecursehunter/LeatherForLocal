@@ -6,7 +6,10 @@ class LoginController {
     public function __construct() {
         $this->loginModel = new LoginModel();
     }
-    public function handleLogin($email, $password) {
-        return $this->loginModel->checkLogin($email, $password);
+public function handleAdminLogin($username, $password) {
+    return $this->loginModel->checkAdminLogin($username, $password);
+}
+    public function handleLogin($username, $password) {
+        return $this->loginModel->checkLogin($username, $password);
     }
 }

@@ -1,15 +1,18 @@
 <?php
+// filepath: c:\xampp\htdocs\LeatherForLocal\views\pages\register.php
 require_once '../../src/controllers/RegisterController.php';
 $error = '';
 $success = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $first_name = trim($_POST['first_name'] ?? '');
-    $last_name = trim($_POST['last_name'] ?? '');
+    $username = trim($_POST['username'] ?? '');
+    $full_name = trim($_POST['full_name'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
-    if ($first_name && $last_name && $email && $password) {
+    $phone_number = trim($_POST['phone_number'] ?? '');
+    $address = trim($_POST['address'] ?? '');
+    if ($username && $full_name && $email && $password && $phone_number && $address) {
         $controller = new RegisterController();
-        $result = $controller->handleRegister($first_name, $last_name, $email, $password);
+        $result = $controller->handleRegister($username, $full_name, $email, $password, $phone_number, $address);
         if ($result === true) {
             $success = 'Đăng ký thành công! <a href="login.php">Đăng nhập</a>';
         } else {
@@ -49,12 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php endif; ?>
                     <form method="post">
                         <div class="mb-3">
-                            <label for="first_name" class="form-label">Họ</label>
-                            <input type="text" class="form-control" name="first_name" id="first_name" required>
+                            <label for="username" class="form-label">Tên đăng nhập</label>
+                            <input type="text" class="form-control" name="username" id="username" required>
                         </div>
                         <div class="mb-3">
-                            <label for="last_name" class="form-label">Tên</label>
-                            <input type="text" class="form-control" name="last_name" id="last_name" required>
+                            <label for="full_name" class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" name="full_name" id="full_name" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
@@ -63,6 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu</label>
                             <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone_number" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" name="phone_number" id="phone_number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" name="address" id="address" required>
                         </div>
                         <button type="submit" class="btn btn-outline-primary w-100">Đăng ký</button>
                     </form>
@@ -73,29 +84,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             <div class="col-lg-5 d-none d-lg-block">
-            <div class="login-slider position-relative">
-                <img id="login-slider-img" src="../../public/images/products/backpack_1.jpg" class="img-fluid rounded-3 shadow login-side-img" alt="Slider">
+                <div class="login-slider position-relative">
+                    <img id="login-slider-img" src="../../public/images/products/backpack_1.jpg" class="img-fluid rounded-3 shadow login-side-img" alt="Slider">
+                </div>
             </div>
-        </div>
         </div>
     </div>
     <?php include __DIR__ . '/../components/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-const sliderImages = [
-    '../../public/images/products/backpack_1.jpg',
-    '../../public/images/products/backpack_2.jpg',
-    '../../public/images/products/bag_1.jpg',
-    '../../public/images/products/jacket_1.jpg',
-    '../../public/images/products/jacket_2.jpg',
-    '../../public/images/products/jacket_3.jpg'
-];
-let sliderIndex = 0;
-setInterval(() => {
-    sliderIndex = (sliderIndex + 1) % sliderImages.length;
-    document.getElementById('login-slider-img').src = sliderImages[sliderIndex];
-}, 5000);
-</script>
+    <script>
+    const sliderImages = [
+        '../../public/images/products/backpack_1.jpg',
+        '../../public/images/products/backpack_2.jpg',
+        '../../public/images/products/bag_1.jpg',
+        '../../public/images/products/jacket_1.jpg',
+        '../../public/images/products/jacket_2.jpg',
+        '../../public/images/products/jacket_3.jpg'
+    ];
+    let sliderIndex = 0;
+    setInterval(() => {
+        sliderIndex = (sliderIndex + 1) % sliderImages.length;
+        document.getElementById('login-slider-img').src = sliderImages[sliderIndex];
+    }, 5000);
     </script>
 </body>
 </html>

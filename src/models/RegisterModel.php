@@ -7,17 +7,18 @@ class RegisterModel {
             die('Database connection failed: ' . $this->db->connect_error);
         }
     }
-    public function register($first_name, $last_name, $email, $password) {
-        $stmt = $this->db->prepare("SELECT id FROM users WHERE email = ?");
-        $stmt->bind_param('s', $email);
+    public function register($username, $full_name, $email, $password, $phone_number, $address) {
+        // Kiểm tra username hoặc email đã tồn tại
+        $stmt = $this->db->prepare("SELECT member_id FROM member WHERE username = ? OR email = ?");
+        $stmt->bind_param('ss', $username, $email);
         $stmt->execute();
         $stmt->store_result();
         if ($stmt->num_rows > 0) {
-            return 'Email đã tồn tại!';
+            return 'Tên đăng nhập hoặc email đã tồn tại!';
         }
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->db->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('ssss', $first_name, $last_name, $email, $hash);
+        $stmt = $this->db->prepare("INSERT INTO member (username, full_name, email, password_hash, phone_number, address, is_active) VALUES (?, ?, ?, ?, ?, ?, 1)");
+        $stmt->bind_param('ssssss', $username, $full_name, $email, $hash, $phone_number, $address);
         if ($stmt->execute()) {
             return true;
         }

@@ -6,7 +6,7 @@ class RegisterController {
     public function __construct() {
         $this->registerModel = new RegisterModel();
     }
-    public function handleRegister($first_name, $last_name, $email, $password) {
-        return $this->registerModel->register($first_name, $last_name, $email, $password);
+    public function handleRegister($username, $full_name, $email, $password, $phone_number, $address) {
+        return $this->registerModel->register($username, $full_name, $email, $password, $phone_number, $address);
     }
 }

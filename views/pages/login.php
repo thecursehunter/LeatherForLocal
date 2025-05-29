@@ -3,18 +3,27 @@ session_start();
 require_once '../../src/controllers/LoginController.php';
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
+    $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
-    if ($email && $password) {
+    if ($username && $password) {
         $controller = new LoginController();
-        $user = $controller->handleLogin($email, $password);
+        // Kiểm tra đăng nhập admin trước
+        $admin = $controller->handleAdminLogin($username, $password);
+        if ($admin) {
+            $_SESSION['admin_id'] = $admin['admin_id'];
+            $_SESSION['admin_full_name'] = $admin['full_name'];
+            header('Location: ../admin/dashboard.php'); // Đổi đường dẫn trang admin cho phù hợp
+            exit;
+        }
+        // Nếu không phải admin, kiểm tra member
+        $user = $controller->handleLogin($username, $password);
         if ($user) {
-            $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['first_name'] = $user['first_name'];
+            $_SESSION['member_id'] = $user['member_id'];
+            $_SESSION['full_name'] = $user['full_name'];
             header('Location: product.php');
             exit;
         } else {
-            $error = 'Email hoặc mật khẩu không đúng!';
+            $error = 'Tên đăng nhập hoặc mật khẩu không đúng!';
         }
     } else {
         $error = 'Vui lòng nhập đầy đủ thông tin!';
@@ -48,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php endif; ?>
                     <form method="post">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" id="email" required autocomplete="username">
+                            <label for="username" class="form-label">Tên đăng nhập</label>
+                            <input type="text" class="form-control" name="username" id="username" required autocomplete="username">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Mật khẩu</label>
@@ -72,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <?php include __DIR__ . '/../components/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
+    <script>
 const sliderImages = [
     '../../public/images/products/backpack_1.jpg',
     '../../public/images/products/backpack_2.jpg',

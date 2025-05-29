@@ -18,7 +18,7 @@ if (!$product) {
 
 // Prepare breadcrumb items
 $breadcrumb_items = [
-    ['label' => 'Home', 'url' => 'product.php'],
+    ['label' => 'Home', 'url' => 'index.php'],
     ['label' => $product['category'], 'url' => null],
     ['label' => $product['name'], 'url' => null]
 ];
@@ -124,8 +124,8 @@ $breadcrumb_items = [
             <div class="product-card">
               <div class="frame-5">
                 <div class="frame-6">
-                  <div class="tailored-stretch"><?php echo htmlspecialchars($related_product['name']); ?></div>
-                  <div class="text-wrapper-5"><?php echo htmlspecialchars($related_product['description']); ?></div>
+                  <div class="product-name"><?php echo htmlspecialchars($related_product['name']); ?></div>
+                  <div class="product-description"><?php echo htmlspecialchars($related_product['description']); ?></div>
                   <div class="colors">
                     <?php foreach ($related_product['colors'] as $color): ?>
                     <div class="color" style="background-color: <?php echo htmlspecialchars($color); ?>"></div>
