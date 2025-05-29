@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../../src/controllers/ProductController.php';
 $productController = new ProductController();
 $products = $productController->getProducts();
@@ -28,10 +29,9 @@ $products = $productController->getProducts();
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.35); z-index: 1;"></div>
           <div class="container position-relative" style="z-index: 2;">
             <div class="row">
-              <div class="col-md-8">
-                <h1 class="elegance-in display-3 fw-bold mb-4" style="color: #fff; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);">
-                    Elegance In Simplicity, <br>Earth’s Harmony</h1>
-                <button class="btn btn-outline-light button-comp-2 px-4 py-2">New In</button>
+              <div class="col-md-6">
+                <h1 class="elegance-in display-3 fw-bold text-dark mb-4">Elegance In Simplicity, Earth's Harmony</h1>
+                <button class="btn btn-outline-dark button-comp-2 px-4 py-2">New In</button>
               </div>
             </div>
           </div>
