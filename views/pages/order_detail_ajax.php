@@ -20,9 +20,9 @@ $items = $conn->query("SELECT * FROM orderitem WHERE order_id = $order_id");
     <strong>Status:</strong>
     <form id="orderStatusForm">
         <select name="status" class="form-select form-select-sm w-auto d-inline-block">
-            <?php foreach (["Pending","Done","Cancelled"] as $s): ?>
-                <option value="<?= $s ?>" <?= $order['status']===$s?'selected':'' ?>><?= $s ?></option>
-            <?php endforeach; ?>
+            <option value="Pending" <?= $order['status']==='Pending'?'selected':'' ?>>Pending</option>
+            <option value="Done" <?= $order['status']==='Done'?'selected':'' ?>>Done</option>
+            <option value="Cancelled" <?= $order['status']==='Cancelled'?'selected':'' ?>>Cancelled</option>
         </select>
         <button type="submit" class="btn btn-primary btn-sm">Save</button>
     </form>
@@ -53,6 +53,10 @@ form.onsubmit = function(e) {
     .then(data => {
         if (data.success) {
             alert('Status updated!');
+            // Close modal and reload page
+            const modal = bootstrap.Modal.getInstance(document.getElementById('orderDetailModal'));
+            if (modal) modal.hide();
+            window.location.reload();
         } else {
             alert('Update failed!');
         }
