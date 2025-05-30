@@ -78,9 +78,11 @@ $categories = $conn->query("SELECT * FROM category ORDER BY created_at DESC");
 <script>
 const catModal = new bootstrap.Modal(document.getElementById('catModal'));
 document.getElementById('addCategoryBtn').onclick = function() {
+    console.log('Add Category button clicked');
     fetch('category_modal.php?action=add')
         .then(res => res.text())
         .then(html => {
+            console.log('Modal content loaded:', html);
             document.getElementById('catModalLabel').textContent = 'Add Category';
             document.getElementById('catModalBody').innerHTML = html;
             catModal.show();
