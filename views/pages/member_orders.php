@@ -12,7 +12,6 @@ $member_id = $_SESSION['member_id'];
 // Handle cancel order
 if (isset($_POST['cancel_order_id'])) {
     $oid = intval($_POST['cancel_order_id']);
-    // Only allow cancel if order belongs to this member and is not already cancelled/done
     $conn->query("UPDATE `order` SET status='Cancelled' WHERE order_id=$oid AND member_id=$member_id AND status='Pending'");
     header('Location: member_orders.php');
     exit;
@@ -21,28 +20,31 @@ if (isset($_POST['cancel_order_id'])) {
 // Fetch orders for this member
 $sql = "SELECT * FROM `order` WHERE member_id = $member_id ORDER BY order_date DESC";
 $orders = $conn->query($sql);
+
+// Breadcrumb
+$breadcrumb_items = [
+    ['label' => 'Home', 'url' => 'index.php'],
+    ['label' => 'Đơn hàng của tôi', 'url' => null]
+];
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <title>Quản Lý Đơn Hàng Của Tôi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background: #f7f8fa; }
-        .member-header { background: #3b5bfe; color: #fff; padding: 1.5rem 0; }
-        .member-footer { background: #222; color: #fff; padding: 1rem 0; margin-top: 3rem; }
-        .order-status-paid { background: #d4f8e8; color: #1fa67a; border-radius: 8px; padding: 2px 12px; }
-        .order-status-pending { background: #eaf1fb; color: #3b5bfe; border-radius: 8px; padding: 2px 12px; }
-        .order-status-cancelled { background: #ffeaea; color: #e74c3c; border-radius: 8px; padding: 2px 12px; }
-        .order-row:hover { background: #f0f0f0; cursor: pointer; }
-    </style>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../../public/css/global.css" />
+    <link rel="stylesheet" href="../../public/css/styleguide.css" />
+    <link rel="stylesheet" href="../../public/css/style.css" />
 </head>
 <body>
-    <div class="member-header text-center mb-4">
-        <h2>Đơn Hàng Của Tôi</h2>
-    </div>
-    <main class="container my-5">
+    <?php include __DIR__ . '/../components/header.php'; ?>
+    <div class="container mt-4">
+        <?php include __DIR__ . '/../components/breadcrumb.php'; ?>
+        <h2 class="mb-4 fw-bold text-center">Đơn Hàng Của Tôi</h2>
         <div class="card shadow-sm">
             <div class="card-header">
                 <h5 class="mb-0">Danh Sách Đơn Hàng</h5>
@@ -89,10 +91,8 @@ $orders = $conn->query($sql);
                 </table>
             </div>
         </div>
-    </main>
-    <footer class="member-footer text-center">
-        &copy; 2025 LeatherForLocal
-    </footer>
+    </div>
+    <?php include __DIR__ . '/../components/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
