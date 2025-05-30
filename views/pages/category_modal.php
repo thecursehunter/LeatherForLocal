@@ -41,13 +41,18 @@ if ($action === 'add') {
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
     <script>
-    document.getElementById('catForm').onsubmit = function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        fetch('category_modal.php?action=add', { method: 'POST', body: formData })
+    setTimeout(function() {
+      var form = document.getElementById('catForm');
+      if (form) {
+        form.onsubmit = function(e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          fetch('category_modal.php?action=add', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => { if (data.success) location.reload(); else alert('Add failed!'); });
-    };
+        };
+      }
+    }, 10);
     </script>
     <?php
     exit;
@@ -69,13 +74,18 @@ if ($action === 'edit') {
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
     <script>
-    document.getElementById('catForm').onsubmit = function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        fetch('category_modal.php?action=edit&id=<?= $id ?>', { method: 'POST', body: formData })
+    setTimeout(function() {
+      var form = document.getElementById('catForm');
+      if (form) {
+        form.onsubmit = function(e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          fetch('category_modal.php?action=edit&id=<?= $id ?>', { method: 'POST', body: formData })
             .then(res => res.json())
             .then(data => { if (data.success) location.reload(); else alert('Update failed!'); });
-    };
+        };
+      }
+    }, 10);
     </script>
     <?php
     exit;

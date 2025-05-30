@@ -18,7 +18,7 @@ $categories = $conn->query("SELECT * FROM category ORDER BY created_at DESC");
 </head>
 <body>
 <div class="d-flex">
-    <?php $activePage = ''; include __DIR__ . '/../components/admin_sidebar.php'; ?>
+    <?php include __DIR__ . '/../components/admin_sidebar.php'; ?>
     <main class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Category Management</h2>
