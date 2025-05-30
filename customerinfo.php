@@ -9,14 +9,10 @@ $member = $controller->handleRequest();
     <meta charset="UTF-8">
     <title>Thông Tin Cá Nhân</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #fff0f3; }
-        .profile-section { background-color: #8f9125; border-radius: 10px; }
-        .avatar img { width: 100px; height: 100px; border-radius: 50%; }
-    </style>
 </head>
 <body>
 <?php include __DIR__ . '/../components/header.php'; ?>
+
 <div class="container py-5">
     <h2 class="mb-4">THÔNG TIN CÁ NHÂN</h2>
     <?php if (isset($_GET['success'])): ?>
@@ -48,14 +44,37 @@ $member = $controller->handleRequest();
                     <label class="form-label">Email</label>
                     <input type="text" class="form-control" name="address" value="<?php echo htmlspecialchars($member['email'] ?? ''); ?>">
                 </div>
+        <!-- Hình ảnh bên phải -->
+        </div>
+        <div class="col-md-8 d-flex align-items-center justify-content-center">
+            <img id="customerinfo-slider-img" src="../../public/images/products/backpack_1.jpg" alt="Ảnh sản phẩm" class="img-fluid rounded shadow" style="max-height:500px; width:80%; object-fit:cover;">
+        </div>
+        <div class="w-1000"></div>
+        <div class="col-12 mt-3">
+    </div>
                 <button type="submit" class="btn btn-dark w-100">Lưu thay đổi</button>
             </form>
             <a href="index.php" class="btn btn-secondary w-100 mt-2">Về trang chủ</a>
         </div>
-    </div>
+    </div>  
 </div>
+    </div>
+    <?php include __DIR__ . '/../components/footer.php';?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+const sliderImages = [
+    '../../public/images/products/backpack_1.jpg',
+    '../../public/images/products/backpack_2.jpg',
+    '../../public/images/products/bag_1.jpg',
+    '../../public/images/products/jacket_1.jpg',
+    '../../public/images/products/jacket_2.jpg',
+    '../../public/images/products/jacket_3.jpg'
+];
+let sliderIndex = 0;
+setInterval(() => {
+    sliderIndex = (sliderIndex + 1) % sliderImages.length;
+    document.getElementById('customerinfo-slider-img').src = sliderImages[sliderIndex];
+}, 5000);
 
 function saveInfo() {
     const fullName = document.getElementById('fullName').value;
