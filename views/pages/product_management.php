@@ -18,7 +18,7 @@ $products = $conn->query("SELECT p.*, c.name as category_name FROM products p JO
 </head>
 <body>
 <div class="d-flex">
-    <?php $activePage = ''; include __DIR__ . '/../components/admin_sidebar.php'; ?>
+    <?php include __DIR__ . '/../components/admin_sidebar.php'; ?>
     <main class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Product Management</h2>

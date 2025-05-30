@@ -40,6 +40,13 @@ if (isset($_GET['export']) && $_GET['export'] === 'xml') {
     echo "</orders>\n";
     exit;
 }
+// Handle finish order
+if (isset($_POST['finish_order_id'])) {
+    $oid = intval($_POST['finish_order_id']);
+    $conn->query("UPDATE `order` SET status='Done' WHERE order_id=$oid");
+    header('Location: orders.php');
+    exit;
+}
 // Search/filter
 $where = [];
 $params = [];
@@ -122,6 +129,12 @@ $orders = $conn->query($sql);
                                 <td><?= number_format($order['total_amount'], 0) ?></td>
                                 <td>
                                     <button class="btn btn-info btn-sm view-btn" data-bs-toggle="modal" data-bs-target="#orderDetailModal" data-order-id="<?= $order['order_id'] ?>">View</button>
+                                    <?php if ($order['status'] === 'Pending'): ?>
+                                    <form method="post" style="display:inline;">
+                                        <input type="hidden" name="finish_order_id" value="<?= $order['order_id'] ?>">
+                                        <button class="btn btn-success btn-sm" type="submit" onclick="return confirm('Mark this order as Done?')">Finish</button>
+                                    </form>
+                                    <?php endif; ?>
                                     <?php if ($order['status'] !== 'Cancelled'): ?>
                                     <form method="post" style="display:inline;">
                                         <input type="hidden" name="cancel_order_id" value="<?= $order['order_id'] ?>">
