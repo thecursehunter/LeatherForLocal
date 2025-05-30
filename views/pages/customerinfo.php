@@ -47,6 +47,7 @@ $member = $controller->handleRequest();
                     <button type="submit" class="btn btn-dark w-100">Lưu thay đổi</button>
                 </form>
                 <a href="index.php" class="btn btn-outline-secondary w-100 mt-2">Về trang chủ</a>
+                <a href="member_orders.php" class="btn btn-outline-primary w-100 mt-2">Xem đơn hàng của tôi</a>
             </div>
             <div class="col-md-8">
                 <h4 class="mb-4">Số điện thoại và Email</h4>

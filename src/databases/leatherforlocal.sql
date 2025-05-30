@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2025 at 08:52 PM
+-- Generation Time: May 30, 2025 at 06:14 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,6 +38,13 @@ CREATE TABLE `admin` (
   `last_login` datetime DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`admin_id`, `username`, `email`, `password_hash`, `full_name`, `permissions`, `created_at`, `last_login`, `is_active`) VALUES
+(1, 'Lilac1', 'PhamQuangMinhMDCH@proton.me', '$2y$10$IFimFm4Oi8l3qxvWg6Ca3.fYpqzVSQVZ8rwIxStTO7boFtfTp.QEa', 'Quang Minh', 'full_access', '2025-05-30 02:04:04', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -105,7 +112,8 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`member_id`, `username`, `email`, `password_hash`, `full_name`, `phone_number`, `address`, `created_at`, `updated_at`, `is_active`) VALUES
-(1, 'Lilac', 'PhamQuangMinhMDCH@proton.me', '$2y$10$IFimFm4Oi8l3qxvWg6Ca3.fYpqzVSQVZ8rwIxStTO7boFtfTp.QEa', 'Phạm Quang Minh', 'M!nh20052105', '266 Ni Sư huỳnh Liên', '2025-05-29 15:34:45', '2025-05-29 15:34:45', 1);
+(1, 'Lilac', 'PhamQuangMinhMDCH@proton.me', '$2y$10$IFimFm4Oi8l3qxvWg6Ca3.fYpqzVSQVZ8rwIxStTO7boFtfTp.QEa', 'Phạm Quang Minh', '0399254984', '266 Ni Sư huỳnh Liên', '2025-05-29 15:34:45', '2025-05-30 03:46:00', 1),
+(2, 'Minh21', 'Minh221@gmail.com', '$2y$10$ztl9gIGkZJw.O7FSVjdZ2OS29b0w9FPpcb.llvdp2JKdIeMTEFFMe', 'Quang Minh', '0399254984', '266', '2025-05-30 03:48:18', '2025-05-30 08:58:05', 1);
 
 -- --------------------------------------------------------
 
@@ -131,7 +139,9 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_id`, `member_id`, `order_date`, `total_amount`, `status`, `shipping_address`, `phone_number`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 1, '2025-05-30 00:06:52', 760.00, 'Pending', '266 Ni Su Huynh Lien', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 00:06:52', '2025-05-30 00:06:52');
+(1, 1, '2025-05-30 00:06:52', 760.00, 'Done', '266 Ni Su Huynh Lien', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 00:06:52', '2025-05-30 08:54:58'),
+(2, 1, '2025-05-30 08:42:16', 380.00, 'Cancelled', '266 ni sư huỳnh liên', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 08:42:16', '2025-05-30 08:51:14'),
+(3, 1, '2025-05-30 09:36:02', 380.00, 'Pending', 'ss', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 09:36:02', '2025-05-30 09:36:02');
 
 -- --------------------------------------------------------
 
@@ -153,7 +163,9 @@ CREATE TABLE `orderitem` (
 --
 
 INSERT INTO `orderitem` (`order_item_id`, `order_id`, `product_id`, `quantity`, `unit_price`, `subtotal`) VALUES
-(1, 1, 1, 2, 380.00, 760.00);
+(1, 1, 1, 2, 380.00, 760.00),
+(2, 2, 1, 1, 380.00, 380.00),
+(3, 3, 1, 1, 380.00, 380.00);
 
 -- --------------------------------------------------------
 
@@ -203,6 +215,13 @@ CREATE TABLE `revenuereport` (
   `generated_at` datetime DEFAULT current_timestamp(),
   `admin_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `revenuereport`
+--
+
+INSERT INTO `revenuereport` (`report_id`, `report_date`, `total_revenue`, `total_orders`, `generated_at`, `admin_id`) VALUES
+(1, '2025-05-29', 0.00, 0, '2025-05-29 22:29:39', 1);
 
 --
 -- Indexes for dumped tables
@@ -275,7 +294,7 @@ ALTER TABLE `revenuereport`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -293,19 +312,19 @@ ALTER TABLE `delivery`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orderitem`
 --
 ALTER TABLE `orderitem`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -317,7 +336,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `revenuereport`
 --
 ALTER TABLE `revenuereport`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
