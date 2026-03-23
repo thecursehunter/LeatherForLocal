@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-// Redirect if not logged in
-if (!isset($_SESSION['member_id'])) {
-    header('Location: login.php');
-    exit;
-}
+// Guest checkout is enabled, so no login redirect here
 
 // Set up breadcrumb items
 $breadcrumb_items = [
@@ -96,7 +92,6 @@ $breadcrumb_items = [
                                 <select class="form-select" id="deliveryMethod" required>
                                     <option value="">Chọn phương thức giao hàng...</option>
                                     <option value="standard">Giao hàng tiêu chuẩn (Miễn phí)</option>
-                                    <option value="express">Giao hàng nhanh (30.000 VNĐ)</option>
                                 </select>
                                 <div class="invalid-feedback">Vui lòng chọn phương thức giao hàng.</div>
                             </div>
@@ -108,15 +103,9 @@ $breadcrumb_items = [
                         <div class="card-body">
                             <h3 class="card-title mb-4">Phương thức thanh toán</h3>
                             <div class="form-check mb-3">
-                                <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" required>
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="cod" required checked>
                                 <label class="form-check-label" for="cod">
                                     Thanh toán khi nhận hàng (COD)
-                                </label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="radio" name="paymentMethod" id="bank" value="bank" required>
-                                <label class="form-check-label" for="bank">
-                                    Chuyển khoản ngân hàng
                                 </label>
                             </div>
                             <div class="invalid-feedback">Vui lòng chọn phương thức thanh toán.</div>
@@ -137,6 +126,11 @@ $breadcrumb_items = [
                         <span id="total-amount">0 VNĐ</span>
                     </div>
                     <p class="shipping-note">Tổng số tiền bạn phải trả bao gồm tất cả các loại phí hải quan hiện hành. Chúng tôi đảm bảo không có thêm bất kỳ khoản phí nào khi giao hàng</p>
+                    <div class="input-group mb-3 mt-3">
+                        <input type="text" class="form-control" id="couponCode" placeholder="Nhập mã giảm giá">
+                        <button class="btn btn-outline-secondary" type="button" id="applyCouponBtn">Áp dụng</button>
+                    </div>
+                    <div id="couponMessage" class="small mb-3" style="display: none;"></div>
                     <button type="button" class="btn btn-primary w-100" id="placeOrderBtn">Đặt hàng</button>
                 </div>
             </div>
@@ -162,6 +156,14 @@ $breadcrumb_items = [
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Auto-fix prices that were saved without multiplying by 1000
+            cart.forEach(item => {
+                if (item.price < 10000) {
+                    item.price = item.price * 1000;
+                }
+            });
+            localStorage.setItem('cart', JSON.stringify(cart));
             const cartSummary = document.getElementById('cart-items-summary');
             const totalAmountElement = document.getElementById('total-amount');
             const checkoutForm = document.getElementById('checkoutForm');
@@ -169,14 +171,17 @@ $breadcrumb_items = [
             const loadingOverlay = document.getElementById('loadingOverlay');
             const successModal = new bootstrap.Modal(document.getElementById('successModal'));
 
+            let baseTotal = 0;
+            let currentDiscount = 0;
+
             // Render cart summary
             function renderCartSummary() {
-                let totalAmount = 0;
+                baseTotal = 0;
                 let summaryHTML = '';
 
                 cart.forEach(item => {
                     const itemTotal = item.price * item.quantity;
-                    totalAmount += itemTotal;
+                    baseTotal += itemTotal;
                     
                     summaryHTML += `
                         <div class="summary-item">
@@ -187,8 +192,48 @@ $breadcrumb_items = [
                 });
 
                 cartSummary.innerHTML = summaryHTML;
-                totalAmountElement.textContent = `${totalAmount.toLocaleString('vi-VN')} VNĐ`;
+                updateDisplayTotal();
             }
+
+            function updateDisplayTotal() {
+                const discountAmount = Math.floor(baseTotal * (currentDiscount / 100));
+                const finalTotal = baseTotal - discountAmount;
+                totalAmountElement.textContent = `${finalTotal.toLocaleString('vi-VN')} VNĐ`;
+            }
+
+            // Apply coupon logic
+            document.getElementById('applyCouponBtn').addEventListener('click', async function() {
+                const code = document.getElementById('couponCode').value.trim();
+                const msgEl = document.getElementById('couponMessage');
+                
+                if (!code) {
+                    alert('Vui lòng nhập mã giảm giá');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('../../src/controllers/CouponController.php?action=apply', {
+                        method: 'POST',
+                        body: JSON.stringify({ code: code })
+                    });
+                    const result = await response.json();
+                    
+                    msgEl.style.display = 'block';
+                    if (result.success) {
+                        currentDiscount = result.discount_percentage;
+                        msgEl.className = 'small mb-3 text-success';
+                        msgEl.textContent = `Áp dụng thành công! Đã giảm ${currentDiscount}%`;
+                        updateDisplayTotal();
+                    } else {
+                        currentDiscount = 0;
+                        msgEl.className = 'small mb-3 text-danger';
+                        msgEl.textContent = result.error;
+                        updateDisplayTotal();
+                    }
+                } catch (e) {
+                    console.error('Coupon error:', e);
+                }
+            });
 
             // Handle form submission
             placeOrderBtn.addEventListener('click', async function(e) {
@@ -228,6 +273,7 @@ $breadcrumb_items = [
                     address: document.getElementById('address').value.trim(),
                     delivery_method: document.getElementById('deliveryMethod').value,
                     payment_method: selectedPaymentMethod.value,
+                    coupon_code: document.getElementById('couponCode').value.trim(),
                     cart_items: cart.map(item => ({
                         id: item.id,
                         quantity: item.quantity,
@@ -236,7 +282,7 @@ $breadcrumb_items = [
                 };
 
                 try {
-                    await fetch('../../src/controllers/CheckoutController.php?action=submit', {
+                    const response = await fetch('../../src/controllers/CheckoutController.php?action=submit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -244,24 +290,34 @@ $breadcrumb_items = [
                         body: JSON.stringify(formData)
                     });
 
+                    const result = await response.json();
+
                     // Hide loading overlay
                     loadingOverlay.style.display = 'none';
 
-                    // Clear cart
-                    localStorage.removeItem('cart');
-                    
-                    // Show success modal
-                    successModal.show();
-                    
-                    // Redirect after 2 seconds
-                    setTimeout(() => {
-                        window.location.href = 'index.php';
-                    }, 2000);
+                    if (result.success) {
+                        // Clear cart only on actual success
+                        localStorage.removeItem('cart');
+                        
+                        // Show success modal
+                        successModal.show();
+                        
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'index.php';
+                        }, 2000);
+                    } else {
+                        // Show the real error from the server
+                        alert('Đặt hàng thất bại: ' + (result.error || 'Lỗi không xác định'));
+                        placeOrderBtn.disabled = false;
+                    }
 
                 } catch (error) {
                     // Hide loading overlay and re-enable button
                     loadingOverlay.style.display = 'none';
                     placeOrderBtn.disabled = false;
+                    alert('Đã xảy ra lỗi kết nối. Vui lòng thử lại.');
+                    console.error('Checkout error:', error);
                 }
             });
 

@@ -22,13 +22,6 @@ class CheckoutController {
             session_start();
         }
         
-        // Check if user is logged in
-        if (!isset($_SESSION['member_id'])) {
-            http_response_code(401);
-            echo json_encode(['success' => false, 'error' => 'Vui lòng đăng nhập để tiếp tục']);
-            return;
-        }
-
         $action = $_GET['action'] ?? '';
 
         switch ($action) {
@@ -76,15 +69,16 @@ class CheckoutController {
                 throw new Exception('Giỏ hàng không hợp lệ');
             }
 
-            // Validate member_id from session
-            if (!isset($_SESSION['member_id'])) {
-                throw new Exception('Phiên đăng nhập không hợp lệ');
-            }
-
             // Start transaction
             $this->db->begin_transaction();
 
             try {
+                // Create guest member
+                $memberId = $this->memberModel->createGuestMember($data);
+                if (!$memberId) {
+                    throw new Exception('Không thể tạo thông tin khách hàng');
+                }
+
                 // Calculate total amount
                 $totalAmount = 0;
                 foreach ($data['cart_items'] as $item) {
@@ -94,6 +88,14 @@ class CheckoutController {
                     $totalAmount += floatval($item['price']) * intval($item['quantity']);
                 }
 
+                // Apply discount if coupon was validated in session
+                if (isset($_SESSION['applied_coupon']) && $data['coupon_code'] === $_SESSION['applied_coupon']['code']) {
+                    $discountPct = (int)$_SESSION['applied_coupon']['discount_percentage'];
+                    $totalAmount = $totalAmount - ($totalAmount * ($discountPct / 100));
+                    // Optional: clear it after use
+                    unset($_SESSION['applied_coupon']);
+                }
+
                 // Add delivery fee if express delivery
                 if ($data['delivery_method'] === 'express') {
                     $totalAmount += 30000; // 30,000 VND for express delivery
@@ -101,12 +103,14 @@ class CheckoutController {
 
                 // Create order
                 $orderData = [
-                    'member_id' => $_SESSION['member_id'],
+                    'member_id' => $memberId,
                     'total_amount' => $totalAmount,
                     'shipping_address' => $data['address'],
                     'phone_number' => $data['phone_number'],
                     'delivery_method' => $data['delivery_method'],
-                    'payment_method' => $data['payment_method']
+                    'payment_method' => $data['payment_method'],
+                    'coupon_code' => isset($data['coupon_code']) ? $data['coupon_code'] : null,
+                    'utm_source' => isset($_SESSION['utm_source']) ? $_SESSION['utm_source'] : null
                 ];
 
                 error_log("Creating order with data: " . print_r($orderData, true));

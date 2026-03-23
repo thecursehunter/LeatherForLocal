@@ -1,18 +1,16 @@
 <?php
+require_once __DIR__ . '/../config/Database.php';
+
 class CartModel {
     private $db;
 
-
     public function __construct() {
-        $this->db = new mysqli('localhost', 'root', '', 'leatherforlocal');
-        if ($this->db->connect_error) {
-            die('Database connection failed: ' . $this->db->connect_error);
-        }
+        $this->db = Database::getInstance();
     }
 
 
     public function getProductById($productId) {
-        $stmt = $this->db->prepare("SELECT * FROM tbl_products WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = ?");
         $stmt->bind_param("i", $productId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -26,7 +24,7 @@ class CartModel {
         }
        
         $ids = implode(',', array_map('intval', $productIds));
-        $query = "SELECT * FROM tbl_products WHERE id IN ($ids)";
+        $query = "SELECT * FROM products WHERE product_id IN ($ids)";
         $result = $this->db->query($query);
        
         $products = [];

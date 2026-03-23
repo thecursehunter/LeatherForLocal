@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (isset($_GET['utm_source'])) {
+    $_SESSION['utm_source'] = $_GET['utm_source'];
+}
 require_once '../../src/controllers/ProductController.php';
 
 $productController = new ProductController();
@@ -176,7 +180,7 @@ $breadcrumb_items = [
           id: <?php echo json_encode($product['product_id']); ?>,
           name: <?php echo json_encode($product['product_name']); ?>,
           image: <?php echo json_encode(isset($product['images'][0]) ? '../../public/images/products/' . $product['images'][0] : ''); ?>,
-          price: <?php echo json_encode($product['price']); ?>,
+          price: <?php echo json_encode((float)$product['price'] * 1000); ?>,
           size: document.getElementById('sizeSelect').value,
           color: <?php echo json_encode(isset($product['colors'][0]) ? $product['colors'][0] : ''); ?>, // Default to first color
           quantity: parseInt(document.getElementById('quantityInput').value)

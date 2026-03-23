@@ -34,6 +34,52 @@ class MemberModel {
         $stmt->bind_param("sssi", $data['full_name'], $data['phone_number'], $data['address'], $memberId);
         return $stmt->execute();
     }
+
+    public function createGuestMember($data) {
+        // Use ON DUPLICATE KEY UPDATE so the same email can order multiple times
+        $sql = "INSERT INTO member (username, email, password_hash, full_name, phone_number, address)
+                VALUES (?, ?, ?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE
+                    full_name = VALUES(full_name),
+                    phone_number = VALUES(phone_number),
+                    address = VALUES(address)";
+
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            error_log("Prepare failed: " . $this->db->error);
+            return false;
+        }
+
+        // Generate a random username and password for the guest
+        $username = 'guest_' . time() . '_' . rand(1000, 9999);
+        $password = password_hash(uniqid(), PASSWORD_DEFAULT);
+
+        $stmt->bind_param("ssssss", 
+            $username,
+            $data['email'],
+            $password,
+            $data['full_name'],
+            $data['phone_number'],
+            $data['address']
+        );
+
+        if (!$stmt->execute()) {
+            error_log("Execute failed: " . $stmt->error);
+            return false;
+        }
+
+        // insert_id is 0 when ON DUPLICATE KEY UPDATE triggers → fetch the existing id
+        $memberId = $stmt->insert_id;
+        if (!$memberId) {
+            $findStmt = $this->db->prepare("SELECT member_id FROM member WHERE email = ?");
+            $findStmt->bind_param("s", $data['email']);
+            $findStmt->execute();
+            $row = $findStmt->get_result()->fetch_assoc();
+            $memberId = $row ? $row['member_id'] : false;
+        }
+
+        return $memberId;
+    }
 }
 
 /* === Order Model === */
@@ -56,8 +102,10 @@ class OrderModel {
                 status, 
                 shipping_address, 
                 phone_number,
-                notes
-            ) VALUES (?, NOW(), ?, 'Pending', ?, ?, ?)";
+                notes,
+                coupon_code,
+                utm_source
+            ) VALUES (?, NOW(), ?, 'Pending', ?, ?, ?, ?, ?)";
             
             $stmt = $this->db->prepare($sql);
             if (!$stmt) {
@@ -67,12 +115,14 @@ class OrderModel {
 
             $notes = "Delivery Method: " . $data['delivery_method'] . "\nPayment Method: " . $data['payment_method'];
 
-            $stmt->bind_param("idsss", 
+            $stmt->bind_param("idsssss", 
                 $data['member_id'],
                 $data['total_amount'],
                 $data['shipping_address'],
                 $data['phone_number'],
-                $notes
+                $notes,
+                $data['coupon_code'],
+                $data['utm_source']
             );
 
             if (!$stmt->execute()) {
@@ -142,7 +192,7 @@ class OrderItemModel {
                 $price = floatval($item['price']);
                 $subtotal = $price * $quantity;
                 
-                $stmt->bind_param("iiiii", 
+                $stmt->bind_param("iiidd", 
                     $orderId,
                     $productId,
                     $quantity,

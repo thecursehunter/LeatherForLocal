@@ -1,11 +1,10 @@
 <?php
+require_once __DIR__ . '/../config/Database.php';
+
 class RegisterModel {
     private $db;
     public function __construct() {
-        $this->db = new mysqli('localhost', 'root', '', 'leatherforlocal');
-        if ($this->db->connect_error) {
-            die('Database connection failed: ' . $this->db->connect_error);
-        }
+        $this->db = Database::getInstance();
     }
     public function register($username, $full_name, $email, $password, $phone_number, $address) {
         // Kiểm tra username hoặc email đã tồn tại

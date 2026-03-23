@@ -1,11 +1,9 @@
 <?php
+require_once __DIR__ . '/../config/Database.php';
 class LoginModel {
     private $db;
     public function __construct() {
-        $this->db = new mysqli('localhost', 'root', '', 'leatherforlocal');
-        if ($this->db->connect_error) {
-            die('Database connection failed: ' . $this->db->connect_error);
-        }
+        $this->db = Database::getInstance()->getConnection();
     }
     public function checkAdminLogin($username, $password) {
     $stmt = $this->db->prepare("SELECT admin_id, password_hash, full_name FROM admin WHERE username = ? AND is_active = 1");

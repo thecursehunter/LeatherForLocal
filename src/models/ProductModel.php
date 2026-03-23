@@ -1,12 +1,11 @@
 <?php
+require_once __DIR__ . '/../config/Database.php';
+
 class ProductModel {
   private $db;
 
   public function __construct() {
-    $this->db = new mysqli('localhost', 'root', '', 'leatherforlocal');
-    if ($this->db->connect_error) {
-      die('Database connection failed: ' . $this->db->connect_error);
-    }
+    $this->db = Database::getInstance();
   }
 
   public function fetchProducts() {

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_GET['utm_source'])) {
+    $_SESSION['utm_source'] = $_GET['utm_source'];
+}
 require_once __DIR__ . '/../../src/controllers/ProductController.php';
 $productController = new ProductController();
 $products = $productController->getProducts();
@@ -137,24 +140,32 @@ $products = $productController->getProducts();
             <div class="col-12">
               <div class="row">
                 <div class="col-md-6 collection-pic-left mb-4 mb-md-0">
-                  <div class="pic-3 position-relative mb-4" data-name="shirts">
-                    <img src="../../public/images/collection/leather-shirts.jpg" alt="Leather Shirts" style="width:100%; height: 300px; object-fit: cover; display: block;">
-                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Shirts</button>
-                  </div>
-                  <div class="pic-4 position-relative" data-name="jackets">
-                    <img src="../../public/images/collection/leather-jackets.jpg" alt="Leather Jackets" style="width:100%; height: 600px; object-fit: cover; display: block;">
-                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Jackets</button>
-                  </div>
+                  <a href="product.php?category[]=1" class="text-decoration-none">
+                    <div class="pic-3 position-relative mb-4" data-name="balo">
+                      <img src="../../public/images/products/backpack_1.jpg" alt="Balo" style="width:100%; height: 300px; object-fit: cover; display: block;">
+                      <span class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Balo</span>
+                    </div>
+                  </a>
+                  <a href="product.php?category[]=3" class="text-decoration-none">
+                    <div class="pic-4 position-relative" data-name="ao-khoac">
+                      <img src="../../public/images/products/jacket_3.jpg" alt="Áo Khoác" style="width:100%; height: 600px; object-fit: cover; display: block;">
+                      <span class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Áo Khoác</span>
+                    </div>
+                  </a>
                 </div>
                 <div class="col-md-6 collection-pic-right">
-                  <div class="pic position-relative mb-4" data-name="pants">
-                    <img src="../../public/images/collection/leather-pants.jpg" alt="Leather Pants" style="width:100%; height: 600px; object-fit: cover; display: block;">
-                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Pants</button>
-                  </div>
-                  <div class="pic-2 position-relative" data-name="footwear">
-                    <img src="../../public/images/collection/leather-footwear.jpg" alt="Leather Footwear" style="width:100%; height: 300px; object-fit: cover; display: block;">
-                    <button class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Footwear</button>
-                  </div>
+                  <a href="product.php?category[]=2" class="text-decoration-none">
+                    <div class="pic position-relative mb-4" data-name="tui-xach">
+                      <img src="../../public/images/products/bag_1.jpg" alt="Túi Xách" style="width:100%; height: 600px; object-fit: cover; display: block;">
+                      <span class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Túi Xách</span>
+                    </div>
+                  </a>
+                  <a href="product.php?category[]=4" class="text-decoration-none">
+                    <div class="pic-2 position-relative" data-name="phu-kien">
+                      <img src="../../public/images/collection/leather-footwear.jpg" alt="Phụ Kiện" style="width:100%; height: 300px; object-fit: cover; display: block;">
+                      <span class="btn custom-collection-btn position-absolute bottom-0 start-50 translate-middle-x mb-3">Phụ Kiện</span>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>

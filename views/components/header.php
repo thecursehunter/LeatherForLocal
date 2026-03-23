@@ -110,19 +110,11 @@
                     <span class="material-symbols-rounded search-icon">search</span>
                     </button>
                     <span class="material-symbols-rounded">favorite</span>
-                    <a href="/views/pages/cart.php" class="cart-icon-wrapper text-dark text-decoration-none">
+                    <a href="../../views/pages/cart.php" class="cart-icon-wrapper text-dark text-decoration-none">
                         <span class="material-symbols-rounded">shopping_cart</span>
                         <span class="cart-count" id="cartCount">0</span>
                     </a>
-                    <?php
-                    if (isset($_SESSION['member_id'])) {
-                        echo '<a href="/views/pages/customerinfo.php" class="text-dark text-decoration-none">';
-                    } else {
-                        echo '<a href="/views/pages/login.php" class="text-dark text-decoration-none">';
-                    }
-                    ?>
-                        <span class="material-symbols-rounded">account_circle</span>
-                    </a>
+
                 </div>
             </div>
         </div>

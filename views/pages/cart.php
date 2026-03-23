@@ -132,6 +132,15 @@ $breadcrumb_items = [
         class Cart {
             constructor() {
                 this.items = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                // Auto-fix prices that were saved without multiplying by 1000
+                this.items.forEach(item => {
+                    if (item.price < 10000) {
+                        item.price = item.price * 1000;
+                    }
+                });
+                localStorage.setItem('cart', JSON.stringify(this.items));
+
                 this.init();
             }
 
@@ -153,24 +162,8 @@ $breadcrumb_items = [
 
 
             handleCheckout() {
-                // Check if user is logged in
-                fetch('../../src/controllers/AuthController.php?action=check_login')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.logged_in) {
-                        // If logged in, redirect to checkout page
-                        window.location.href = 'checkout.php';
-                    } else {
-                        // If not logged in, show message
-                        alert('Bạn cần đăng nhập trước khi thanh toán');
-                        // Redirect to login page
-                        window.location.href = 'login.php?redirect=checkout.php';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Đã xảy ra lỗi. Vui lòng thử lại sau.');
-                });
+                // Redirect directly to checkout, guest mode is now enabled
+                window.location.href = 'checkout.php';
             }
 
 
