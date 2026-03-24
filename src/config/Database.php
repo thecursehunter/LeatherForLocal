@@ -4,14 +4,17 @@ class Database {
     private $connection;
 
     private function __construct() {
-        // Database configuration
-        $host = 'localhost';
-        $dbname = 'leatherforlocal';
-        $username = 'root';
-        $password = '';
+        // Fetch credentials from environment variables (Railway), 
+        // fallback to local credentials if environment variables are not set.
+        $host = getenv('MYSQLHOST') ?: 'localhost';
+        $dbname = getenv('MYSQLDATABASE') ?: 'leatherforlocal';
+        $username = getenv('MYSQLUSER') ?: 'root';
+        $password = getenv('MYSQLPASSWORD') ?: '';
+        $port = getenv('MYSQLPORT') ?: 3306;
 
         try {
-            $this->connection = new mysqli($host, $username, $password, $dbname);
+            // Added $port to the mysqli connection
+            $this->connection = new mysqli($host, $username, $password, $dbname, $port);
             
             if ($this->connection->connect_error) {
                 throw new Exception("Connection failed: " . $this->connection->connect_error);
