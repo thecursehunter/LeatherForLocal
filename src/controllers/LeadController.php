@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($fullName) || empty($email) || empty($phone)) {
         $_SESSION['lead_error'] = "Vui lòng nhập đầy đủ thông tin.";
-        header("Location: ../../views/pages/landing_capture.php");
+        header("Location: ../../views/pages/coupons.php");
         exit();
     }
 
@@ -21,14 +21,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Save lead ID to session and show success on landing page
         $_SESSION['lead_id'] = $leadId;
         $_SESSION['lead_success'] = true;
-        header("Location: ../../views/pages/landing_capture.php");
+        header("Location: ../../views/pages/coupons.php");
         exit();
     } else {
         $_SESSION['lead_error'] = "Có lỗi xảy ra, vui lòng thử lại sau.";
-        header("Location: ../../views/pages/landing_capture.php");
+        header("Location: ../../views/pages/coupons.php");
         exit();
     }
 } else {
-    header("Location: ../../views/pages/landing_capture.php");
+    header("Location: ../../views/pages/coupons.php");
     exit();
 }

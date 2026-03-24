@@ -214,7 +214,7 @@ $voucher = ($utm === 'PlanB') ? 'QUACAMON20' : 'VIP20';
                         <input type="text" class="form-control" id="fullName" name="full_name" placeholder="Họ và tên" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email Context</label>
+                        <label for="email" class="form-label">Contact Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Địa chỉ email" required>
                     </div>
                     <div class="mb-4">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2025 at 06:14 AM
+-- Generation Time: Mar 24, 2026 at 08:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -73,6 +73,28 @@ INSERT INTO `category` (`category_id`, `name`, `description`, `is_active`, `crea
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` int(11) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `discount_percentage` int(11) DEFAULT 0,
+  `is_active` tinyint(1) DEFAULT 1,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `code`, `discount_percentage`, `is_active`, `created_at`) VALUES
+(1, 'VIP20', 20, 1, '2026-03-23 22:37:44'),
+(2, 'QUACAMON20', 20, 1, '2026-03-23 22:37:44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `delivery`
 --
 
@@ -87,6 +109,29 @@ CREATE TABLE `delivery` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leads`
+--
+
+CREATE TABLE `leads` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `utm_source` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leads`
+--
+
+INSERT INTO `leads` (`id`, `full_name`, `email`, `phone`, `utm_source`, `created_at`) VALUES
+(1, 'le', 'q@l.m', 'l', 'PlanA', '2026-03-23 22:40:07'),
+(2, 'hihi', 'hihi@gm', '033', 'PlanA', '2026-03-23 23:38:21');
 
 -- --------------------------------------------------------
 
@@ -113,7 +158,13 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`member_id`, `username`, `email`, `password_hash`, `full_name`, `phone_number`, `address`, `created_at`, `updated_at`, `is_active`) VALUES
 (1, 'Lilac', 'PhamQuangMinhMDCH@proton.me', '$2y$10$IFimFm4Oi8l3qxvWg6Ca3.fYpqzVSQVZ8rwIxStTO7boFtfTp.QEa', 'Phạm Quang Minh', '0399254984', '266 Ni Sư huỳnh Liên', '2025-05-29 15:34:45', '2025-05-30 03:46:00', 1),
-(2, 'Minh21', 'Minh221@gmail.com', '$2y$10$ztl9gIGkZJw.O7FSVjdZ2OS29b0w9FPpcb.llvdp2JKdIeMTEFFMe', 'Quang Minh', '0399254984', '266', '2025-05-30 03:48:18', '2025-05-30 08:58:05', 1);
+(2, 'Minh21', 'Minh221@gmail.com', '$2y$10$ztl9gIGkZJw.O7FSVjdZ2OS29b0w9FPpcb.llvdp2JKdIeMTEFFMe', 'Quang Minh', '0399254984', '266', '2025-05-30 03:48:18', '2025-05-30 08:58:05', 1),
+(4, 'guest_1774274818_1997', 'test_order_1774274818@test.com', '$2y$10$Kl0inQhVwn2y7QsOC3WPoO0VUqaXZWSVGa.v3c4J3XSJ5WMwl9klu', 'Test Nguyen', '0901234567', '123 Test Street', '2026-03-23 21:06:58', '2026-03-23 21:06:58', 1),
+(8, 'guest_1774275107_2718', 'test_order_1774275107@test.com', '$2y$10$BIP75r6tRoQIs4ZzORYlZ.uCx4WCWp987SbF6EIUqKvFAYdft.NKS', 'Test Nguyen', '0901234567', '123 Test Street', '2026-03-23 21:11:47', '2026-03-23 21:11:47', 1),
+(12, 'guest_1774275227_3903', 'test_dupe_9389@test.com', '$2y$10$VyFXBDg9v8/AoeZ8rMxNp.zIC8AxuVEja72DvQJHbYNZjQQaRoVv2', 'Test Second Order', '0901234567', '123 Test Street', '2026-03-23 21:13:47', '2026-03-23 21:13:47', 1),
+(16, 'guest_1774275864_2243', 'final_test_1774275864@test.com', '$2y$10$vq5UAwD6D99VR95TWNS44./wAhAKnSxAUhIBBGHy8a05mtZICusPa', 'Test Nguyen', '0901234567', '123 Test Street', '2026-03-23 21:24:24', '2026-03-23 21:24:24', 1),
+(17, 'guest_1774275985_8290', 'hehe@gmail.com', '$2y$10$pIAFfDKYQpG/k3XgK.BITenwh6BZQFTnft.Dx5hh5ZmRH6fxMHaBK', 'hiuhi', '0999999', 'hahaa', '2026-03-23 21:26:25', '2026-03-23 21:26:25', 1),
+(18, 'guest_1774280445_4806', 'l@q.m', '$2y$10$zeu0iuMRjiKE1GsAMDXO8Oa7UiSsqbdvTthjvQGJDVPaStN4WfOia', 'le', '0555', 'hahaa', '2026-03-23 22:40:45', '2026-03-23 22:40:45', 1);
 
 -- --------------------------------------------------------
 
@@ -131,17 +182,22 @@ CREATE TABLE `order` (
   `phone_number` varchar(20) DEFAULT NULL,
   `notes` text DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `coupon_code` varchar(50) DEFAULT NULL,
+  `utm_source` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `order`
 --
 
-INSERT INTO `order` (`order_id`, `member_id`, `order_date`, `total_amount`, `status`, `shipping_address`, `phone_number`, `notes`, `created_at`, `updated_at`) VALUES
-(1, 1, '2025-05-30 00:06:52', 760.00, 'Done', '266 Ni Su Huynh Lien', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 00:06:52', '2025-05-30 08:54:58'),
-(2, 1, '2025-05-30 08:42:16', 380.00, 'Cancelled', '266 ni sư huỳnh liên', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 08:42:16', '2025-05-30 08:51:14'),
-(3, 1, '2025-05-30 09:36:02', 380.00, 'Pending', 'ss', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 09:36:02', '2025-05-30 09:36:02');
+INSERT INTO `order` (`order_id`, `member_id`, `order_date`, `total_amount`, `status`, `shipping_address`, `phone_number`, `notes`, `created_at`, `updated_at`, `coupon_code`, `utm_source`) VALUES
+(1, 1, '2025-05-30 00:06:52', 760.00, 'Done', '266 Ni Su Huynh Lien', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 00:06:52', '2025-05-30 08:54:58', NULL, NULL),
+(2, 1, '2025-05-30 08:42:16', 380.00, 'Cancelled', '266 ni sư huỳnh liên', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 08:42:16', '2025-05-30 08:51:14', NULL, NULL),
+(3, 1, '2025-05-30 09:36:02', 380.00, 'Pending', 'ss', '0399254984', 'Delivery Method: standard\nPayment Method: cod', '2025-05-30 09:36:02', '2025-05-30 09:36:02', NULL, NULL),
+(4, 16, '2026-03-23 21:24:24', 380000.00, 'Pending', '123 Test Street', '0901234567', 'Delivery Method: standard\nPayment Method: cod', '2026-03-23 21:24:24', '2026-03-23 21:24:24', NULL, NULL),
+(5, 17, '2026-03-23 21:26:25', 450000.00, 'Pending', 'hahaa', '0999999', 'Delivery Method: standard\nPayment Method: cod', '2026-03-23 21:26:25', '2026-03-23 21:26:25', '', NULL),
+(6, 18, '2026-03-23 22:40:45', 500000.00, 'Pending', 'hahaa', '0555', 'Delivery Method: standard\nPayment Method: cod', '2026-03-23 22:40:45', '2026-03-23 22:40:45', 'vip20', 'PlanA');
 
 -- --------------------------------------------------------
 
@@ -165,7 +221,10 @@ CREATE TABLE `orderitem` (
 INSERT INTO `orderitem` (`order_item_id`, `order_id`, `product_id`, `quantity`, `unit_price`, `subtotal`) VALUES
 (1, 1, 1, 2, 380.00, 760.00),
 (2, 2, 1, 1, 380.00, 380.00),
-(3, 3, 1, 1, 380.00, 380.00);
+(3, 3, 1, 1, 380.00, 380.00),
+(4, 4, 1, 2, 380000.00, 760000.00),
+(5, 5, 2, 1, 450000.00, 450000.00),
+(6, 6, 3, 1, 500000.00, 500000.00);
 
 -- --------------------------------------------------------
 
@@ -243,11 +302,24 @@ ALTER TABLE `category`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`);
+
+--
 -- Indexes for table `delivery`
 --
 ALTER TABLE `delivery`
   ADD PRIMARY KEY (`delivery_id`),
   ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `leads`
+--
+ALTER TABLE `leads`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `member`
@@ -303,28 +375,40 @@ ALTER TABLE `category`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `delivery`
 --
 ALTER TABLE `delivery`
   MODIFY `delivery_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `leads`
+--
+ALTER TABLE `leads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orderitem`
 --
 ALTER TABLE `orderitem`
-  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`
